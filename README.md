@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Electric Instalaciones Eléctricas — Web + Estrategia SEO Local
 
-## Getting Started
+Web construida con Next.js (App Router) + Tailwind CSS, diseñada para dominar la búsqueda local de
+electricistas en Barakaldo y Bizkaia y maximizar llamadas, WhatsApp y formularios.
 
-First, run the development server:
+## Puesta en marcha
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build       # build de producción
+npm run start        # servir el build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> **Nota**: los scripts fuerzan `--webpack`. La build por defecto con Turbopack de esta versión de
+> Next.js (16.3.3) omite algún chunk JS en producción (error 500 en `_next/static/chunks/...`);
+> con webpack el build es estable. Revisar si una futura versión de Next lo soluciona.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copia `.env.example` a `.env.local` y rellena los IDs reales cuando existan:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_META_PIXEL_ID=000000000000000
+```
 
-## Learn More
+Sin esos IDs, la web funciona igualmente (los scripts de Analytics/Pixel simplemente no se cargan).
 
-To learn more about Next.js, take a look at the following resources:
+## Datos de negocio (editar en `src/lib/business.ts`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Extraídos de la tarjeta comercial: **Electric Instalaciones Eléctricas** (Eduardo Castellano),
+624 64 51 09, eduardocastellano16049806@gmail.com, Calle Cruces 18 Local 4, 48903 Barakaldo, Bizkaia.
+El **dominio usado en metadatos/schema es un placeholder** (`electric-euskadi.es`) — sustitúyelo en
+`business.domain` en cuanto se compre el dominio real.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Enfoque de posicionamiento**: la web se centra 100% en "electricista" (avería, cuadro, instalación,
+urgencias). Los servicios de reformas/pintura que aparecen en el reverso de la tarjeta no se han
+incluido como silo propio para no diluir el posicionamiento — se pueden añadir más adelante como una
+sección secundaria si el negocio quiere darles peso comercial.
 
-## Deploy on Vercel
+## Arquitectura del sitio (silo SEO)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/` — Home con todos los CTAs, servicios, zonas, testimonios, FAQ.
+- `/servicios` y `/servicios/[slug]` — 7 páginas de servicio (averías, cuadros eléctricos,
+  cortocircuitos, iluminación LED, instalaciones, reparaciones, urgencias 24h). Contenido y datos en
+  `src/lib/services.ts`.
+- `/electricista-[ciudad]` (ruta técnica: `src/app/[slug]/page.tsx`, que interpreta el prefijo
+  `electricista-`) — 10 páginas de localidad: Cruces, Barakaldo, Bilbao, Getxo, Portugalete,
+  Santurtzi, Basauri, Durango, Donostia, Vitoria-Gasteiz. Datos en `src/lib/localities.ts`.
+  **Nota técnica**: Next.js no admite carpetas tipo `electricista-[ciudad]` como segmento dinámico con
+  prefijo literal — por eso la ruta vive en `[slug]` y se parsea el prefijo en código.
+- `/contacto`, `/aviso-legal`, `/politica-privacidad`, `/politica-cookies`.
+- `sitemap.xml` y `robots.txt` generados automáticamente (`src/app/sitemap.ts`, `src/app/robots.ts`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Para añadir una localidad o servicio nuevo, basta con añadir una entrada en
+`src/lib/localities.ts` / `src/lib/services.ts` — la página se genera sola.
+
+## SEO técnico ya implementado
+
+- Metadatos únicos (`title`, `description`, canonical) por página.
+- Schema.org `Electrician` (LocalBusiness) en todas las páginas vía `LocalBusinessSchema`, con
+  dirección, geo, horario 24h y catálogo de servicios.
+- Schema `FAQPage` en home, servicios y localidades.
+- Sitemap y robots.txt dinámicos.
+- HTML semántico (un solo `<h1>` por página, jerarquía de encabezados).
+
+## Tracking y Ads (Google/Meta)
+
+- **Google Consent Mode v2**: consentimiento denegado por defecto, banner de cookies actualiza el
+  consentimiento (`src/components/CookieConsent.tsx`, `src/components/Analytics.tsx`).
+- **GTM, GA4 y Meta Pixel**: se cargan solo si las variables de entorno están definidas.
+- **Eventos ya instrumentados** en `dataLayer` (`src/lib/tracking.ts`): `call_click`,
+  `whatsapp_click`, `form_submit` — configura estos como conversiones en GTM/GA4 y como eventos
+  personalizados en Meta Ads Manager.
+- **Formularios**: el formulario corto y el de presupuesto envían el mensaje directamente por
+  WhatsApp (sin backend necesario) y disparan el evento de tracking correspondiente.
+
+### Próximos pasos para activar Ads
+
+1. Crear contenedor GTM y cuenta GA4, añadir sus IDs a `.env.local`.
+2. En GTM, crear triggers de "Evento personalizado" para `call_click`, `whatsapp_click`,
+   `form_submit`, y enlazarlos a conversiones de Google Ads.
+3. Crear Meta Pixel y (opcional, recomendado) Conversion API vía servidor para mejorar el match rate.
+4. Configurar campañas (ver estrategia abajo).
+
+## Estrategia SEO Local y Ads
+
+### Objetivo
+Dominar búsquedas comerciales de electricista en Barakaldo/Bizkaia/Euskadi y maximizar llamadas,
+WhatsApp y formularios frente a la competencia.
+
+### Google Business Profile — recomendaciones
+- **Categoría principal**: Electricista.
+- **Categorías secundarias**: Empresa de instalaciones eléctricas, Servicio de reparación eléctrica,
+  Electricista de urgencia.
+- **Servicios a listar**: averías eléctricas, cuadros eléctricos, cortocircuitos, instalación
+  eléctrica, reparación eléctrica, iluminación LED, electricista 24 horas.
+- **Descripción optimizada** (750 caracteres): incluir "electricista en Barakaldo y Bizkaia",
+  "servicio 24 horas", "presupuesto sin compromiso", zona de Cruces, y listar los servicios clave.
+- **Dirección y área de servicio**: fijar Cruces 18, Barakaldo como dirección, y añadir como área de
+  servicio Bilbao, Getxo, Portugalete, Santurtzi, Basauri y el resto de Bizkaia.
+- **Reseñas**: pedir reseña por WhatsApp inmediatamente después de cada trabajo (enlace directo a
+  "escribir reseña" de Google), objetivo mínimo 2-3 reseñas nuevas por semana.
+- **Publicaciones**: 1 publicación semanal (oferta, trabajo realizado con foto, aviso de
+  disponibilidad 24h).
+- **Fotos**: subir fotos reales de trabajos (antes/después de cuadros, instalaciones), del local en
+  Cruces 18, y del equipo — Google prioriza fichas con fotos recientes y geolocalizadas.
+
+### Google Ads — estructura de campañas propuesta
+1. **Búsqueda — Marca/Urgencias** (máxima prioridad de conversión):
+   grupo "electricista urgente" → *electricista urgente*, *electricista 24 horas*, *electricista
+   cerca de mí*, *avería eléctrica*, *cortocircuito casa*, *diferencial salta*.
+2. **Búsqueda — Localidad**: un grupo de anuncios por municipio (*electricista barakaldo*,
+   *electricista bilbao*, *electricista getxo*...), cada uno apuntando a su página
+   `/electricista-[ciudad]`.
+3. **Búsqueda — Servicio**: grupos por servicio (*cuadro eléctrico*, *instalación eléctrica
+   vivienda*, *reparación eléctrica domicilio*), apuntando a `/servicios/[slug]`.
+4. **Campaña de solo llamada** (Call-only), activa en horario ampliado, para capturar urgencias
+   directamente por teléfono sin pasar por la web.
+5. **Remarketing** (display/YouTube) a visitantes que no convirtieron, con oferta de "presupuesto
+   gratis en 1 hora".
+
+Extensiones recomendadas: llamada, ubicación, enlaces de sitio (a cada servicio), texto destacado
+("24h", "presupuesto gratis", "Bizkaia").
+
+### Meta Ads (Facebook/Instagram)
+- Campaña de objetivo "Clientes potenciales" (Lead) segmentada por radio geográfico (15-20 km desde
+  Barakaldo) y edad 30-65.
+- Creatividades: antes/después de trabajos reales, vídeo corto de "avería resuelta en 1 hora",
+  testimonios.
+- Landing de aterrizaje: página de servicio o localidad correspondiente (ya preparadas con CTA
+  arriba y formulario).
+- Activar Conversion API además del Pixel para mejorar la atribución con iOS14+/bloqueadores.
+
+### CRO — ya implementado en la web
+- Botones flotantes de llamada y WhatsApp persistentes en todas las páginas.
+- CTA repetido al menos 3 veces por página (hero, medio, final).
+- Formulario corto en el hero (fricción mínima) + formulario largo de presupuesto en páginas de
+  servicio/contacto.
+- Sellos de confianza (respuesta <1h, 24h, presupuesto sin compromiso) y testimonios con estrellas.
+- FAQ con schema, que además reduce fricción y objeciones antes de contactar.
+
+### Ampliar el silo (siguientes contenidos a crear)
+- Páginas de barrio dentro de Bilbao (Deusto, Indautxu, Rekalde) si el volumen de búsqueda lo
+  justifica.
+- Contenido de blog long-tail: "por qué salta el diferencial al encender el horno", "cuánto cuesta
+  cambiar un cuadro eléctrico en Bizkaia", enlazando a las páginas de servicio/localidad.
+- Página de "Sobre nosotros" con fotos del local en Cruces 18 para reforzar E-E-A-T local.
