@@ -22,9 +22,14 @@ Copia `.env.example` a `.env.local` y rellena los IDs reales cuando existan:
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 NEXT_PUBLIC_META_PIXEL_ID=000000000000000
+
+# Opcional: notificación interna por email de cada aviso/presupuesto (ver más abajo)
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+RESEND_FROM_EMAIL=avisos@tu-dominio.es
 ```
 
-Sin esos IDs, la web funciona igualmente (los scripts de Analytics/Pixel simplemente no se cargan).
+Sin esos IDs, la web funciona igualmente (los scripts de Analytics/Pixel simplemente no se cargan, y
+el aviso se sigue enviando por WhatsApp aunque no haya `RESEND_API_KEY`).
 
 ## Datos de negocio (editar en `src/lib/business.ts`)
 
@@ -72,8 +77,14 @@ Para añadir una localidad o servicio nuevo, basta con añadir una entrada en
 - **Eventos ya instrumentados** en `dataLayer` (`src/lib/tracking.ts`): `call_click`,
   `whatsapp_click`, `form_submit` — configura estos como conversiones en GTM/GA4 y como eventos
   personalizados en Meta Ads Manager.
-- **Formularios**: el formulario corto y el de presupuesto envían el mensaje directamente por
-  WhatsApp (sin backend necesario) y disparan el evento de tracking correspondiente.
+- **Captación de leads**: `src/components/lead/SolicitudWizard.tsx` (asistente guiado de 6 pasos en
+  el home, con diagnóstico por tipo de avería, foto adjunta y aviso de peligro) y
+  `src/components/lead/PresupuestoForm.tsx` (formulario de presupuesto sin compromiso, usado en el
+  home, páginas de servicio, localidad y contacto). Ambos abren WhatsApp con el mensaje completo
+  (`src/lib/leadConfig.ts` construye el texto) y, si `RESEND_API_KEY` está configurada, además envían
+  una notificación interna por email a `business.email` vía `src/app/api/lead/route.ts` (incluyendo la
+  foto adjunta si el usuario la añadió). Sin esa variable, el aviso sigue llegando por WhatsApp con
+  normalidad.
 
 ### Próximos pasos para activar Ads
 

@@ -5,7 +5,8 @@ import { getService, services } from "@/lib/services";
 import { localities } from "@/lib/localities";
 import CTASection from "@/components/CTASection";
 import Faq, { FaqJsonLd } from "@/components/Faq";
-import { BudgetContactForm } from "@/components/ContactForms";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import PresupuestoForm from "@/components/lead/PresupuestoForm";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -38,41 +39,51 @@ export default async function ServicePage({
 
   return (
     <div>
-      <section className="bg-slate-900 py-14 text-white">
-        <div className="mx-auto max-w-4xl px-4">
-          <nav className="mb-4 text-sm text-slate-400">
-            <Link href="/" className="hover:text-yellow-400">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Inicio", path: "/" },
+          { name: "Servicios", path: "/servicios" },
+          { name: service.name, path: `/servicios/${service.slug}` },
+        ]}
+      />
+
+      <section className="bg-neutral-950 py-14 text-white">
+        <div className="mx-auto max-w-4xl px-4 md:px-6">
+          <nav className="mb-4 text-sm text-white/40">
+            <Link href="/" className="hover:text-electric-400">
               Inicio
             </Link>{" "}
             /{" "}
-            <Link href="/servicios" className="hover:text-yellow-400">
+            <Link href="/servicios" className="hover:text-electric-400">
               Servicios
             </Link>{" "}
-            / <span className="text-slate-200">{service.name}</span>
+            / <span className="text-white/70">{service.name}</span>
           </nav>
-          <h1 className="text-3xl font-extrabold sm:text-4xl">{service.h1}</h1>
+          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">{service.h1}</h1>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-4xl gap-10 px-4 py-14 lg:max-w-6xl lg:grid-cols-3">
+      <section className="mx-auto grid max-w-4xl gap-10 px-4 py-14 md:px-6 lg:max-w-6xl lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <p className="text-lg text-slate-700">{service.intro}</p>
+          <p className="text-lg text-white/60">{service.intro}</p>
           <ul className="mt-8 space-y-3">
             {service.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 text-slate-700">
-                <span className="mt-1 text-yellow-500">⚡</span>
+              <li key={b} className="flex items-start gap-3 text-white/70">
+                <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center text-electric-400">
+                  <i className="ri-flashlight-line" aria-hidden="true"></i>
+                </span>
                 <span>{b}</span>
               </li>
             ))}
           </ul>
 
-          <h2 className="mt-12 text-2xl font-extrabold text-slate-900">Preguntas frecuentes</h2>
+          <h2 className="font-display mt-12 text-2xl font-extrabold text-white">Preguntas frecuentes</h2>
           <div className="mt-6">
             <Faq items={service.faqs} />
           </div>
           <FaqJsonLd items={service.faqs} />
 
-          <h2 className="mt-12 text-2xl font-extrabold text-slate-900">
+          <h2 className="font-display mt-12 text-2xl font-extrabold text-white">
             {service.name} en tu zona
           </h2>
           <div className="mt-6 flex flex-wrap gap-2">
@@ -80,7 +91,7 @@ export default async function ServicePage({
               <Link
                 key={l.slug}
                 href={`/electricista-${l.slug}`}
-                className="rounded-full border border-slate-300 bg-white px-4 py-1.5 text-sm text-slate-700 hover:border-yellow-400 hover:text-yellow-600"
+                className="rounded-full border border-white/[0.1] px-4 py-1.5 text-sm text-white/60 hover:border-electric-400/50 hover:text-electric-400"
               >
                 {service.name} en {l.name}
               </Link>
@@ -89,9 +100,14 @@ export default async function ServicePage({
         </div>
 
         <div>
-          <BudgetContactForm />
+          <div className="rounded-xl border border-white/[0.08] bg-neutral-900/60 p-5">
+            <h3 className="font-display text-lg font-bold text-white">Pide presupuesto para {service.shortName.toLowerCase()}</h3>
+            <p className="mt-1 text-sm text-white/45">Sin compromiso. Te respondemos por teléfono o WhatsApp.</p>
+          </div>
         </div>
       </section>
+
+      <PresupuestoForm />
 
       <CTASection source={`service_${service.slug}`} title={`¿Necesitas ${service.name.toLowerCase()}?`} />
     </div>

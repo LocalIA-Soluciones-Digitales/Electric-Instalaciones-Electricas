@@ -21,9 +21,9 @@ const testimonials = [
 
 function Stars({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-0.5 text-yellow-400" aria-label={`${rating} de 5 estrellas`}>
+    <div className="flex gap-0.5 text-electric-400" aria-label={`${rating} de 5 estrellas`}>
       {Array.from({ length: 5 }).map((_, i) => (
-        <span key={i}>{i < rating ? "★" : "☆"}</span>
+        <i key={i} className={i < rating ? "ri-star-fill" : "ri-star-line"} aria-hidden="true"></i>
       ))}
     </div>
   );
@@ -33,11 +33,11 @@ export default function Testimonials() {
   return (
     <div className="grid gap-6 sm:grid-cols-3">
       {testimonials.map((t) => (
-        <figure key={t.name} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <figure key={t.name} className="rounded-lg border border-white/[0.08] bg-neutral-900/60 p-6">
           <Stars rating={t.rating} />
-          <blockquote className="mt-3 text-sm text-slate-700">&ldquo;{t.text}&rdquo;</blockquote>
-          <figcaption className="mt-4 text-sm font-semibold text-slate-900">
-            {t.name} <span className="font-normal text-slate-500">— {t.location}</span>
+          <blockquote className="mt-3 text-sm text-white/70 leading-relaxed">&ldquo;{t.text}&rdquo;</blockquote>
+          <figcaption className="mt-4 text-sm font-semibold text-white">
+            {t.name} <span className="font-normal text-white/40">— {t.location}</span>
           </figcaption>
         </figure>
       ))}

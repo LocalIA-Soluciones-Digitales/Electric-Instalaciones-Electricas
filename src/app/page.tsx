@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import { business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
 import { localities } from "@/lib/localities";
-import CTASection from "@/components/CTASection";
 import TrustBadges from "@/components/TrustBadges";
 import Testimonials from "@/components/Testimonials";
 import Faq, { FaqJsonLd } from "@/components/Faq";
-import { QuickContactForm } from "@/components/ContactForms";
+import CTASection from "@/components/CTASection";
+import SolicitudWizard from "@/components/lead/SolicitudWizard";
+import PresupuestoForm from "@/components/lead/PresupuestoForm";
 
 export const metadata: Metadata = {
   title: "Electricista en Barakaldo y Bizkaia 24 Horas",
@@ -38,69 +39,114 @@ const homeFaqs = [
 export default function HomePage() {
   return (
     <div>
-      <section className="bg-gradient-to-b from-slate-900 to-slate-800 py-16 text-white sm:py-24">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 lg:grid-cols-2">
-          <div>
-            <p className="mb-3 inline-block rounded-full bg-yellow-400/10 px-4 py-1 text-sm font-semibold text-yellow-400">
-              Servicio 24 horas · Barakaldo y Bizkaia
-            </p>
-            <h1 className="text-3xl font-extrabold leading-tight sm:text-5xl">
-              Electricista urgente en Barakaldo, Cruces y toda Bizkaia
-            </h1>
-            <p className="mt-4 text-lg text-slate-300">
-              Averías, cortocircuitos, cuadros eléctricos e instalaciones. Respuesta rápida, presupuesto
-              claro y servicio disponible las 24 horas, los 365 días del año.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={telLink()}
-                className="rounded-md bg-yellow-400 px-6 py-4 text-center text-lg font-bold text-slate-900 shadow-lg hover:bg-yellow-300"
-              >
-                Llamar ahora: {business.phoneDisplay}
-              </a>
-              <a
-                href={waLink("Hola, necesito un electricista. ¿Podéis ayudarme?")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-md bg-[#25D366] px-6 py-4 text-center text-lg font-bold text-white shadow-lg hover:brightness-110"
-              >
-                WhatsApp
-              </a>
-            </div>
-            <p className="mt-4 text-sm text-slate-400">
-              📍 {business.address.street}, {business.address.postalCode} {business.address.city} (Bizkaia)
-            </p>
+      <section id="hero" className="relative overflow-hidden bg-neutral-950 text-white">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+          aria-hidden="true"
+        ></div>
+
+        <div className="relative mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+          <div className="inline-flex items-center gap-2 mb-6">
+            <span className="h-px w-5 bg-electric-400"></span>
+            <span className="text-[11px] md:text-xs font-bold uppercase tracking-[0.18em] text-electric-400">
+              Servicio 24 horas · Barakaldo y toda Bizkaia
+            </span>
           </div>
-          <QuickContactForm />
+
+          <h1 className="font-display max-w-2xl text-[2.4rem] leading-[1.05] sm:text-5xl md:text-6xl font-extrabold tracking-tight">
+            Electricista urgente en Barakaldo, Cruces y toda Bizkaia
+          </h1>
+
+          <p className="mt-5 max-w-xl text-base md:text-lg leading-relaxed text-white/60">
+            Averías, cortocircuitos, cuadros eléctricos e instalaciones. Respuesta rápida, presupuesto
+            claro y servicio disponible las 24 horas, los 365 días del año.
+          </p>
+
+          <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
+            <a
+              href="#solicitud"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md bg-electric-400 px-7 py-3.5 text-[15px] font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
+            >
+              <i className="ri-customer-service-2-line text-lg" aria-hidden="true"></i>
+              Solicitar asistencia
+            </a>
+            <a
+              href="#presupuesto"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md border border-white/20 px-7 py-3.5 text-[15px] font-bold text-white transition-colors duration-200 hover:bg-white/5"
+            >
+              <i className="ri-price-tag-3-line text-lg" aria-hidden="true"></i>
+              Pedir presupuesto
+            </a>
+          </div>
+
+          <div className="mt-7 flex flex-col sm:flex-row flex-wrap gap-x-6 gap-y-3">
+            <a
+              href={telLink()}
+              className="inline-flex items-center gap-2.5 text-sm font-bold text-white/70 hover:text-white transition-colors duration-200"
+            >
+              <i className="ri-phone-line text-lg text-electric-400" aria-hidden="true"></i>
+              {business.phoneDisplay}
+            </a>
+            <a
+              href={waLink("Hola, necesito un electricista. ¿Podéis ayudarme?")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 text-sm font-bold text-[#25D366]/90 hover:text-[#25D366] transition-colors duration-200"
+            >
+              <i className="ri-whatsapp-line text-lg" aria-hidden="true"></i>
+              WhatsApp
+            </a>
+            <span className="inline-flex items-center gap-2.5 text-sm text-white/40">
+              <i className="ri-map-pin-2-line text-lg" aria-hidden="true"></i>
+              {business.address.street}, {business.address.city}
+            </span>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
+      <section className="mx-auto max-w-6xl px-4 py-12 md:px-6">
         <TrustBadges />
       </section>
 
-      <section className="bg-slate-50 py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
-            Nuestros servicios eléctricos
-          </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-center text-slate-600">
-            Electricistas cualificados para cualquier trabajo eléctrico en vivienda, comunidad o local
-            comercial.
-          </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <SolicitudWizard />
+      <PresupuestoForm />
+
+      <section id="servicios" className="bg-neutral-900 py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-px w-5 bg-electric-400"></span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+                Servicios
+              </span>
+              <span className="h-px w-5 bg-electric-400"></span>
+            </div>
+            <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-white">
+              Nuestros servicios eléctricos
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-white/50">
+              Electricistas cualificados para cualquier trabajo eléctrico en vivienda, comunidad o local
+              comercial.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
               <Link
                 key={s.slug}
                 href={`/servicios/${s.slug}`}
-                className="group rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                className="group rounded-lg border border-white/[0.08] bg-neutral-950/40 p-6 transition-colors duration-200 hover:border-electric-400/40"
               >
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-yellow-600">
+                <h3 className="font-display text-lg font-bold text-white group-hover:text-electric-400">
                   {s.name}
                 </h3>
-                <p className="mt-2 text-sm text-slate-600">{s.intro.slice(0, 110)}…</p>
-                <span className="mt-4 inline-block text-sm font-semibold text-yellow-600">
-                  Ver más →
+                <p className="mt-2 text-sm text-white/50">{s.intro.slice(0, 110)}…</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-400">
+                  Ver más <i className="ri-arrow-right-line" aria-hidden="true"></i>
                 </span>
               </Link>
             ))}
@@ -108,31 +154,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
-          Zonas donde damos servicio
-        </h2>
-        <p className="mx-auto mt-2 max-w-2xl text-center text-slate-600">
-          Electricista de confianza en Barakaldo y toda Bizkaia, con desplazamiento rápido a domicilio.
-        </p>
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
-          {localities.map((l) => (
-            <Link
-              key={l.slug}
-              href={`/electricista-${l.slug}`}
-              className="rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 hover:border-yellow-400 hover:text-yellow-600"
-            >
-              Electricista en {l.name}
-            </Link>
-          ))}
+      <section className="bg-neutral-950 py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 md:px-6 text-center">
+          <div className="inline-flex items-center gap-2 justify-center">
+            <span className="h-px w-5 bg-electric-400"></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+              Cobertura
+            </span>
+            <span className="h-px w-5 bg-electric-400"></span>
+          </div>
+          <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-white">
+            Zonas donde damos servicio
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-white/50">
+            Electricista de confianza en Barakaldo y toda Bizkaia, con desplazamiento rápido a domicilio.
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            {localities.map((l) => (
+              <Link
+                key={l.slug}
+                href={`/electricista-${l.slug}`}
+                className="inline-flex items-center gap-2 rounded-full border border-white/[0.1] px-5 py-2.5 text-sm font-semibold text-white/70 transition-colors duration-200 hover:border-electric-400/50 hover:text-electric-400"
+              >
+                <i className="ri-map-pin-2-line" aria-hidden="true"></i>
+                Electricista en {l.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
       <CTASection source="home_mid" />
 
-      <section className="bg-slate-50 py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
+      <section className="bg-neutral-900 py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-white">
             Lo que dicen nuestros clientes
           </h2>
           <div className="mt-10">
@@ -141,8 +197,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-16">
-        <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
+      <section className="mx-auto max-w-3xl px-4 py-16 md:px-6">
+        <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-white">
           Preguntas frecuentes
         </h2>
         <div className="mt-8">

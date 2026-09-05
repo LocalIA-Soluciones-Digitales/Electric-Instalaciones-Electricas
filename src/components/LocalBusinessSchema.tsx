@@ -6,7 +6,7 @@ export default function LocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "Electrician",
     name: business.name,
-    image: `${business.domain}/og-image.jpg`,
+    image: `${business.domain}/opengraph-image`,
     "@id": business.domain,
     url: business.domain,
     telephone: `+${business.whatsapp}`,
