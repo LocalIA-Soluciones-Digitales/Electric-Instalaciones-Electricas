@@ -1,6 +1,6 @@
 const badges = [
   { icon: "ri-shield-check-line", label: "Instalador autorizado" },
-  { icon: "ri-timer-flash-line", label: "Respuesta en menos de 1h" },
+  { icon: "ri-timer-flash-line", label: "Respuesta en menos de 1 hora" },
   { icon: "ri-price-tag-3-line", label: "Presupuesto sin compromiso" },
   { icon: "ri-moon-clear-line", label: "Disponible 24h, 365 días" },
 ];

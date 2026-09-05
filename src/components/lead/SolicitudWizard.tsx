@@ -20,6 +20,8 @@ import ResumenEnvio from "./ResumenEnvio";
 import GuidedQuestions from "./GuidedQuestions";
 import PhotoPicker from "@/components/PhotoPicker";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { business, telLink } from "@/lib/business";
+import { trackCallClick } from "@/lib/tracking";
 
 export type AvisoStep = 1 | 2 | 3 | 4 | 5 | 6;
 const TOTAL_STEPS = 6;
@@ -90,13 +92,26 @@ function ContinueBar({
 
 function DangerBanner() {
   return (
-    <div className="flex items-start gap-3 rounded-lg border border-red-900/40 bg-red-950/20 p-4">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-600/20 text-red-400">
-        <i className="ri-alert-line text-lg" aria-hidden="true"></i>
-      </span>
-      <p className="text-sm font-semibold leading-relaxed text-red-200">
-        Si hay chispas, humo o riesgo eléctrico, no manipules la instalación y evita tocar elementos
-        eléctricos. Aléjate de la zona y avísanos cuanto antes.
+    <div className="rounded-lg border border-red-900/40 bg-red-950/20 p-4">
+      <div className="flex items-start gap-3">
+        <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-600/20 text-red-400">
+          <i className="ri-alert-line text-lg" aria-hidden="true"></i>
+        </span>
+        <p className="text-sm font-semibold leading-relaxed text-red-200">
+          Si hay chispas, humo o riesgo eléctrico, no manipules la instalación y evita tocar elementos
+          eléctricos. Aléjate de la zona y avísanos cuanto antes.
+        </p>
+      </div>
+      <a
+        href={telLink()}
+        onClick={() => trackCallClick("wizard_danger_banner")}
+        className="mt-4 inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-red-600 px-6 py-3.5 text-[15px] font-extrabold text-white transition-colors duration-200 hover:bg-red-500 cursor-pointer"
+      >
+        <i className="ri-phone-line text-lg" aria-hidden="true"></i>
+        LLAMAR AHORA: {business.phoneDisplay}
+      </a>
+      <p className="mt-2 text-center text-xs text-red-200/60">
+        En caso de riesgo, es más rápido llamar directamente que seguir con el formulario.
       </p>
     </div>
   );
@@ -136,12 +151,21 @@ function Confirmation({
       </h3>
       <p className="mx-auto mt-3 max-w-md text-base text-white/60 leading-relaxed">
         Hemos generado tu aviso con el código{" "}
-        <span className="font-bold text-electric-400">{avisoId}</span>. Se ha abierto WhatsApp con
-        el mensaje completo para que lo envíes.
+        <span className="font-bold text-electric-400">{avisoId}</span>.
       </p>
-      <p className="mx-auto mt-3 max-w-md text-base text-white/60 leading-relaxed">
-        Al enviarlo, lo recibimos al instante y nos pondremos en contacto contigo.
-      </p>
+      <div className="mx-auto mt-5 max-w-sm rounded-lg border border-electric-400/25 bg-electric-400/[0.06] p-4 text-left">
+        <p className="text-xs font-bold uppercase tracking-[0.12em] text-electric-400">
+          Un último paso importante
+        </p>
+        <ol className="mt-2 space-y-1.5 text-sm text-white/75 leading-relaxed list-decimal list-inside">
+          <li>Se ha abierto WhatsApp con tu aviso ya redactado.</li>
+          <li>
+            <span className="font-bold text-white">Pulsa &ldquo;Enviar&rdquo;</span> dentro de WhatsApp: sin ese
+            paso, el aviso no nos llega.
+          </li>
+          <li>En cuanto lo recibamos, nos pondremos en contacto contigo.</li>
+        </ol>
+      </div>
       {emailOk ? (
         <p className="mx-auto mt-4 flex max-w-md items-center justify-center gap-2 rounded-md border border-electric-400/20 bg-electric-400/[0.06] px-4 py-3 text-sm text-electric-300 leading-relaxed">
           <i className="ri-mail-check-line" aria-hidden="true"></i>
@@ -194,6 +218,7 @@ export default function SolicitudWizard() {
   const [lastId, setLastId] = useState("");
   const [lastEmailOk, setLastEmailOk] = useState(false);
   const [photo, setPhoto] = useState("");
+  const [hp, setHp] = useState("");
 
   const incidence = INCIDENCES.find((i) => i.id === data.incidence?.id) ?? data.incidence;
   const questions = guideFor(incidence);
@@ -269,6 +294,7 @@ export default function SolicitudWizard() {
     setLastId("");
     setLastEmailOk(false);
     setPhoto("");
+    setHp("");
     setGuideValues({});
     setTouchError("");
     setData(initialData());
@@ -331,6 +357,8 @@ export default function SolicitudWizard() {
             incidence={incidence}
             showUrgent={danger}
             photo={photo}
+            hp={hp}
+            onHpChange={setHp}
             onEdit={(s) => go(s)}
             onBack={() => go(TOTAL_STEPS as AvisoStep)}
             onSent={(id, ok) => {

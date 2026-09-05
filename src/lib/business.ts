@@ -27,6 +27,20 @@ export const business = {
     instagram: "",
     facebook: "",
   },
+  // Credenciales verificables. Se dejan vacías a propósito: no se muestra nada
+  // en la web hasta que sean datos reales. Rellena para activar su visualización.
+  credentials: {
+    license: "", // Nº de instalador autorizado REBT, p.ej. "IBT-BI-XXXXX"
+    insurance: "", // p.ej. "Seguro de Responsabilidad Civil al día"
+    foundedYear: "", // p.ej. "2016"
+  },
+  // Reseñas verificables (perfil de Google Business). Vacío = no se muestra
+  // ningún enlace ni valoración hasta que se indiquen datos reales.
+  reviews: {
+    googleUrl: "",
+    rating: "", // p.ej. "4.9"
+    count: "", // p.ej. "120"
+  },
 } as const;
 
 export function waLink(message: string) {
