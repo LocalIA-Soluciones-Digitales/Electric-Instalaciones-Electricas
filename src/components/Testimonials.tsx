@@ -1,58 +1,45 @@
 import { business } from "@/lib/business";
 
-export const testimonials = [
+// No se muestran citas ni nombres de clientes inventados: solo compromisos
+// verificables del servicio, o un enlace a reseñas reales de Google en cuanto
+// existan (ver business.reviews en src/lib/business.ts).
+const promises = [
   {
-    name: "Ainhoa R.",
-    location: "Barakaldo",
-    text: "Se nos disparó el diferencial un domingo por la noche y vinieron en menos de una hora. Muy profesionales y el precio justo el que nos dijeron por teléfono.",
-    rating: 5,
+    icon: "ri-shield-check-line",
+    title: "Presupuesto claro antes de intervenir",
+    text: "Te decimos el precio por teléfono o WhatsApp antes de desplazarnos. Sin sorpresas en la factura.",
   },
   {
-    name: "Jon M.",
-    location: "Bilbao",
-    text: "Reformamos el cuadro eléctrico de un piso antiguo en Indautxu. Explicaron todo el proceso y dejaron el boletín en regla. Recomendables.",
-    rating: 5,
+    icon: "ri-timer-flash-line",
+    title: "Respuesta rápida",
+    text: "Para urgencias, solemos llegar en menos de una hora desde la llamada en Barakaldo y alrededores.",
   },
   {
-    name: "Nerea S.",
-    location: "Portugalete",
-    text: "Instalación de iluminación LED en mi local. Rápidos, limpios y con muy buena relación calidad-precio.",
-    rating: 5,
+    icon: "ri-file-shield-2-line",
+    title: "Boletines en regla",
+    text: "Toda instalación o reforma que lo requiere se entrega con su boletín eléctrico tramitado.",
   },
 ];
 
-function Stars({ rating }: { rating: number }) {
-  return (
-    <div className="flex gap-0.5 text-electric-400" aria-label={`${rating} de 5 estrellas`}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <i key={i} className={i < rating ? "ri-star-fill" : "ri-star-line"} aria-hidden="true"></i>
-      ))}
-    </div>
-  );
-}
-
-export default function Testimonials({ filterLocation }: { filterLocation?: string } = {}) {
+export default function Testimonials() {
   const { reviews } = business;
-  const matching = filterLocation
-    ? testimonials.filter((t) => t.location.toLowerCase() === filterLocation.toLowerCase())
-    : testimonials;
-  const shown = matching.length > 0 ? matching : testimonials;
-  const gridCols = shown.length === 1 ? "sm:grid-cols-1" : shown.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3";
-  return (
-    <div>
-      <div className={`grid gap-6 ${gridCols}`}>
-        {shown.map((t) => (
-          <figure key={t.name} className="rounded-lg border border-white/[0.08] bg-neutral-900/60 p-6">
-            <Stars rating={t.rating} />
-            <blockquote className="mt-3 text-sm text-white/70 leading-relaxed">&ldquo;{t.text}&rdquo;</blockquote>
-            <figcaption className="mt-4 text-sm font-semibold text-white">
-              {t.name} <span className="font-normal text-white/40">— {t.location}</span>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-      {reviews.googleUrl && (
-        <div className="mt-8 text-center">
+
+  if (reviews.googleUrl) {
+    const stars = reviews.rating ? Math.round(Number(reviews.rating)) : 0;
+    return (
+      <div className="flex justify-center">
+        <div className="flex w-full max-w-md flex-col items-center gap-3 rounded-xl border border-white/[0.08] bg-neutral-900/60 p-8 text-center">
+          {stars > 0 && (
+            <div className="flex items-center gap-1 text-electric-400" aria-label={`${reviews.rating} de 5 estrellas`}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <i key={i} className={i < stars ? "ri-star-fill" : "ri-star-line"} aria-hidden="true"></i>
+              ))}
+            </div>
+          )}
+          <p className="text-lg font-bold text-white">
+            {reviews.rating ? `${reviews.rating} de 5` : "Reseñas verificadas"}
+            {reviews.count ? ` · ${reviews.count} reseñas en Google` : ""}
+          </p>
           <a
             href={reviews.googleUrl}
             target="_blank"
@@ -61,10 +48,23 @@ export default function Testimonials({ filterLocation }: { filterLocation?: stri
           >
             <i className="ri-google-fill" aria-hidden="true"></i>
             Ver todas las opiniones en Google
-            {reviews.rating ? ` (${reviews.rating}${reviews.count ? ` · ${reviews.count} reseñas` : ""})` : ""}
           </a>
         </div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid gap-6 sm:grid-cols-3">
+      {promises.map((p) => (
+        <div key={p.title} className="rounded-lg border border-white/[0.08] bg-neutral-900/60 p-6 text-center">
+          <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-electric-400/15 text-electric-400">
+            <i className={`${p.icon} text-lg`} aria-hidden="true"></i>
+          </span>
+          <p className="mt-3 text-sm font-bold text-white">{p.title}</p>
+          <p className="mt-2 text-sm text-white/60 leading-relaxed">{p.text}</p>
+        </div>
+      ))}
     </div>
   );
 }

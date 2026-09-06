@@ -136,7 +136,7 @@ export default function HomePage() {
       <section className="bg-neutral-900 py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-white">
-            Lo que dicen nuestros clientes
+            Por qué confiar en Electric
           </h2>
           <div className="mt-10">
             <Testimonials />

@@ -6,7 +6,7 @@ import { services } from "@/lib/services";
 import { business, telLink, waLink } from "@/lib/business";
 import CTASection from "@/components/CTASection";
 import TrustBadges from "@/components/TrustBadges";
-import Testimonials, { testimonials } from "@/components/Testimonials";
+import Testimonials from "@/components/Testimonials";
 import Faq, { FaqJsonLd } from "@/components/Faq";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import PresupuestoForm from "@/components/lead/PresupuestoForm";
@@ -73,7 +73,6 @@ export default async function LocalityPage({
   if (!locality) notFound();
 
   const faqs = localityFaqs(locality);
-  const hasLocalTestimonial = testimonials.some((t) => t.location === locality.name);
   const otherLocalities = localities.filter((l) => l.slug !== locality.slug);
 
   return (
@@ -166,10 +165,10 @@ export default async function LocalityPage({
       <section className="bg-neutral-900 py-16">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-white">
-            {hasLocalTestimonial ? `Opiniones de clientes en ${locality.name}` : "Opiniones de nuestros clientes en Bizkaia"}
+            Por qué confiar en Electric en {locality.name}
           </h2>
           <div className="mt-10">
-            <Testimonials filterLocation={locality.name} />
+            <Testimonials />
           </div>
         </div>
       </section>

@@ -4,6 +4,8 @@ import { useState, type ReactNode } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import {
   PROPERTY_TYPES,
+  buildBudgetEmail,
+  formatFechaHora,
   generarIdAviso,
   isValidEmail,
   isValidPhone,
@@ -11,7 +13,7 @@ import {
 } from "@/lib/leadConfig";
 import { enviarAvisoEmail } from "@/lib/sendLead";
 import { business, telLink, waLink } from "@/lib/business";
-import { trackFormSubmit } from "@/lib/tracking";
+import { trackFormSubmit, trackWhatsAppClick } from "@/lib/tracking";
 import PhotoPicker from "@/components/PhotoPicker";
 import TurnstileWidget from "@/components/lead/TurnstileWidget";
 
@@ -122,9 +124,16 @@ export default function PresupuestoForm() {
     };
 
     const refId = generarIdAviso("BUD");
+    const { text } = buildBudgetEmail(data, refId, formatFechaHora());
 
     setSending(true);
     trackFormSubmit("presupuesto_form");
+    trackWhatsAppClick("presupuesto_form");
+    // El lead siempre llega por WhatsApp, igual que en el asistente guiado
+    // (ver ResumenEnvio.tsx): el email interno es una notificación secundaria,
+    // nunca la única vía por la que puede llegar la solicitud.
+    window.open(waLink(text), "_blank", "noopener,noreferrer");
+
     const res = await enviarAvisoEmail({
       kind: "presupuesto",
       avisoId: refId,
@@ -164,31 +173,22 @@ export default function PresupuestoForm() {
         <div className={`reveal reveal-delay-1 ${visible ? "visible" : ""} mt-8 md:mt-12`}>
           {done ? (
             <div className="overflow-hidden rounded-xl border border-white/[0.08] bg-neutral-950/50 p-5 md:p-12 text-center diag-enter">
-              <span
-                className={`mx-auto flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full ${
-                  done.ok ? "bg-electric-400/15" : "bg-red-600/15"
-                }`}
-              >
-                <i
-                  className={`text-2xl md:text-3xl ${
-                    done.ok ? "ri-check-line text-electric-400" : "ri-error-warning-line text-red-400"
-                  }`}
-                  aria-hidden="true"
-                ></i>
+              <span className="mx-auto flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-electric-400/15">
+                <i className="text-2xl md:text-3xl ri-check-line text-electric-400" aria-hidden="true"></i>
               </span>
               <h3 className="font-display mt-5 text-xl md:text-3xl font-extrabold text-white">
-                {done.ok ? "Solicitud de presupuesto enviada" : "No se ha podido enviar la solicitud"}
+                Solicitud de presupuesto enviada
               </h3>
-              {done.ok ? (
-                <p className="mx-auto mt-3 max-w-md text-sm md:text-base text-white/60 leading-relaxed">
-                  Tu solicitud con la referencia{" "}
-                  <span className="font-bold text-electric-400">{done.refId}</span> se ha enviado.
-                  Te contactaremos con un presupuesto a medida, sin compromiso.
-                </p>
-              ) : (
-                <p className="mx-auto mt-3 max-w-md text-sm md:text-base text-white/60 leading-relaxed">
-                  No ha llegado la notificación por email. Llámanos o escríbenos por WhatsApp y te
-                  preparamos el presupuesto igualmente.
+              <p className="mx-auto mt-3 max-w-md text-sm md:text-base text-white/60 leading-relaxed">
+                Tu solicitud con la referencia{" "}
+                <span className="font-bold text-electric-400">{done.refId}</span> se ha enviado por
+                WhatsApp. Te contactaremos con un presupuesto a medida, sin compromiso.
+              </p>
+              {!done.ok && (
+                <p className="mx-auto mt-4 flex max-w-md items-start gap-2 rounded-md border border-white/[0.06] bg-neutral-950/40 px-4 py-3 text-sm text-white/45 leading-relaxed">
+                  <i className="ri-information-line mt-0.5" aria-hidden="true"></i>
+                  La notificación interna por email no ha llegado; tu solicitud ya nos ha llegado por
+                  WhatsApp igualmente.
                 </p>
               )}
               <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
