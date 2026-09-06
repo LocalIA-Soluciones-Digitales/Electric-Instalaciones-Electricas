@@ -2,11 +2,12 @@ import Link from "next/link";
 import { business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
 import { localities } from "@/lib/localities";
+import { guides } from "@/lib/guides";
 
 export default function Footer() {
   return (
     <footer className="border-t border-white/[0.06] bg-neutral-950 text-white/60">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:px-6 sm:grid-cols-2 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:px-6 sm:grid-cols-2 md:grid-cols-5">
         <div>
           <div className="flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-electric-400 text-neutral-950">
@@ -58,6 +59,19 @@ export default function Footer() {
               <li key={l.slug}>
                 <Link href={`/electricista-${l.slug}`} className="hover:text-electric-400 transition-colors duration-200">
                   Electricista en {l.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white/40">Guías</h3>
+          <ul className="space-y-2 text-sm">
+            {guides.map((g) => (
+              <li key={g.slug}>
+                <Link href={`/guias/${g.slug}`} className="hover:text-electric-400 transition-colors duration-200">
+                  {g.title}
                 </Link>
               </li>
             ))}

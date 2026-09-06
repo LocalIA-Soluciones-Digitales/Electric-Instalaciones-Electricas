@@ -114,3 +114,10 @@ export const localities: Locality[] = [
 export function getLocality(slug: string) {
   return localities.find((l) => l.slug === slug);
 }
+
+export const LOCALITY_SLUG_PREFIX = "electricista-";
+
+export function localityFromPrefixedSlug(slug: string) {
+  if (!slug.startsWith(LOCALITY_SLUG_PREFIX)) return undefined;
+  return getLocality(slug.slice(LOCALITY_SLUG_PREFIX.length));
+}

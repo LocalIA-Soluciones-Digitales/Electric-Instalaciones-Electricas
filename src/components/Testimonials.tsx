@@ -31,12 +31,17 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
-export default function Testimonials() {
+export default function Testimonials({ filterLocation }: { filterLocation?: string } = {}) {
   const { reviews } = business;
+  const matching = filterLocation
+    ? testimonials.filter((t) => t.location.toLowerCase() === filterLocation.toLowerCase())
+    : testimonials;
+  const shown = matching.length > 0 ? matching : testimonials;
+  const gridCols = shown.length === 1 ? "sm:grid-cols-1" : shown.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3";
   return (
     <div>
-      <div className="grid gap-6 sm:grid-cols-3">
-        {testimonials.map((t) => (
+      <div className={`grid gap-6 ${gridCols}`}>
+        {shown.map((t) => (
           <figure key={t.name} className="rounded-lg border border-white/[0.08] bg-neutral-900/60 p-6">
             <Stars rating={t.rating} />
             <blockquote className="mt-3 text-sm text-white/70 leading-relaxed">&ldquo;{t.text}&rdquo;</blockquote>

@@ -58,6 +58,9 @@ export default function Header() {
           <Link href="/electricista-barakaldo" className="text-sm font-semibold text-white/60 hover:text-white transition-colors duration-200">
             Zonas
           </Link>
+          <Link href="/guias" className="text-sm font-semibold text-white/60 hover:text-white transition-colors duration-200">
+            Guías
+          </Link>
           <Link href="/contacto" className="text-sm font-semibold text-white/60 hover:text-white transition-colors duration-200">
             Contacto
           </Link>
@@ -120,6 +123,9 @@ export default function Header() {
             <div className="border-t border-white/[0.06] pt-4 flex flex-col gap-4">
               <Link href="/electricista-barakaldo" onClick={() => setOpen(false)} className="text-sm font-semibold text-white/80">
                 Zonas donde trabajamos
+              </Link>
+              <Link href="/guias" onClick={() => setOpen(false)} className="text-sm font-semibold text-white/80">
+                Guías
               </Link>
               <Link href="/contacto" onClick={() => setOpen(false)} className="text-sm font-semibold text-white/80">
                 Contacto

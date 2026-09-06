@@ -1,25 +1,23 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getLocality, localities } from "@/lib/localities";
+import { localities, localityFromPrefixedSlug, LOCALITY_SLUG_PREFIX } from "@/lib/localities";
 import { services } from "@/lib/services";
 import { business, telLink, waLink } from "@/lib/business";
 import CTASection from "@/components/CTASection";
 import TrustBadges from "@/components/TrustBadges";
-import Testimonials from "@/components/Testimonials";
+import Testimonials, { testimonials } from "@/components/Testimonials";
 import Faq, { FaqJsonLd } from "@/components/Faq";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import PresupuestoForm from "@/components/lead/PresupuestoForm";
-
-const PREFIX = "electricista-";
+import type { Locality } from "@/lib/localities";
 
 function localityFromSlug(slug: string) {
-  if (!slug.startsWith(PREFIX)) return undefined;
-  return getLocality(slug.slice(PREFIX.length));
+  return localityFromPrefixedSlug(slug);
 }
 
 export function generateStaticParams() {
-  return localities.map((l) => ({ slug: `${PREFIX}${l.slug}` }));
+  return localities.map((l) => ({ slug: `${LOCALITY_SLUG_PREFIX}${l.slug}` }));
 }
 
 export async function generateMetadata({
@@ -30,7 +28,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const locality = localityFromSlug(slug);
   if (!locality) return {};
-  const title = `Electricista en ${locality.name} | Urgente 24h`;
+  const title = `Electricista en ${locality.name} 24h`;
   const description = `Electricista en ${locality.name}, ${locality.province}. Averías, instalaciones, cuadros eléctricos y reparaciones. Servicio 24h. Llama al ${business.phoneDisplay}.`;
   return {
     title,
@@ -40,8 +38,9 @@ export async function generateMetadata({
   };
 }
 
-function localityFaqs(name: string) {
-  return [
+function localityFaqs(locality: Locality) {
+  const { name } = locality;
+  const faqs = [
     {
       q: `¿Cuánto tarda un electricista en llegar a ${name}?`,
       a: `Normalmente llegamos a ${name} en menos de una hora desde la llamada, dependiendo del tráfico y la hora del día.`,
@@ -55,6 +54,13 @@ function localityFaqs(name: string) {
       a: `Sí, siempre te damos un presupuesto claro por teléfono o WhatsApp antes de desplazarnos, sin sorpresas en la factura.`,
     },
   ];
+  if (locality.landmarks.length > 0) {
+    faqs.push({
+      q: `¿Cubrís la zona de ${locality.landmarks[0]} en ${name}?`,
+      a: `Sí, es una de las zonas de ${name} donde más solicitudes atendemos. ${locality.distanceNote}.`,
+    });
+  }
+  return faqs;
 }
 
 export default async function LocalityPage({
@@ -66,7 +72,8 @@ export default async function LocalityPage({
   const locality = localityFromSlug(slug);
   if (!locality) notFound();
 
-  const faqs = localityFaqs(locality.name);
+  const faqs = localityFaqs(locality);
+  const hasLocalTestimonial = testimonials.some((t) => t.location === locality.name);
   const otherLocalities = localities.filter((l) => l.slug !== locality.slug);
 
   return (
@@ -127,7 +134,7 @@ export default async function LocalityPage({
             {services.map((s) => (
               <Link
                 key={s.slug}
-                href={`/servicios/${s.slug}`}
+                href={`/electricista-${locality.slug}/${s.slug}`}
                 className="group rounded-lg border border-white/[0.08] bg-neutral-950/40 p-6 transition-colors duration-200 hover:border-electric-400/40"
               >
                 <h3 className="font-display text-lg font-bold text-white group-hover:text-electric-400">
@@ -159,10 +166,10 @@ export default async function LocalityPage({
       <section className="bg-neutral-900 py-16">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-white">
-            Opiniones de clientes
+            {hasLocalTestimonial ? `Opiniones de clientes en ${locality.name}` : "Opiniones de nuestros clientes en Bizkaia"}
           </h2>
           <div className="mt-10">
-            <Testimonials />
+            <Testimonials filterLocation={locality.name} />
           </div>
         </div>
       </section>

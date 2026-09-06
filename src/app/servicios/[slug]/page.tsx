@@ -6,6 +6,7 @@ import { localities } from "@/lib/localities";
 import CTASection from "@/components/CTASection";
 import Faq, { FaqJsonLd } from "@/components/Faq";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import ServiceJsonLd from "@/components/ServiceJsonLd";
 import PresupuestoForm from "@/components/lead/PresupuestoForm";
 
 export function generateStaticParams() {
@@ -21,7 +22,7 @@ export async function generateMetadata({
   const service = getService(slug);
   if (!service) return {};
   return {
-    title: service.h1,
+    title: service.metaTitle,
     description: service.metaDescription,
     alternates: { canonical: `/servicios/${service.slug}` },
     openGraph: { title: service.metaTitle, description: service.metaDescription },
@@ -46,6 +47,7 @@ export default async function ServicePage({
           { name: service.name, path: `/servicios/${service.slug}` },
         ]}
       />
+      <ServiceJsonLd service={service} />
 
       <section className="bg-neutral-950 py-14 text-white">
         <div className="mx-auto max-w-4xl px-4 md:px-6">
@@ -90,7 +92,7 @@ export default async function ServicePage({
             {localities.map((l) => (
               <Link
                 key={l.slug}
-                href={`/electricista-${l.slug}`}
+                href={`/electricista-${l.slug}/${service.slug}`}
                 className="rounded-full border border-white/[0.1] px-4 py-1.5 text-sm text-white/60 hover:border-electric-400/50 hover:text-electric-400"
               >
                 {service.name} en {l.name}

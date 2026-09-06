@@ -16,7 +16,7 @@ export const services: Service[] = [
     slug: "averias-electricas",
     name: "Averías Eléctricas",
     shortName: "Averías",
-    metaTitle: "Reparación de Averías Eléctricas Urgentes en Barakaldo y Bizkaia | Electric",
+    metaTitle: "Avería Eléctrica Urgente en Barakaldo y Bizkaia",
     metaDescription:
       "Electricista especializado en averías eléctricas a domicilio. Diagnóstico rápido, servicio 24 horas en Barakaldo, Bilbao y toda Bizkaia. Llama al 624 64 51 09.",
     h1: "Reparación de Averías Eléctricas 24 Horas",
@@ -29,7 +29,7 @@ export const services: Service[] = [
       "Servicio de urgencia disponible 24 horas, los 365 días del año",
       "Presupuesto claro antes de intervenir",
     ],
-    keywords: ["avería eléctrica", "reparación eléctrica urgente", "electricista urgente", "corte de luz"],
+    keywords: ["avería eléctrica", "reparación eléctrica urgente", "corte de luz", "diagnóstico eléctrico"],
     faqs: [
       {
         q: "¿Cuánto tarda un electricista en llegar en caso de avería urgente?",
@@ -45,28 +45,39 @@ export const services: Service[] = [
     slug: "cuadros-electricos",
     name: "Cuadros Eléctricos",
     shortName: "Cuadros eléctricos",
-    metaTitle: "Instalación y Reparación de Cuadros Eléctricos en Bizkaia | Electric",
+    metaTitle: "Reparación de Cuadros Eléctricos en Bizkaia",
     metaDescription:
       "Instalación, ampliación y boletinado de cuadros eléctricos en Barakaldo y Bizkaia. Adaptamos tu cuadro a la normativa vigente. Presupuesto sin compromiso.",
     h1: "Instalación y Reparación de Cuadros Eléctricos",
     intro:
-      "El cuadro eléctrico es el corazón de la instalación de tu vivienda o local. En Electric instalamos, ampliamos y modernizamos cuadros eléctricos en Barakaldo y toda Bizkaia, adaptándolos a la normativa de baja tensión vigente (REBT).",
+      "El cuadro eléctrico es el corazón de la instalación de tu vivienda o local. En Electric instalamos, reparamos y modernizamos cuadros eléctricos en Barakaldo y toda Bizkaia, adaptándolos a la normativa de baja tensión vigente (REBT).",
     bullets: [
       "Instalación de cuadros eléctricos nuevos",
+      "Reparación de diferenciales que saltan constantemente",
       "Ampliación de circuitos y diferenciales",
       "Sustitución de cuadros antiguos o inseguros",
-      "Boletín eléctrico y legalización",
+      "Boletín y certificado eléctrico (legalización)",
       "Adaptación a normativa REBT",
     ],
-    keywords: ["cuadro eléctrico", "diferencial salta", "boletín eléctrico"],
+    keywords: [
+      "cuadro eléctrico",
+      "reparación de cuadro eléctrico",
+      "diferencial salta",
+      "boletín eléctrico",
+      "certificado eléctrico",
+    ],
     faqs: [
       {
         q: "¿Por qué salta el diferencial constantemente?",
-        a: "Puede deberse a una sobrecarga, un electrodoméstico defectuoso o una derivación en la instalación. Hacemos un diagnóstico completo del cuadro para encontrar la causa exacta.",
+        a: "Puede deberse a una sobrecarga, un electrodoméstico defectuoso o una derivación en la instalación. Hacemos un diagnóstico completo del cuadro para encontrar la causa exacta y reparar el diferencial o sustituirlo si es necesario.",
       },
       {
         q: "¿Necesito boletín eléctrico para reformar mi cuadro?",
         a: "Sí, cualquier modificación relevante del cuadro eléctrico requiere boletín. Nos encargamos de toda la tramitación.",
+      },
+      {
+        q: "¿Es lo mismo el boletín eléctrico que el certificado eléctrico?",
+        a: "Sí, boletín eléctrico y certificado eléctrico son dos nombres para el mismo documento (el Certificado de Instalación Eléctrica exigido por el REBT). En Electric lo tramitamos lo llames como lo llames.",
       },
     ],
   },
@@ -74,7 +85,7 @@ export const services: Service[] = [
     slug: "cortocircuitos",
     name: "Cortocircuitos",
     shortName: "Cortocircuitos",
-    metaTitle: "Reparación de Cortocircuitos en Casa Urgente | Barakaldo y Bizkaia",
+    metaTitle: "Reparación de Cortocircuitos en Barakaldo",
     metaDescription:
       "¿Cortocircuito en casa? Electricista urgente en Barakaldo y Bizkaia para localizar y reparar cortocircuitos con seguridad. Servicio 24h.",
     h1: "Reparación Urgente de Cortocircuitos",
@@ -87,7 +98,7 @@ export const services: Service[] = [
       "Servicio de urgencia 24 horas",
       "Informe de la incidencia y recomendaciones",
     ],
-    keywords: ["cortocircuito casa", "electricista urgente", "diferencial salta"],
+    keywords: ["cortocircuito casa", "reparación cortocircuito", "diferencial salta"],
     faqs: [
       {
         q: "¿Es peligroso un cortocircuito?",
@@ -99,7 +110,7 @@ export const services: Service[] = [
     slug: "iluminacion-led",
     name: "Iluminación LED",
     shortName: "Iluminación LED",
-    metaTitle: "Instalación de Iluminación LED en Viviendas y Locales | Electric Bizkaia",
+    metaTitle: "Instalación de Iluminación LED en Bizkaia",
     metaDescription:
       "Diseño e instalación de iluminación LED eficiente para viviendas, locales y comercios en Barakaldo y Bizkaia. Ahorra en tu factura de luz.",
     h1: "Instalación de Iluminación LED",
@@ -124,7 +135,7 @@ export const services: Service[] = [
     slug: "instalaciones-electricas",
     name: "Instalaciones Eléctricas",
     shortName: "Instalaciones",
-    metaTitle: "Instalaciones Eléctricas en Viviendas y Locales | Barakaldo y Bizkaia",
+    metaTitle: "Instalaciones Eléctricas en Barakaldo y Bizkaia",
     metaDescription:
       "Instalaciones eléctricas completas para vivienda nueva, reforma o local comercial en Barakaldo y toda Bizkaia. Presupuesto sin compromiso.",
     h1: "Instalaciones Eléctricas en Viviendas y Locales",
@@ -137,7 +148,7 @@ export const services: Service[] = [
       "Certificado de instalación eléctrica (boletín)",
       "Adaptación a normativa vigente",
     ],
-    keywords: ["instalación eléctrica vivienda", "electricista bizkaia"],
+    keywords: ["instalación eléctrica vivienda", "electricista bizkaia", "certificado eléctrico"],
     faqs: [
       {
         q: "¿Cuánto tarda una instalación eléctrica completa de una vivienda?",
@@ -149,7 +160,7 @@ export const services: Service[] = [
     slug: "reparaciones-electricas",
     name: "Reparaciones Eléctricas",
     shortName: "Reparaciones",
-    metaTitle: "Reparaciones Eléctricas a Domicilio en Barakaldo y Bizkaia | Electric",
+    metaTitle: "Reparaciones Eléctricas a Domicilio en Bizkaia",
     metaDescription:
       "Reparación eléctrica a domicilio: enchufes, interruptores, cuadros, averías. Electricista de confianza en Barakaldo, Bilbao y Bizkaia.",
     h1: "Reparaciones Eléctricas a Domicilio",
@@ -174,7 +185,7 @@ export const services: Service[] = [
     slug: "electricista-urgente-24h",
     name: "Electricista Urgente 24 Horas",
     shortName: "Urgencias 24h",
-    metaTitle: "Electricista Urgente 24 Horas en Barakaldo y Bizkaia | Electric",
+    metaTitle: "Electricista Urgente 24 Horas en Bizkaia",
     metaDescription:
       "Electricista urgente disponible 24 horas, los 365 días del año, en Barakaldo, Bilbao y toda Bizkaia. Llama ahora al 624 64 51 09.",
     h1: "Electricista Urgente 24 Horas en Bizkaia",

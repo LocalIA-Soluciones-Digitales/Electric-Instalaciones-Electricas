@@ -23,15 +23,6 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "readdy.ai",
-        pathname: "/api/search-image**",
-      },
-    ],
-  },
   async headers() {
     return [
       {

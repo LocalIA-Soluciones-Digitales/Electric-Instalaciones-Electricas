@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
@@ -44,8 +45,7 @@ export default function HomePage() {
       <section id="hero" className="relative overflow-hidden bg-neutral-950 text-white">
         {/* Fondo en móvil */}
         <div className="absolute inset-0 md:hidden" aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element -- imagen de referencia externa, ver src/lib/stockImages.ts */}
-          <img src={HERO_MOBILE_IMAGE} alt="" className="h-full w-full object-cover" />
+          <Image src={HERO_MOBILE_IMAGE} alt="" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-neutral-950/70"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-neutral-950/60"></div>
         </div>
@@ -112,11 +112,13 @@ export default function HomePage() {
           {/* Imagen en escritorio */}
           <div className="hidden md:block md:flex-1 md:max-w-[42%]">
             <div className="relative aspect-[4/5] max-h-[520px] overflow-hidden rounded-lg">
-              {/* eslint-disable-next-line @next/next/no-img-element -- imagen de referencia externa, ver src/lib/stockImages.ts */}
-              <img
+              <Image
                 src={HERO_DESKTOP_IMAGE}
                 alt="Electricista trabajando en un cuadro eléctrico de una vivienda"
-                className="h-full w-full object-cover"
+                fill
+                priority
+                sizes="(min-width: 768px) 42vw, 100vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/50 via-transparent to-transparent"></div>
               <div className="absolute inset-0 bg-gradient-to-l from-neutral-950/20 via-transparent to-transparent"></div>
@@ -149,12 +151,13 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
             <div className="relative">
-              <div className="aspect-[4/3] overflow-hidden rounded-sm">
-                {/* eslint-disable-next-line @next/next/no-img-element -- imagen de referencia externa, ver src/lib/stockImages.ts */}
-                <img
+              <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+                <Image
                   src={SERVICES_IMAGE}
                   alt="Herramientas eléctricas profesionales"
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
                 />
               </div>
               <div className="absolute -bottom-4 -right-4 bg-electric-400 text-neutral-950 px-5 py-3 rounded-sm">
@@ -199,8 +202,7 @@ export default function HomePage() {
 
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0" aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element -- imagen de referencia externa, ver src/lib/stockImages.ts */}
-          <img src={COVERAGE_IMAGE} alt="" className="h-full w-full object-cover" />
+          <Image src={COVERAGE_IMAGE} alt="" fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-neutral-950/75"></div>
         </div>
         <div className="relative mx-auto max-w-6xl px-4 md:px-6 text-center">
