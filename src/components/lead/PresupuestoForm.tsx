@@ -4,8 +4,6 @@ import { useState, type ReactNode } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import {
   PROPERTY_TYPES,
-  buildBudgetEmail,
-  formatFechaHora,
   generarIdAviso,
   isValidEmail,
   isValidPhone,
@@ -15,6 +13,7 @@ import { enviarAvisoEmail } from "@/lib/sendLead";
 import { business, telLink, waLink } from "@/lib/business";
 import { trackFormSubmit } from "@/lib/tracking";
 import PhotoPicker from "@/components/PhotoPicker";
+import TurnstileWidget from "@/components/lead/TurnstileWidget";
 
 const inputCls =
   "w-full rounded-md border border-white/[0.1] bg-neutral-950/40 px-4 py-3 md:py-3.5 text-base text-white placeholder:text-white/30 focus:outline-none focus:border-electric-400/50 transition-colors duration-200";
@@ -82,6 +81,8 @@ export default function PresupuestoForm() {
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState<{ refId: string; ok: boolean } | null>(null);
+  const [hp, setHp] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const reset = () => {
     setWorkType("");
@@ -97,6 +98,7 @@ export default function PresupuestoForm() {
     setEmail("");
     setError("");
     setDone(null);
+    setHp("");
   };
 
   const submit = async () => {
@@ -120,12 +122,17 @@ export default function PresupuestoForm() {
     };
 
     const refId = generarIdAviso("BUD");
-    const timestamp = formatFechaHora();
-    const { subject, html, text } = buildBudgetEmail(data, refId, timestamp);
 
     setSending(true);
     trackFormSubmit("presupuesto_form");
-    const res = await enviarAvisoEmail({ avisoId: refId, subject, html, text, photo: photo || undefined });
+    const res = await enviarAvisoEmail({
+      kind: "presupuesto",
+      avisoId: refId,
+      data,
+      photo: photo || undefined,
+      hp,
+      turnstileToken: turnstileToken || undefined,
+    });
     setSending(false);
     setDone({ refId, ok: res.ok });
   };
@@ -383,6 +390,22 @@ export default function PresupuestoForm() {
                       <i className="ri-error-warning-line" aria-hidden="true"></i> {error}
                     </p>
                   )}
+
+                  {/* Campo trampa anti-bot: invisible para personas, si llega relleno se descarta el envío. */}
+                  <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+                    <label htmlFor="bud-website">No rellenar este campo</label>
+                    <input
+                      id="bud-website"
+                      name="website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={hp}
+                      onChange={(e) => setHp(e.target.value)}
+                    />
+                  </div>
+
+                  <TurnstileWidget onToken={setTurnstileToken} />
 
                   <button
                     type="button"

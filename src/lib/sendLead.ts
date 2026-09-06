@@ -1,18 +1,22 @@
+import type { AvisoData, BudgetData } from "@/lib/leadConfig";
+
 export interface EnviarResult {
   ok: boolean;
   error?: string;
 }
 
-interface EmailPayload {
+interface LeadRequest {
+  kind: "aviso" | "presupuesto";
   avisoId: string;
-  subject: string;
-  html: string;
-  text: string;
+  data: AvisoData | BudgetData;
   photo?: string; // data URL opcional
+  hp?: string; // honeypot: debe llegar siempre vacío
+  turnstileToken?: string;
 }
 
 // Llama al endpoint interno que envía la notificación por email (con foto si la hay).
-export async function enviarAvisoEmail(payload: EmailPayload): Promise<EnviarResult> {
+// El servidor construye el asunto/HTML a partir de `data`; nunca se envían ya compuestos.
+export async function enviarAvisoEmail(payload: LeadRequest): Promise<EnviarResult> {
   try {
     const res = await fetch("/api/lead", {
       method: "POST",

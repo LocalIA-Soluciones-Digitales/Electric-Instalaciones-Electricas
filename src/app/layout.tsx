@@ -6,7 +6,8 @@ import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
 import MobileBar from "@/components/MobileBar";
 import CookieConsent from "@/components/CookieConsent";
-import Analytics, { GtmNoscript } from "@/components/Analytics";
+import Analytics from "@/components/Analytics";
+import ConsentGate from "@/components/ConsentGate";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import { business } from "@/lib/business";
 
@@ -25,8 +26,8 @@ const sora = Sora({
 export const metadata: Metadata = {
   metadataBase: new URL(business.domain),
   title: {
-    default: "Electricista en Barakaldo y Bizkaia 24h | Electric Instalaciones Eléctricas",
-    template: "%s | Electric Instalaciones Eléctricas",
+    default: `Electricista en Barakaldo y Bizkaia 24 Horas | ${business.shortName}`,
+    template: `%s | ${business.shortName}`,
   },
   description:
     "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Bizkaia. Averías, cuadros eléctricos, instalaciones y reparaciones. Presupuesto sin compromiso. Llama al 624 64 51 09.",
@@ -59,11 +60,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+          integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
         />
       </head>
       <body className="flex min-h-full flex-col bg-neutral-950 pb-20 md:pb-0">
-        <Analytics />
-        <GtmNoscript />
+        <ConsentGate>
+          <Analytics />
+        </ConsentGate>
         <LocalBusinessSchema />
         <Header />
         <main className="flex-1">{children}</main>

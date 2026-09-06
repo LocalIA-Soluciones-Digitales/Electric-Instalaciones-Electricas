@@ -1,4 +1,5 @@
 import { business } from "@/lib/business";
+import { safeJsonLd } from "@/lib/jsonld";
 
 export default function BreadcrumbJsonLd({ items }: { items: { name: string; path: string }[] }) {
   const jsonLd = {
@@ -14,7 +15,7 @@ export default function BreadcrumbJsonLd({ items }: { items: { name: string; pat
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
     />
   );
 }

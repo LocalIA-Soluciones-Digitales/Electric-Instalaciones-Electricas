@@ -1,3 +1,5 @@
+import { safeJsonLd } from "@/lib/jsonld";
+
 export type FaqItem = { q: string; a: string };
 
 export default function Faq({ items }: { items: FaqItem[] }) {
@@ -36,7 +38,7 @@ export function FaqJsonLd({ items }: { items: FaqItem[] }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
     />
   );
 }

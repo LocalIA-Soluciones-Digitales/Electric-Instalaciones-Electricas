@@ -1,5 +1,6 @@
 import { business } from "@/lib/business";
 import { services } from "@/lib/services";
+import { safeJsonLd } from "@/lib/jsonld";
 
 export default function LocalBusinessSchema() {
   const jsonLd = {
@@ -61,12 +62,21 @@ export default function LocalBusinessSchema() {
       })),
     },
     sameAs: [] as string[],
+    ...(business.reviews.rating && business.reviews.count
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: business.reviews.rating,
+            reviewCount: business.reviews.count,
+          },
+        }
+      : {}),
   };
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
     />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { COOKIE_CONSENT_STORAGE_KEY, useCookieBannerVisible } from "@/lib/cookieConsent";
+import { useCookieBannerVisible, writeConsent } from "@/lib/cookieConsent";
 
 declare global {
   interface Window {
@@ -22,9 +22,7 @@ export default function CookieConsent() {
         analytics_storage: state,
       });
     }
-    try {
-      localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, state);
-    } catch {}
+    writeConsent(state);
     setVisible(false);
   }
 

@@ -4,9 +4,7 @@ import { useState } from "react";
 import {
   PROPERTY_TYPES,
   TIME_SLOTS,
-  buildInternalEmail,
   buildWhatsAppMessage,
-  cleanPhone,
   formatFechaHora,
   generarIdAviso,
   isValidEmail,
@@ -18,6 +16,7 @@ import {
 import { enviarAvisoEmail } from "@/lib/sendLead";
 import { business, telLink, waLink } from "@/lib/business";
 import { trackFormSubmit, trackWhatsAppClick } from "@/lib/tracking";
+import TurnstileWidget from "./TurnstileWidget";
 import type { AvisoStep } from "./SolicitudWizard";
 
 interface ResumenEnvioProps {
@@ -25,6 +24,8 @@ interface ResumenEnvioProps {
   incidence?: AvisoIncidence;
   showUrgent: boolean;
   photo: string;
+  hp: string;
+  onHpChange: (value: string) => void;
   onEdit: (step: AvisoStep) => void;
   onBack: () => void;
   onSent: (id: string, emailOk: boolean) => void;
@@ -75,12 +76,15 @@ export default function ResumenEnvio({
   incidence,
   showUrgent,
   photo,
+  hp,
+  onHpChange,
   onEdit,
   onBack,
   onSent,
 }: ResumenEnvioProps) {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const urgencyLabelTxt = urgencyLabel(data.urgency);
   const slotLabel = TIME_SLOTS.find((s) => s.label === data.otherSlot)?.label ?? data.otherSlot;
@@ -106,7 +110,7 @@ export default function ResumenEnvio({
 
     try {
       const log = JSON.parse(localStorage.getItem("electric_aviso_log") || "[]");
-      log.push({ id: avisoId, timestamp, phone: cleanPhone(data.phone), service: data.service.label });
+      log.push({ id: avisoId, timestamp, service: data.service.label });
       localStorage.setItem("electric_aviso_log", JSON.stringify(log.slice(-50)));
     } catch {
       /* no-op */
@@ -116,8 +120,14 @@ export default function ResumenEnvio({
     trackWhatsAppClick("solicitud_wizard");
     window.open(waLink(msg), "_blank", "noopener,noreferrer");
 
-    const { subject, html, text } = buildInternalEmail(data, avisoId, timestamp, !!photo);
-    const res = await enviarAvisoEmail({ avisoId, subject, html, text, photo: photo || undefined });
+    const res = await enviarAvisoEmail({
+      kind: "aviso",
+      avisoId,
+      data,
+      photo: photo || undefined,
+      hp,
+      turnstileToken: turnstileToken || undefined,
+    });
     setSending(false);
     onSent(avisoId, res.ok);
   };
@@ -237,6 +247,22 @@ export default function ResumenEnvio({
             <i className="ri-error-warning-line" aria-hidden="true"></i> {error}
           </p>
         )}
+
+        {/* Campo trampa anti-bot: invisible para personas, si llega relleno se descarta el envío. */}
+        <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+          <label htmlFor="aviso-website">No rellenar este campo</label>
+          <input
+            id="aviso-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={hp}
+            onChange={(e) => onHpChange(e.target.value)}
+          />
+        </div>
+
+        <TurnstileWidget onToken={setTurnstileToken} />
 
         <div className="mt-6 flex flex-col gap-3">
           <button
