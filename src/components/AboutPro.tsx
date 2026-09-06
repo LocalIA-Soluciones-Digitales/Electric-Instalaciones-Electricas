@@ -7,16 +7,19 @@ const initials = business.owner
   .slice(0, 2)
   .toUpperCase();
 
+type Pill = { icon: string; label: string };
+
 export default function AboutPro() {
   const { credentials, reviews } = business;
-  const pills = [
-    credentials.license && { icon: "ri-shield-check-line", label: `Instalador autorizado ${credentials.license}` },
-    credentials.insurance && { icon: "ri-file-shield-2-line", label: credentials.insurance },
-    credentials.foundedYear && {
-      icon: "ri-calendar-check-line",
-      label: `Desde ${credentials.foundedYear} en Barakaldo`,
-    },
-  ].filter(Boolean) as { icon: string; label: string }[];
+  const pills: Pill[] = [
+    credentials.license
+      ? { icon: "ri-shield-check-line", label: `Instalador autorizado ${credentials.license}` }
+      : null,
+    credentials.insurance ? { icon: "ri-file-shield-2-line", label: credentials.insurance } : null,
+    credentials.foundedYear
+      ? { icon: "ri-calendar-check-line", label: `Desde ${credentials.foundedYear} en Barakaldo` }
+      : null,
+  ].filter((p): p is Pill => p !== null);
 
   return (
     <section aria-label="Sobre el profesional" className="border-y border-white/[0.06] bg-neutral-900/40 py-8">
