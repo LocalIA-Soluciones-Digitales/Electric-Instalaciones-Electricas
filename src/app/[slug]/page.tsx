@@ -120,13 +120,15 @@ export default async function LocalityPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12 md:px-6">
-        <TrustBadges />
+      <section className="bg-white py-12">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <TrustBadges light />
+        </div>
       </section>
 
-      <section className="bg-neutral-900 py-16">
+      <section className="bg-neutral-50 py-16">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-white">
+          <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-neutral-900">
             Servicios de electricista en {locality.name}
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -134,12 +136,15 @@ export default async function LocalityPage({
               <Link
                 key={s.slug}
                 href={`/electricista-${locality.slug}/${s.slug}`}
-                className="group rounded-lg border border-white/[0.08] bg-neutral-950/40 p-6 transition-colors duration-200 hover:border-electric-400/40"
+                className="group rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-colors duration-200 hover:border-electric-400/60"
               >
-                <h3 className="font-display text-lg font-bold text-white group-hover:text-electric-400">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-electric-100 text-lg text-electric-600">
+                  <i className={s.icon} aria-hidden="true"></i>
+                </span>
+                <h3 className="font-display mt-3 text-lg font-bold text-neutral-900 group-hover:text-electric-600">
                   {s.name} en {locality.name}
                 </h3>
-                <p className="mt-2 text-sm text-white/50">{s.intro.slice(0, 100)}…</p>
+                <p className="mt-2 text-sm text-neutral-600">{s.intro.slice(0, 100)}…</p>
               </Link>
             ))}
           </div>
@@ -147,14 +152,16 @@ export default async function LocalityPage({
       </section>
 
       {locality.landmarks.length > 0 && (
-        <section className="mx-auto max-w-4xl px-4 py-14 text-center md:px-6">
-          <h2 className="font-display text-2xl font-extrabold text-white">
-            Conocemos {locality.name}: {locality.distanceNote}
-          </h2>
-          <p className="mt-4 text-white/50">
-            Atendemos con rapidez zonas de referencia como {locality.landmarks.join(", ")}, y el resto
-            del municipio.
-          </p>
+        <section className="bg-white py-14">
+          <div className="mx-auto max-w-4xl px-4 text-center md:px-6">
+            <h2 className="font-display text-2xl font-extrabold text-neutral-900">
+              Conocemos {locality.name}: {locality.distanceNote}
+            </h2>
+            <p className="mt-4 text-neutral-600">
+              Atendemos con rapidez zonas de referencia como {locality.landmarks.join(", ")}, y el resto
+              del municipio.
+            </p>
+          </div>
         </section>
       )}
 
@@ -173,30 +180,34 @@ export default async function LocalityPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-16 md:px-6">
-        <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-white">
-          Preguntas frecuentes sobre nuestro servicio en {locality.name}
-        </h2>
-        <div className="mt-8">
-          <Faq items={faqs} />
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-3xl px-4 md:px-6">
+          <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-neutral-900">
+            Preguntas frecuentes sobre nuestro servicio en {locality.name}
+          </h2>
+          <div className="mt-8">
+            <Faq items={faqs} light />
+          </div>
+          <FaqJsonLd items={faqs} />
         </div>
-        <FaqJsonLd items={faqs} />
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16 md:px-6">
-        <h2 className="font-display text-center text-xl font-extrabold text-white">
-          Otras zonas donde trabajamos
-        </h2>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          {otherLocalities.map((l) => (
-            <Link
-              key={l.slug}
-              href={`/electricista-${l.slug}`}
-              className="rounded-full border border-white/[0.1] px-5 py-2 text-sm font-semibold text-white/70 hover:border-electric-400/50 hover:text-electric-400"
-            >
-              Electricista en {l.name}
-            </Link>
-          ))}
+      <section className="bg-neutral-50 px-4 pb-16 pt-4 md:px-6">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="font-display text-center text-xl font-extrabold text-neutral-900">
+            Otras zonas donde trabajamos
+          </h2>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            {otherLocalities.map((l) => (
+              <Link
+                key={l.slug}
+                href={`/electricista-${l.slug}`}
+                className="rounded-full border border-neutral-200 bg-white px-5 py-2 text-sm font-semibold text-neutral-600 hover:border-electric-500/50 hover:text-electric-600"
+              >
+                Electricista en {l.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </div>

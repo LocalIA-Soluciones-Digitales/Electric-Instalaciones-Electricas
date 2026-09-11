@@ -21,22 +21,31 @@ const promises = [
   },
 ];
 
-export default function Testimonials() {
+export default function Testimonials({ light = false }: { light?: boolean }) {
   const { reviews } = business;
 
   if (reviews.googleUrl) {
     const stars = reviews.rating ? Math.round(Number(reviews.rating)) : 0;
     return (
       <div className="flex justify-center">
-        <div className="flex w-full max-w-md flex-col items-center gap-3 rounded-xl border border-white/[0.08] bg-neutral-900/60 p-8 text-center">
+        <div
+          className={
+            light
+              ? "flex w-full max-w-md flex-col items-center gap-3 rounded-xl border border-neutral-200 bg-white p-8 text-center shadow-sm"
+              : "flex w-full max-w-md flex-col items-center gap-3 rounded-xl border border-white/[0.08] bg-neutral-900/60 p-8 text-center"
+          }
+        >
           {stars > 0 && (
-            <div className="flex items-center gap-1 text-electric-400" aria-label={`${reviews.rating} de 5 estrellas`}>
+            <div
+              className={light ? "flex items-center gap-1 text-electric-600" : "flex items-center gap-1 text-electric-400"}
+              aria-label={`${reviews.rating} de 5 estrellas`}
+            >
               {Array.from({ length: 5 }).map((_, i) => (
                 <i key={i} className={i < stars ? "ri-star-fill" : "ri-star-line"} aria-hidden="true"></i>
               ))}
             </div>
           )}
-          <p className="text-lg font-bold text-white">
+          <p className={light ? "text-lg font-bold text-neutral-900" : "text-lg font-bold text-white"}>
             {reviews.rating ? `${reviews.rating} de 5` : "Reseñas verificadas"}
             {reviews.count ? ` · ${reviews.count} reseñas en Google` : ""}
           </p>
@@ -44,7 +53,11 @@ export default function Testimonials() {
             href={reviews.googleUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-bold text-electric-400 hover:text-electric-300"
+            className={
+              light
+                ? "inline-flex items-center gap-2 text-sm font-bold text-electric-600 hover:text-electric-700"
+                : "inline-flex items-center gap-2 text-sm font-bold text-electric-400 hover:text-electric-300"
+            }
           >
             <i className="ri-google-fill" aria-hidden="true"></i>
             Ver todas las opiniones en Google
@@ -57,12 +70,29 @@ export default function Testimonials() {
   return (
     <div className="grid gap-6 sm:grid-cols-3">
       {promises.map((p) => (
-        <div key={p.title} className="rounded-lg border border-white/[0.08] bg-neutral-900/60 p-6 text-center">
-          <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-electric-400/15 text-electric-400">
+        <div
+          key={p.title}
+          className={
+            light
+              ? "rounded-lg border border-neutral-200 bg-white p-6 text-center shadow-sm"
+              : "rounded-lg border border-white/[0.08] bg-neutral-900/60 p-6 text-center"
+          }
+        >
+          <span
+            className={
+              light
+                ? "mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-electric-100 text-electric-600"
+                : "mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-electric-400/15 text-electric-400"
+            }
+          >
             <i className={`${p.icon} text-lg`} aria-hidden="true"></i>
           </span>
-          <p className="mt-3 text-sm font-bold text-white">{p.title}</p>
-          <p className="mt-2 text-sm text-white/60 leading-relaxed">{p.text}</p>
+          <p className={light ? "mt-3 text-sm font-bold text-neutral-900" : "mt-3 text-sm font-bold text-white"}>
+            {p.title}
+          </p>
+          <p className={light ? "mt-2 text-sm text-neutral-600 leading-relaxed" : "mt-2 text-sm text-white/60 leading-relaxed"}>
+            {p.text}
+          </p>
         </div>
       ))}
     </div>

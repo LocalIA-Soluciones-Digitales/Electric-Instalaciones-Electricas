@@ -26,23 +26,25 @@ export default function GuiasPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14 md:px-6">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {guides.map((g) => (
-            <Link
-              key={g.slug}
-              href={`/guias/${g.slug}`}
-              className="group rounded-lg border border-white/[0.08] bg-neutral-900/60 p-6 transition-colors duration-200 hover:border-electric-400/40"
-            >
-              <h2 className="font-display text-lg font-bold text-white group-hover:text-electric-400">
-                {g.title}
-              </h2>
-              <p className="mt-2 text-sm text-white/50">{g.excerpt}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-400">
-                Leer guía <i className="ri-arrow-right-line" aria-hidden="true"></i>
-              </span>
-            </Link>
-          ))}
+      <section className="bg-neutral-50 py-14">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {guides.map((g) => (
+              <Link
+                key={g.slug}
+                href={`/guias/${g.slug}`}
+                className="group rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-colors duration-200 hover:border-electric-400/60"
+              >
+                <h2 className="font-display text-lg font-bold text-neutral-900 group-hover:text-electric-600">
+                  {g.title}
+                </h2>
+                <p className="mt-2 text-sm text-neutral-600">{g.excerpt}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-600">
+                  Leer guía <i className="ri-arrow-right-line" aria-hidden="true"></i>
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -59,13 +59,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${jakarta.variable} ${sora.variable} h-full antialiased`}>
       <head>
+        {/* Autoalojado (public/fonts/remixicon): evita la petición externa a
+            cdnjs.cloudflare.com que bloqueaba el render antes de pintar cualquier
+            icono. El preload adelanta la descarga del woff2 en paralelo al CSS. */}
         <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
-          integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q=="
+          rel="preload"
+          href="/fonts/remixicon/remixicon.woff2"
+          as="font"
+          type="font/woff2"
           crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
         />
+        <link rel="stylesheet" href="/fonts/remixicon/remixicon.css" />
       </head>
       <body className="flex min-h-full flex-col bg-neutral-950 pb-20 md:pb-0">
         <ConsentGate>

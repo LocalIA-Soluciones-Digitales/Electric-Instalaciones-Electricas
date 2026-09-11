@@ -65,46 +65,60 @@ export default async function ServicePage({
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-4xl gap-10 px-4 py-14 md:px-6 lg:max-w-6xl lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <p className="text-lg text-white/60">{service.intro}</p>
-          <ul className="mt-8 space-y-3">
-            {service.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 text-white/70">
-                <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center text-electric-400">
-                  <i className="ri-flashlight-line" aria-hidden="true"></i>
-                </span>
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
+      <section className="bg-neutral-50 py-14">
+        <div className="mx-auto grid max-w-4xl gap-10 px-4 md:px-6 lg:max-w-6xl lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-electric-100 text-2xl text-electric-600">
+              <i className={service.icon} aria-hidden="true"></i>
+            </div>
+            <p className="mt-5 text-lg text-neutral-700">{service.intro}</p>
+            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+              {service.bullets.map((b) => (
+                <li key={b} className="flex items-start gap-3 text-neutral-700">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center text-electric-600">
+                    <i className="ri-check-line" aria-hidden="true"></i>
+                  </span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
 
-          <h2 className="font-display mt-12 text-2xl font-extrabold text-white">Preguntas frecuentes</h2>
-          <div className="mt-6">
-            <Faq items={service.faqs} />
+            <h2 className="font-display mt-12 text-2xl font-extrabold text-neutral-900">Preguntas frecuentes</h2>
+            <div className="mt-6">
+              <Faq items={service.faqs} light />
+            </div>
+            <FaqJsonLd items={service.faqs} />
+
+            <h2 className="font-display mt-12 text-2xl font-extrabold text-neutral-900">
+              {service.name} en tu zona
+            </h2>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {localities.map((l) => (
+                <Link
+                  key={l.slug}
+                  href={`/electricista-${l.slug}/${service.slug}`}
+                  className="rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-sm text-neutral-600 hover:border-electric-500/50 hover:text-electric-600"
+                >
+                  {service.name} en {l.name}
+                </Link>
+              ))}
+            </div>
           </div>
-          <FaqJsonLd items={service.faqs} />
 
-          <h2 className="font-display mt-12 text-2xl font-extrabold text-white">
-            {service.name} en tu zona
-          </h2>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {localities.map((l) => (
-              <Link
-                key={l.slug}
-                href={`/electricista-${l.slug}/${service.slug}`}
-                className="rounded-full border border-white/[0.1] px-4 py-1.5 text-sm text-white/60 hover:border-electric-400/50 hover:text-electric-400"
+          <div>
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+              <h3 className="font-display text-lg font-bold text-neutral-900">
+                Pide presupuesto para {service.shortName.toLowerCase()}
+              </h3>
+              <p className="mt-1 text-sm text-neutral-500">Sin compromiso. Te respondemos por teléfono o WhatsApp.</p>
+              <a
+                href="#presupuesto"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-electric-400 px-5 py-2.5 text-sm font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
               >
-                {service.name} en {l.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <div className="rounded-xl border border-white/[0.08] bg-neutral-900/60 p-5">
-            <h3 className="font-display text-lg font-bold text-white">Pide presupuesto para {service.shortName.toLowerCase()}</h3>
-            <p className="mt-1 text-sm text-white/45">Sin compromiso. Te respondemos por teléfono o WhatsApp.</p>
+                Pedir presupuesto
+                <i className="ri-arrow-right-line" aria-hidden="true"></i>
+              </a>
+            </div>
           </div>
         </div>
       </section>

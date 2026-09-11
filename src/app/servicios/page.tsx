@@ -13,18 +13,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/servicios" },
 };
 
-// Icono representativo por servicio (remixicon). Solo de uso visual en esta página.
-const SERVICE_ICONS: Record<string, string> = {
-  "averias-electricas": "ri-alarm-warning-line",
-  "cuadros-electricos": "ri-server-line",
-  cortocircuitos: "ri-fire-line",
-  "iluminacion-led": "ri-lightbulb-flash-line",
-  "instalaciones-electricas": "ri-plug-line",
-  "reparaciones-electricas": "ri-tools-line",
-  "puntos-recarga-vehiculo-electrico": "ri-charging-pile-2-line",
-  "electricista-urgente-24h": "ri-24-hours-line",
-};
-
 export default function ServiciosPage() {
   return (
     <div>
@@ -65,7 +53,7 @@ export default function ServiciosPage() {
           {services.map((s, i) => (
             <div key={s.slug} className="grid gap-6 py-10 md:grid-cols-[auto_1fr] md:gap-10 md:py-12">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-electric-100 text-2xl text-electric-600">
-                <i className={SERVICE_ICONS[s.slug] ?? "ri-flashlight-line"} aria-hidden="true"></i>
+                <i className={s.icon} aria-hidden="true"></i>
               </div>
 
               <div>

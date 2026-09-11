@@ -4,6 +4,8 @@ export type Service = {
   shortName: string;
   /** Etiqueta alternativa para menús de navegación (si no se define, se usa `name`). */
   navLabel?: string;
+  /** Icono remixicon representativo del servicio, usado en listados y tarjetas. */
+  icon: string;
   metaTitle: string;
   metaDescription: string;
   h1: string;
@@ -18,6 +20,7 @@ export const services: Service[] = [
     slug: "averias-electricas",
     name: "Averías Eléctricas",
     shortName: "Averías",
+    icon: "ri-alarm-warning-line",
     metaTitle: "Avería Eléctrica Urgente en Barakaldo y Euskadi",
     metaDescription:
       "Electricista especializado en averías eléctricas a domicilio. Diagnóstico rápido, servicio 24 horas en Barakaldo, Bilbao y toda Euskadi. Llama al 677 24 63 74.",
@@ -47,6 +50,7 @@ export const services: Service[] = [
     slug: "cuadros-electricos",
     name: "Cuadros Eléctricos",
     shortName: "Cuadros eléctricos",
+    icon: "ri-server-line",
     metaTitle: "Reparación de Cuadros Eléctricos en Euskadi",
     metaDescription:
       "Instalación, ampliación y boletinado de cuadros eléctricos en Barakaldo y en toda Euskadi. Adaptamos tu cuadro a la normativa vigente. Presupuesto sin compromiso.",
@@ -87,6 +91,7 @@ export const services: Service[] = [
     slug: "cortocircuitos",
     name: "Cortocircuitos",
     shortName: "Cortocircuitos",
+    icon: "ri-fire-line",
     metaTitle: "Reparación de Cortocircuitos en Barakaldo",
     metaDescription:
       "¿Cortocircuito en casa? Electricista urgente en Barakaldo y toda Euskadi para localizar y reparar cortocircuitos con seguridad. Servicio 24h.",
@@ -113,6 +118,7 @@ export const services: Service[] = [
     name: "Iluminación LED",
     shortName: "Iluminación LED",
     navLabel: "Iluminación",
+    icon: "ri-lightbulb-flash-line",
     metaTitle: "Instalación de Iluminación LED en Euskadi",
     metaDescription:
       "Diseño e instalación de iluminación LED eficiente para viviendas, locales y comercios en Barakaldo y en toda Euskadi. Ahorra en tu factura de luz.",
@@ -138,6 +144,7 @@ export const services: Service[] = [
     slug: "instalaciones-electricas",
     name: "Instalaciones Eléctricas",
     shortName: "Instalaciones",
+    icon: "ri-plug-line",
     metaTitle: "Instalaciones Eléctricas en Barakaldo y Euskadi",
     metaDescription:
       "Instalaciones eléctricas completas para vivienda nueva, reforma o local comercial en Barakaldo y en toda Euskadi. Presupuesto sin compromiso.",
@@ -163,6 +170,7 @@ export const services: Service[] = [
     slug: "reparaciones-electricas",
     name: "Reparaciones Eléctricas",
     shortName: "Reparaciones",
+    icon: "ri-tools-line",
     metaTitle: "Reparaciones Eléctricas a Domicilio en Euskadi",
     metaDescription:
       "Reparación eléctrica a domicilio: enchufes, interruptores, cuadros, averías. Electricista de confianza en Barakaldo, Bilbao y toda Euskadi.",
@@ -185,9 +193,50 @@ export const services: Service[] = [
     ],
   },
   {
+    slug: "puntos-recarga-vehiculo-electrico",
+    name: "Puntos de Recarga para Vehículo Eléctrico",
+    shortName: "Recarga VE",
+    navLabel: "Recarga VE",
+    icon: "ri-charging-pile-2-line",
+    metaTitle: "Instalación de Punto de Recarga para Coche Eléctrico en Euskadi",
+    metaDescription:
+      "Instalación de puntos de recarga (wallbox) para coche eléctrico en vivienda, garaje comunitario o local comercial en Barakaldo y toda Euskadi. Presupuesto sin compromiso.",
+    h1: "Instalación de Puntos de Recarga para Vehículo Eléctrico",
+    intro:
+      "¿Necesitas cargar tu coche eléctrico en casa o en la plaza de garaje de la comunidad? En Electric instalamos puntos de recarga (wallbox) adaptados a tu instalación eléctrica, con el estudio de potencia y la documentación necesaria, en Barakaldo y en toda Euskadi.",
+    bullets: [
+      "Instalación de wallbox en vivienda unifamiliar o plaza de garaje",
+      "Estudio previo de la potencia disponible en tu instalación",
+      "Instalación en comunidades de vecinos, con la gestión técnica frente a la comunidad",
+      "Puntos de recarga para flotas de empresa y locales comerciales",
+      "Boletín eléctrico y documentación necesaria para dar de alta el punto de recarga",
+    ],
+    keywords: [
+      "punto de recarga coche eléctrico",
+      "instalación wallbox",
+      "cargador coche eléctrico",
+      "recarga vehículo eléctrico garaje comunidad",
+    ],
+    faqs: [
+      {
+        q: "¿Puedo instalar un punto de recarga en mi plaza de un garaje comunitario?",
+        a: "Sí. La normativa reconoce el derecho a instalarlo en tu propia plaza aunque la comunidad no lo apruebe por unanimidad, siempre que se comunique previamente siguiendo el procedimiento legal. Te ayudamos con toda la gestión técnica frente a la comunidad.",
+      },
+      {
+        q: "¿Qué potencia necesito para instalar un wallbox en casa?",
+        a: "Depende del punto de recarga elegido y de tu potencia contratada actual. Hacemos un estudio previo de tu instalación para decirte si necesitas ampliar potencia y qué velocidad de carga vas a poder tener.",
+      },
+      {
+        q: "¿Necesito boletín eléctrico para instalar un punto de recarga?",
+        a: "En la mayoría de los casos sí, sobre todo si se modifica el cuadro eléctrico o se amplía la potencia contratada. Nos encargamos de tramitarlo.",
+      },
+    ],
+  },
+  {
     slug: "electricista-urgente-24h",
     name: "Electricista Urgente 24 Horas",
     shortName: "Urgencias 24h",
+    icon: "ri-24-hours-line",
     metaTitle: "Electricista Urgente 24 Horas en Euskadi",
     metaDescription:
       "Electricista urgente disponible 24 horas, los 365 días del año, en Barakaldo, Bilbao y toda Euskadi. Llama ahora al 677 24 63 74.",

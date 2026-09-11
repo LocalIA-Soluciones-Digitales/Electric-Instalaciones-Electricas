@@ -134,8 +134,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12 md:px-6">
-        <TrustBadges />
+      <section className="bg-white py-12">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <TrustBadges light />
+        </div>
       </section>
 
       <AboutPro />
@@ -154,55 +156,72 @@ export default function HomePage() {
       <SolicitudWizard />
       <PresupuestoForm />
 
-      <section id="servicios" className="bg-neutral-900 py-16 md:py-20">
+      <section id="servicios" className="bg-neutral-50 py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div className="relative">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
-                <Image
-                  src={SERVICES_IMAGE}
-                  alt="Herramientas eléctricas profesionales"
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-electric-400 text-neutral-950 px-5 py-3 rounded-sm">
-                <p className="text-xs font-bold uppercase tracking-[0.15em]">Urgencias 24h</p>
-              </div>
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-px w-5 bg-electric-500"></span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
+                Servicios
+              </span>
+              <span className="h-px w-5 bg-electric-500"></span>
             </div>
-            <div>
-              <div className="inline-flex items-center gap-2">
-                <span className="h-px w-5 bg-electric-400"></span>
-                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
-                  Servicios
-                </span>
-              </div>
-              <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-                Nuestros servicios eléctricos
-              </h2>
-              <p className="mt-4 text-base md:text-lg text-white/50 leading-relaxed">
-                Electricistas cualificados para cualquier trabajo eléctrico en vivienda, comunidad o local
-                comercial, en Barakaldo y toda Euskadi.
-              </p>
-            </div>
+            <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
+              Todo lo que necesita tu instalación, con un mismo electricista
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base md:text-lg text-neutral-600 leading-relaxed">
+              Electricistas cualificados para cualquier trabajo eléctrico en vivienda, comunidad o local
+              comercial, en Barakaldo y toda Euskadi.
+            </p>
           </div>
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
               <Link
                 key={s.slug}
                 href={`/servicios/${s.slug}`}
-                className="group rounded-lg border border-white/[0.08] bg-neutral-950/40 p-6 transition-colors duration-200 hover:border-electric-400/40"
+                className="group rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-colors duration-200 hover:border-electric-400/60"
               >
-                <h3 className="font-display text-lg font-bold text-white group-hover:text-electric-400">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-electric-100 text-xl text-electric-600">
+                  <i className={s.icon} aria-hidden="true"></i>
+                </span>
+                <h3 className="font-display mt-4 text-lg font-bold text-neutral-900 group-hover:text-electric-600">
                   {s.name}
                 </h3>
-                <p className="mt-2 text-sm text-white/50">{s.intro.slice(0, 110)}…</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-400">
+                <p className="mt-2 text-sm text-neutral-600">{s.intro.slice(0, 110)}…</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-600">
                   Ver más <i className="ri-arrow-right-line" aria-hidden="true"></i>
                 </span>
               </Link>
             ))}
+          </div>
+
+          <div className="relative mt-14 overflow-hidden rounded-2xl">
+            <div className="relative aspect-[16/7] w-full sm:aspect-[16/5]">
+              <Image
+                src={SERVICES_IMAGE}
+                alt="Herramientas eléctricas profesionales"
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-neutral-950/60"></div>
+            </div>
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4 text-center">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+                Urgencias 24h
+              </p>
+              <p className="font-display max-w-lg text-xl font-extrabold text-white sm:text-2xl">
+                ¿Necesitas un electricista ahora mismo?
+              </p>
+              <a
+                href="#solicitud"
+                className="mt-1 inline-flex items-center gap-2 rounded-full bg-electric-400 px-6 py-3 text-sm font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
+              >
+                Solicitar asistencia
+                <i className="ri-arrow-right-line" aria-hidden="true"></i>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -243,14 +262,16 @@ export default function HomePage() {
 
       <CTASection source="home_mid" />
 
-      <section className="mx-auto max-w-3xl px-4 py-16 md:px-6">
-        <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-white">
-          Preguntas frecuentes
-        </h2>
-        <div className="mt-8">
-          <Faq items={homeFaqs} />
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-3xl px-4 md:px-6">
+          <h2 className="font-display text-center text-2xl md:text-3xl font-extrabold text-neutral-900">
+            Preguntas frecuentes
+          </h2>
+          <div className="mt-8">
+            <Faq items={homeFaqs} light />
+          </div>
+          <FaqJsonLd items={homeFaqs} />
         </div>
-        <FaqJsonLd items={homeFaqs} />
       </section>
 
       <CTASection

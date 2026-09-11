@@ -37,6 +37,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# scratch / agent working files (drafts, patches, logs, screenshots — no project content)
+/.scratch/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

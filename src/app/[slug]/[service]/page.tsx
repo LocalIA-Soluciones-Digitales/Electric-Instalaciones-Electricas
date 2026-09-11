@@ -113,46 +113,60 @@ export default async function ServiceLocalityPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12 md:px-6">
-        <TrustBadges />
+      <section className="bg-white py-12">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <TrustBadges light />
+        </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-4 md:px-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <h2 className="font-display text-2xl font-extrabold text-white">
-            {service.h1} en {locality.name}
-          </h2>
-          <ul className="mt-6 space-y-3">
-            {service.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 text-white/70">
-                <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center text-electric-400">
-                  <i className="ri-flashlight-line" aria-hidden="true"></i>
-                </span>
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
+      <section className="bg-neutral-50 py-4">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 md:px-6 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-electric-100 text-2xl text-electric-600">
+              <i className={service.icon} aria-hidden="true"></i>
+            </div>
+            <h2 className="font-display mt-5 text-2xl font-extrabold text-neutral-900">
+              {service.h1} en {locality.name}
+            </h2>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {service.bullets.map((b) => (
+                <li key={b} className="flex items-start gap-3 text-neutral-700">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center text-electric-600">
+                    <i className="ri-check-line" aria-hidden="true"></i>
+                  </span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
 
-          {locality.landmarks.length > 0 && (
-            <p className="mt-8 text-sm text-white/50">
-              Cubrimos con rapidez zonas de referencia como {locality.landmarks.join(", ")}, y el resto de{" "}
-              {locality.name}.
-            </p>
-          )}
+            {locality.landmarks.length > 0 && (
+              <p className="mt-8 text-sm text-neutral-500">
+                Cubrimos con rapidez zonas de referencia como {locality.landmarks.join(", ")}, y el resto de{" "}
+                {locality.name}.
+              </p>
+            )}
 
-          <h2 className="font-display mt-12 text-2xl font-extrabold text-white">Preguntas frecuentes</h2>
-          <div className="mt-6">
-            <Faq items={faqs} />
+            <h2 className="font-display mt-12 text-2xl font-extrabold text-neutral-900">Preguntas frecuentes</h2>
+            <div className="mt-6">
+              <Faq items={faqs} light />
+            </div>
+            <FaqJsonLd items={faqs} />
           </div>
-          <FaqJsonLd items={faqs} />
-        </div>
 
-        <div>
-          <div className="rounded-xl border border-white/[0.08] bg-neutral-900/60 p-5">
-            <h3 className="font-display text-lg font-bold text-white">
-              Presupuesto para {service.shortName.toLowerCase()} en {locality.name}
-            </h3>
-            <p className="mt-1 text-sm text-white/45">Sin compromiso. Te respondemos por teléfono o WhatsApp.</p>
+          <div>
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+              <h3 className="font-display text-lg font-bold text-neutral-900">
+                Presupuesto para {service.shortName.toLowerCase()} en {locality.name}
+              </h3>
+              <p className="mt-1 text-sm text-neutral-500">Sin compromiso. Te respondemos por teléfono o WhatsApp.</p>
+              <a
+                href="#presupuesto"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-electric-400 px-5 py-2.5 text-sm font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
+              >
+                Pedir presupuesto
+                <i className="ri-arrow-right-line" aria-hidden="true"></i>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -183,20 +197,22 @@ export default async function ServiceLocalityPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 md:px-6">
-        <h2 className="font-display text-center text-xl font-extrabold text-white">
-          {service.name} en otras zonas
-        </h2>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          {otherLocalities.map((l) => (
-            <Link
-              key={l.slug}
-              href={`/electricista-${l.slug}/${service.slug}`}
-              className="rounded-full border border-white/[0.1] px-5 py-2 text-sm font-semibold text-white/70 hover:border-electric-400/50 hover:text-electric-400"
-            >
-              {service.shortName} en {l.name}
-            </Link>
-          ))}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <h2 className="font-display text-center text-xl font-extrabold text-neutral-900">
+            {service.name} en otras zonas
+          </h2>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            {otherLocalities.map((l) => (
+              <Link
+                key={l.slug}
+                href={`/electricista-${l.slug}/${service.slug}`}
+                className="rounded-full border border-neutral-200 bg-neutral-50 px-5 py-2 text-sm font-semibold text-neutral-600 hover:border-electric-500/50 hover:text-electric-600"
+              >
+                {service.shortName} en {l.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </div>
