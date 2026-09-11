@@ -502,7 +502,7 @@ export default function SolicitudWizard() {
               <StepLayout
                 eyebrow={`Paso ${step}`}
                 title="¿Dónde lo necesitas?"
-                subtitle="Indícanos la dirección del servicio. Trabajamos en toda Bizkaia."
+                subtitle="Indícanos la dirección del servicio. Trabajamos en toda Euskadi."
                 back={() => go(3)}
               >
                 <div className="grid grid-cols-1 gap-x-5 gap-y-5">

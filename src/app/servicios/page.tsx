@@ -5,9 +5,9 @@ import CTASection from "@/components/CTASection";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
-  title: "Servicios de Electricista en Bizkaia",
+  title: "Servicios de Electricista en Euskadi",
   description:
-    "Averías eléctricas, cuadros eléctricos, cortocircuitos, iluminación LED, instalaciones y reparaciones. Electricista en Barakaldo, Bilbao y toda Bizkaia.",
+    "Averías eléctricas, cuadros eléctricos, cortocircuitos, iluminación LED, instalaciones y reparaciones. Electricista en Barakaldo, Bilbao y toda Euskadi.",
   alternates: { canonical: "/servicios" },
 };
 
@@ -21,7 +21,7 @@ export default function ServiciosPage() {
           <h1 className="font-display text-3xl font-extrabold sm:text-4xl">Servicios de Electricista</h1>
           <p className="mt-3 max-w-2xl text-white/50">
             Trabajos eléctricos para viviendas, comunidades y locales comerciales en Barakaldo, Bilbao y
-            toda Bizkaia.
+            toda Euskadi.
           </p>
         </div>
       </section>

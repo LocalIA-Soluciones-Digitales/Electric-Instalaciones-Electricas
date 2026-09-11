@@ -94,9 +94,9 @@ export const localities: Locality[] = [
     name: "Donostia - San Sebastián",
     province: "Gipuzkoa",
     isHome: false,
-    distanceNote: "Servicio en Gipuzkoa bajo disponibilidad",
+    distanceNote: "Servicio de electricista en toda Gipuzkoa",
     intro:
-      "Atendemos también solicitudes de electricista en Donostia - San Sebastián y alrededores, especialmente para instalaciones y reformas planificadas.",
+      "Damos servicio de electricista en Donostia - San Sebastián y alrededores, tanto para instalaciones y reformas planificadas como para averías, coordinando contigo el horario de la visita.",
     landmarks: ["Playa de la Concha"],
   },
   {
@@ -104,9 +104,9 @@ export const localities: Locality[] = [
     name: "Vitoria-Gasteiz",
     province: "Araba",
     isHome: false,
-    distanceNote: "Servicio en Araba bajo disponibilidad",
+    distanceNote: "Servicio de electricista en toda Araba",
     intro:
-      "En Vitoria-Gasteiz ofrecemos servicio de electricista para instalaciones, reformas y reparaciones, coordinando la visita con antelación.",
+      "En Vitoria-Gasteiz y el resto de Araba ofrecemos servicio de electricista para instalaciones, reformas, reparaciones y averías, coordinando contigo el horario de la visita.",
     landmarks: ["Casco Medieval de Vitoria-Gasteiz"],
   },
 ];

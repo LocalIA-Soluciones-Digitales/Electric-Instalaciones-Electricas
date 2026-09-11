@@ -7,7 +7,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Guías de Electricidad",
   description:
-    "Respuestas claras a las dudas eléctricas más comunes: diferenciales, boletín eléctrico, cortocircuitos y mantenimiento del cuadro. Por Electric, electricistas en Bizkaia.",
+    "Respuestas claras a las dudas eléctricas más comunes: diferenciales, boletín eléctrico, cortocircuitos y mantenimiento del cuadro. Por Electric, electricistas en Euskadi.",
   alternates: { canonical: "/guias" },
 };
 

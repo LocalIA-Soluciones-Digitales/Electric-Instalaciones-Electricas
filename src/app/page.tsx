@@ -14,16 +14,16 @@ import SolicitudWizard from "@/components/lead/SolicitudWizard";
 import PresupuestoForm from "@/components/lead/PresupuestoForm";
 
 export const metadata: Metadata = {
-  title: "Electricista en Barakaldo y Bizkaia 24 Horas",
+  title: "Electricista en Barakaldo y Euskadi 24 Horas",
   description:
-    "Electricista urgente en Barakaldo, Bilbao, Cruces y toda Bizkaia. Averías, cuadros eléctricos, instalaciones y reparaciones. Servicio 24h. Llama al 624 64 51 09.",
+    "Electricista urgente en Barakaldo, Bilbao, Cruces y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Servicio 24h. Llama al 624 64 51 09.",
   alternates: { canonical: "/" },
 };
 
 const homeFaqs = [
   {
-    q: "¿En qué zonas de Bizkaia trabajáis?",
-    a: "Damos servicio en Barakaldo, Cruces, Bilbao, Getxo, Portugalete, Santurtzi, Basauri, Durango y el resto de Bizkaia. También atendemos solicitudes en Gipuzkoa y Araba.",
+    q: "¿En qué zonas de Euskadi trabajáis?",
+    a: "Nuestra base está en Barakaldo, pero damos servicio de electricista en toda Euskadi: Bizkaia al completo (Bilbao, Cruces, Getxo, Portugalete, Santurtzi, Basauri, Durango...), así como Gipuzkoa y Araba.",
   },
   {
     q: "¿Cuánto cuesta un electricista en Barakaldo?",
@@ -55,12 +55,12 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 mb-6">
               <span className="h-px w-5 bg-electric-400"></span>
               <span className="text-[11px] md:text-xs font-bold uppercase tracking-[0.18em] text-electric-400">
-                Servicio 24 horas · Barakaldo y toda Bizkaia
+                Servicio 24 horas · Barakaldo y toda Euskadi
               </span>
             </div>
 
             <h1 className="text-shadow font-display max-w-2xl text-[2.4rem] leading-[1.05] sm:text-5xl md:text-6xl font-extrabold tracking-tight">
-              Electricista urgente en Barakaldo, Cruces y toda Bizkaia
+              Electricista urgente en Barakaldo, Cruces y toda Euskadi
             </h1>
 
             <p className="text-shadow-sm mt-5 max-w-xl text-base md:text-lg leading-relaxed text-white/60">
@@ -176,7 +176,7 @@ export default function HomePage() {
               </h2>
               <p className="mt-4 text-base md:text-lg text-white/50 leading-relaxed">
                 Electricistas cualificados para cualquier trabajo eléctrico en vivienda, comunidad o local
-                comercial, en Barakaldo y toda Bizkaia.
+                comercial, en Barakaldo y toda Euskadi.
               </p>
             </div>
           </div>
@@ -217,7 +217,7 @@ export default function HomePage() {
             Zonas donde damos servicio
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-white/50">
-            Electricista de confianza en Barakaldo y toda Bizkaia, con desplazamiento rápido a domicilio.
+            Electricista de confianza con base en Barakaldo y servicio en toda Euskadi, con desplazamiento rápido a domicilio.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             {localities.map((l) => (

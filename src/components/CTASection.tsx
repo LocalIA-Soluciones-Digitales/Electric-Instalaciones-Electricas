@@ -5,7 +5,7 @@ import { trackCallClick, trackWhatsAppClick } from "@/lib/tracking";
 
 export default function CTASection({
   title = "¿Necesitas un electricista ahora mismo?",
-  subtitle = "Respuesta rápida en Barakaldo, Bilbao y toda Bizkaia. Servicio 24 horas.",
+  subtitle = "Respuesta rápida en Barakaldo, Bilbao y toda Euskadi. Servicio 24 horas.",
   source,
 }: {
   title?: string;

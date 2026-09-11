@@ -26,17 +26,19 @@ const sora = Sora({
 export const metadata: Metadata = {
   metadataBase: new URL(business.domain),
   title: {
-    default: `Electricista en Barakaldo y Bizkaia 24 Horas | ${business.shortName}`,
+    default: `Electricista en Barakaldo y Euskadi 24 Horas | ${business.shortName}`,
     template: `%s | ${business.shortName}`,
   },
   description:
-    "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Bizkaia. Averías, cuadros eléctricos, instalaciones y reparaciones. Presupuesto sin compromiso. Llama al 624 64 51 09.",
+    "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Presupuesto sin compromiso. Llama al 624 64 51 09.",
   keywords: [
     "electricista barakaldo",
     "electricista cruces",
     "electricista bizkaia",
     "electricista bilbao",
     "electricista euskadi",
+    "electricista gipuzkoa",
+    "electricista araba",
     "electricista urgente",
     "avería eléctrica",
     "electricista 24 horas",
@@ -47,9 +49,9 @@ export const metadata: Metadata = {
     locale: "es_ES",
     url: business.domain,
     siteName: business.name,
-    title: "Electricista en Barakaldo y Bizkaia 24h | Electric",
+    title: "Electricista en Barakaldo y Euskadi 24h | Electric",
     description:
-      "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Bizkaia. Presupuesto sin compromiso.",
+      "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Presupuesto sin compromiso.",
   },
 };
 

@@ -20,7 +20,7 @@ export default function ContactoPage() {
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <h1 className="font-display text-3xl font-extrabold sm:text-4xl">Contacto</h1>
           <p className="mt-3 max-w-2xl text-white/50">
-            Estamos disponibles 24 horas para urgencias eléctricas en Barakaldo y toda Bizkaia. Elige la
+            Estamos disponibles 24 horas para urgencias eléctricas en Barakaldo y en toda Euskadi. Elige la
             forma de contacto que prefieras.
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function ContactoPage() {
           <div className="relative hidden md:block">
             <div className="aspect-[4/5] overflow-hidden rounded-sm">
               {/* eslint-disable-next-line @next/next/no-img-element -- imagen de referencia externa, ver src/lib/stockImages.ts */}
-              <img src={HERO_DESKTOP_IMAGE} alt="Electricista en Bizkaia" className="h-full w-full object-cover" />
+              <img src={HERO_DESKTOP_IMAGE} alt="Electricista en Euskadi" className="h-full w-full object-cover" />
             </div>
             <div className="absolute -bottom-3 -left-3 bg-electric-400 text-neutral-950 px-4 py-2 rounded-sm">
               <p className="text-[11px] font-bold uppercase tracking-[0.15em]">Atención 24h</p>

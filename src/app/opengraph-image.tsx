@@ -42,7 +42,7 @@ export default async function Image() {
           </div>
         </div>
         <div style={{ display: "flex", marginTop: 48, fontSize: 58, fontWeight: 800, lineHeight: 1.1, maxWidth: 920 }}>
-          Electricista urgente 24h en Barakaldo y Bizkaia
+          Electricista urgente 24h en Barakaldo y Euskadi
         </div>
         <div style={{ display: "flex", marginTop: 28, fontSize: 30, color: "#ffcb00", fontWeight: 700 }}>
           {business.phoneDisplay} · Presupuesto sin compromiso

@@ -2,7 +2,7 @@ export const business = {
   name: "Electric Instalaciones Eléctricas",
   shortName: "Electric",
   owner: "Eduardo Castellano",
-  slogan: "Electricista de confianza en Barakaldo y toda Bizkaia, disponible 24 horas",
+  slogan: "Electricista de confianza en Barakaldo y en toda Euskadi, disponible 24 horas",
   phone: "624645109",
   phoneDisplay: "624 64 51 09",
   whatsapp: "34624645109",

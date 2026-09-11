@@ -17,7 +17,7 @@ export const guides: Guide[] = [
     title: "Por qué salta el diferencial y qué hacer",
     metaTitle: "Por Qué Salta el Diferencial: Causas y Soluciones",
     metaDescription:
-      "¿El diferencial de tu cuadro eléctrico se dispara a menudo? Te explicamos las causas más habituales y cuándo conviene llamar a un electricista en Barakaldo y Bizkaia.",
+      "¿El diferencial de tu cuadro eléctrico se dispara a menudo? Te explicamos las causas más habituales y cuándo conviene llamar a un electricista en Barakaldo y en toda Euskadi.",
     excerpt:
       "El diferencial que salta una y otra vez no es un capricho del cuadro eléctrico: casi siempre avisa de algo concreto. Repasamos las causas más frecuentes y cuándo hay que dejar de reintentarlo.",
     relatedServiceSlug: "cuadros-electricos",
@@ -49,7 +49,7 @@ export const guides: Guide[] = [
         heading: "Cuándo es urgente llamar a un profesional",
         paragraphs: [
           "Si notas olor a quemado, el diferencial se calienta al tacto, salta varias veces en poco tiempo o afecta a toda la vivienda de golpe, no se trata de un ajuste menor: es una avería que debe diagnosticarse con el cuadro abierto y herramienta de medición.",
-          `En Electric diagnosticamos y reparamos diferenciales que saltan en Barakaldo y toda Bizkaia, con servicio de urgencia 24 horas.`,
+          `En Electric diagnosticamos y reparamos diferenciales que saltan en Barakaldo y en toda Euskadi, con servicio de urgencia 24 horas.`,
         ],
       },
     ],
@@ -67,9 +67,9 @@ export const guides: Guide[] = [
   {
     slug: "cuanto-cuesta-un-boletin-electrico",
     title: "Cuánto cuesta un boletín eléctrico",
-    metaTitle: "Cuánto Cuesta un Boletín Eléctrico en Bizkaia",
+    metaTitle: "Cuánto Cuesta un Boletín Eléctrico en Euskadi",
     metaDescription:
-      "Qué factores influyen en el precio de un boletín eléctrico (Certificado de Instalación Eléctrica) y cuándo es obligatorio tramitarlo. Electricista en Barakaldo y Bizkaia.",
+      "Qué factores influyen en el precio de un boletín eléctrico (Certificado de Instalación Eléctrica) y cuándo es obligatorio tramitarlo. Electricista en Barakaldo y en toda Euskadi.",
     excerpt:
       "El precio de un boletín eléctrico varía según lo que haya que legalizar, no según una tarifa fija. Te contamos qué factores lo mueven y cuándo es obligatorio pedirlo.",
     relatedServiceSlug: "cuadros-electricos",
