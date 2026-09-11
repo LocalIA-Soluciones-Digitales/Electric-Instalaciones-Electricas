@@ -27,7 +27,7 @@ export type AvisoStep = 1 | 2 | 3 | 4 | 5 | 6;
 const TOTAL_STEPS = 6;
 
 const inputCls =
-  "w-full rounded-md border border-white/[0.1] bg-neutral-900/70 px-4 py-3.5 text-base md:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-electric-400/50 transition-colors duration-200";
+  "w-full rounded-md border border-white/[0.1] bg-neutral-900/70 px-4 py-3.5 text-base md:text-[15px] text-white placeholder:text-white/30 focus:border-electric-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
 const labelCls = "mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-white/50";
 
 function guideFor(inc?: AvisoIncidence): GuideQuestion[] {
@@ -550,7 +550,7 @@ export default function SolicitudWizard() {
                   maxLength={500}
                   placeholder="Ej. Al enchufar la lavadora se va la luz en toda la casa…"
                   aria-label="Descripción del problema"
-                  className="w-full resize-none rounded-md border border-white/[0.1] bg-neutral-900/70 px-4 py-4 text-base text-white placeholder-white/30 outline-none transition-colors focus:border-electric-400/50"
+                  className="w-full resize-none rounded-md border border-white/[0.1] bg-neutral-900/70 px-4 py-4 text-base text-white placeholder-white/30 transition-colors focus:border-electric-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
                 ></textarea>
                 <p className="mt-2 text-right text-xs text-white/35">{data.description.length}/500</p>
                 <div className="mt-5">

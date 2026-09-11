@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { business, telLink, waLink } from "@/lib/business";
+import { WHATSAPP_GREETING_GENERAL, business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
 import { localities } from "@/lib/localities";
 import { guides } from "@/lib/guides";
@@ -29,7 +29,7 @@ export default function Footer() {
           </p>
           <p className="text-sm">
             <a
-              href={waLink("Hola, quería consultar sobre un servicio eléctrico.")}
+              href={waLink(WHATSAPP_GREETING_GENERAL)}
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-electric-400 hover:text-electric-300"

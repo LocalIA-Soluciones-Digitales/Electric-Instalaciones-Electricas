@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   PROPERTY_TYPES,
@@ -269,7 +270,7 @@ export default function ResumenEnvio({
             type="button"
             onClick={dispatch}
             disabled={sending}
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-[#25D366] px-7 py-4 text-base md:text-[15px] font-extrabold text-neutral-950 transition-all duration-200 hover:bg-[#1fbd5a] cursor-pointer disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-whatsapp px-7 py-4 text-base md:text-[15px] font-extrabold text-neutral-950 transition-all duration-200 hover:bg-whatsapp-600 cursor-pointer disabled:opacity-60"
           >
             {sending ? (
               <>
@@ -291,7 +292,12 @@ export default function ResumenEnvio({
           </a>
           <p className="text-center text-xs text-white/35">
             Al pulsar “Enviar” se abre WhatsApp con tu aviso hacia nuestro número y enviamos una
-            notificación interna por email (con la foto si la has añadido).
+            notificación interna por email (con la foto si la has añadido). Al continuar aceptas
+            nuestra{" "}
+            <Link href="/politica-privacidad" className="font-semibold text-electric-400 hover:underline">
+              Política de Privacidad
+            </Link>
+            .
           </p>
         </div>
       </div>

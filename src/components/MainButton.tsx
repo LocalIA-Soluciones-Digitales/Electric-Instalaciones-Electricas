@@ -27,7 +27,7 @@ export default function MainButton({
     primary: "bg-electric-400 text-neutral-950 hover:bg-electric-300 shadow-[0_0_0_1px_rgba(255,196,0,0.15)]",
     outline: "border border-white/20 text-white hover:border-white/40 hover:bg-white/5",
     white: "bg-white text-neutral-950 hover:bg-neutral-100",
-    whatsapp: "bg-[#25D366] text-white hover:bg-[#1fbd5a]",
+    whatsapp: "bg-whatsapp text-white hover:bg-whatsapp-600",
   };
   const classes = `${base} ${variants[variant]} ${className}`;
 

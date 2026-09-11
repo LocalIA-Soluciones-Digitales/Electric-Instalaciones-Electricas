@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import {
@@ -18,7 +19,7 @@ import PhotoPicker from "@/components/PhotoPicker";
 import TurnstileWidget from "@/components/lead/TurnstileWidget";
 
 const inputCls =
-  "w-full rounded-md border border-white/[0.1] bg-neutral-950/40 px-4 py-3 md:py-3.5 text-base text-white placeholder:text-white/30 focus:outline-none focus:border-electric-400/50 transition-colors duration-200";
+  "w-full rounded-md border border-white/[0.1] bg-neutral-950/40 px-4 py-3 md:py-3.5 text-base text-white placeholder:text-white/30 focus:border-electric-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
 const labelCls = "mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-white/50";
 
 const WORK_OPTIONS = [
@@ -203,7 +204,7 @@ export default function PresupuestoForm() {
                   href={waLink(`Hola, quería pedir un presupuesto. Trabajo: ${workType || "sin especificar"}`)}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-[#25D366]/25 px-6 md:px-7 py-3 md:py-3.5 text-[14px] md:text-[15px] font-bold text-[#25D366] hover:bg-[#25D366]/10 transition-all duration-200 cursor-pointer"
+                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-whatsapp/25 px-6 md:px-7 py-3 md:py-3.5 text-[14px] md:text-[15px] font-bold text-whatsapp hover:bg-whatsapp/10 transition-all duration-200 cursor-pointer"
                 >
                   <i className="ri-whatsapp-line text-lg" aria-hidden="true"></i> WhatsApp
                 </a>
@@ -259,7 +260,7 @@ export default function PresupuestoForm() {
                       maxLength={500}
                       placeholder="Describe el trabajo, la zona aproximada o cualquier detalle…"
                       aria-label="Descripción del trabajo"
-                      className="w-full resize-none rounded-md border border-white/[0.1] bg-neutral-950/40 px-4 py-3 md:py-3.5 text-base text-white placeholder:text-white/30 focus:outline-none focus:border-electric-400/50"
+                      className="w-full resize-none rounded-md border border-white/[0.1] bg-neutral-950/40 px-4 py-3 md:py-3.5 text-base text-white placeholder:text-white/30 focus:border-electric-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
                     ></textarea>
                     <p className="mt-1 text-right text-xs text-white/35">{description.length}/500</p>
                   </Field>
@@ -426,7 +427,11 @@ export default function PresupuestoForm() {
                     )}
                   </button>
                   <p className="text-center text-xs text-white/35">
-                    Usaremos tus datos para contactarte con un presupuesto a medida. También puedes{" "}
+                    Al enviar aceptas nuestra{" "}
+                    <Link href="/politica-privacidad" className="font-semibold text-electric-400 hover:underline">
+                      Política de Privacidad
+                    </Link>
+                    . Usaremos tus datos solo para contactarte con este presupuesto. También puedes{" "}
                     <a href={telLink()} className="font-semibold text-electric-400">
                       llamarnos al {business.phoneDisplay}
                     </a>

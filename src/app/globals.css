@@ -21,6 +21,10 @@
   --color-electric-700: #c08f00;
   --color-electric-800: #996f00;
   --color-electric-900: #7a5800;
+
+  --color-whatsapp: #25d366;
+  --color-whatsapp-300: #34e07a;
+  --color-whatsapp-600: #1fbd5a;
 }
 
 html {

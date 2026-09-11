@@ -2,6 +2,10 @@ export const business = {
   name: "Electric Instalaciones Eléctricas",
   shortName: "Electric",
   owner: "Eduardo Castellano",
+  // NIF del titular (autónomo). Exigido por el art. 10 LSSI-CE entre los datos
+  // identificativos obligatorios del Aviso Legal. Vacío a propósito: no se
+  // muestra la línea en /aviso-legal hasta rellenarlo con el dato real.
+  nif: "" as string, // p.ej. "12345678A"
   slogan: "Electricista de confianza en Barakaldo y en toda Euskadi, disponible 24 horas",
   phone: "677246374",
   phoneDisplay: "677 24 63 74",
@@ -50,3 +54,11 @@ export function waLink(message: string) {
 export function telLink() {
   return `tel:+${business.whatsapp}`;
 }
+
+// Saludos de WhatsApp centralizados: evita tener el mismo texto (o variantes
+// ligeramente distintas por descuido) repetido en cada componente que abre un
+// enlace de WhatsApp. "Urgent" se usa en los puntos de contacto orientados a
+// avería/urgencia (hero, CTA, header, barra móvil, botón flotante); "General"
+// en contextos de consulta no urgente (footer, página de contacto).
+export const WHATSAPP_GREETING_URGENT = "Hola, necesito un electricista. ¿Podéis ayudarme?";
+export const WHATSAPP_GREETING_GENERAL = "Hola, quería consultar sobre un servicio eléctrico.";

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { business, telLink, waLink } from "@/lib/business";
+import { WHATSAPP_GREETING_URGENT, business, telLink, waLink } from "@/lib/business";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/tracking";
 import { useCookieBannerVisible } from "@/lib/cookieConsent";
 
@@ -25,11 +25,11 @@ export default function MobileBar() {
       </a>
       <div className="w-px h-6 bg-white/[0.08]"></div>
       <a
-        href={waLink("Hola, necesito un electricista. ¿Podéis ayudarme?")}
+        href={waLink(WHATSAPP_GREETING_URGENT)}
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => trackWhatsAppClick("mobile_bar")}
-        className="flex flex-1 flex-col items-center justify-center gap-0.5 py-3 text-[#25D366] active:bg-white/5 transition-colors duration-150 cursor-pointer"
+        className="flex flex-1 flex-col items-center justify-center gap-0.5 py-3 text-whatsapp active:bg-white/5 transition-colors duration-150 cursor-pointer"
       >
         <i className="ri-whatsapp-line text-[20px]" aria-hidden="true"></i>
         <span className="text-[10px] font-bold tracking-wide uppercase">WhatsApp</span>

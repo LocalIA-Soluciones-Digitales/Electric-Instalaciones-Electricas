@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { business, telLink, waLink } from "@/lib/business";
+import { WHATSAPP_GREETING_URGENT, business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
 import { localities } from "@/lib/localities";
 import { COVERAGE_IMAGE, HERO_DESKTOP_IMAGE, HERO_MOBILE_IMAGE, SERVICES_IMAGE } from "@/lib/stockImages";
@@ -94,10 +94,10 @@ export default function HomePage() {
                 {business.phoneDisplay}
               </a>
               <a
-                href={waLink("Hola, necesito un electricista. ¿Podéis ayudarme?")}
+                href={waLink(WHATSAPP_GREETING_URGENT)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 text-sm font-bold text-[#25D366]/90 hover:text-[#25D366] transition-colors duration-200"
+                className="inline-flex items-center gap-2.5 text-sm font-bold text-whatsapp/90 hover:text-whatsapp transition-colors duration-200"
               >
                 <i className="ri-whatsapp-line text-lg" aria-hidden="true"></i>
                 WhatsApp
@@ -112,11 +112,18 @@ export default function HomePage() {
           {/* Imagen en escritorio */}
           <div className="hidden md:block md:flex-1 md:max-w-[42%]">
             <div className="relative aspect-[4/5] max-h-[520px] overflow-hidden rounded-lg">
+              {/* Sin `priority`: solo la imagen móvil (visible en la mayoría de
+                  visitas) se precarga. Con `priority` en ambas, el navegador
+                  emitía dos <link rel="preload"> y en móvil el preload de esta
+                  imagen (sizes 100vw al no cumplirse el min-width) competía por
+                  ancho de banda con la que realmente se pinta. `loading="eager"`
+                  evita el retraso de lazy-load en escritorio, donde sí es visible
+                  desde el primer pintado, sin duplicar el preload. */}
               <Image
                 src={HERO_DESKTOP_IMAGE}
                 alt="Electricista trabajando en un cuadro eléctrico de una vivienda"
                 fill
-                priority
+                loading="eager"
                 sizes="(min-width: 768px) 42vw, 100vw"
                 className="object-cover"
               />

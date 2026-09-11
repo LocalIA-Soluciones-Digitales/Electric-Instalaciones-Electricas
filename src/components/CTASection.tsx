@@ -1,6 +1,6 @@
 "use client";
 
-import { business, telLink, waLink } from "@/lib/business";
+import { WHATSAPP_GREETING_URGENT, business, telLink, waLink } from "@/lib/business";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/tracking";
 
 export default function CTASection({
@@ -27,11 +27,11 @@ export default function CTASection({
             Llamar: {business.phoneDisplay}
           </a>
           <a
-            href={waLink("Hola, necesito un electricista. ¿Podéis ayudarme?")}
+            href={waLink(WHATSAPP_GREETING_URGENT)}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick(source)}
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#25D366]/30 px-8 py-4 text-lg font-bold text-[#25D366] transition-colors duration-200 hover:bg-[#25D366]/10"
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-whatsapp/30 px-8 py-4 text-lg font-bold text-whatsapp transition-colors duration-200 hover:bg-whatsapp/10"
           >
             <i className="ri-whatsapp-line text-xl" aria-hidden="true"></i>
             WhatsApp

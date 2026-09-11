@@ -111,7 +111,7 @@ export default async function LocalityPage({
               href={waLink(`Hola, necesito un electricista en ${locality.name}.`)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-md border border-[#25D366]/30 px-6 py-4 text-center text-lg font-bold text-[#25D366] hover:bg-[#25D366]/10"
+              className="inline-flex items-center justify-center gap-2 rounded-md border border-whatsapp/30 px-6 py-4 text-center text-lg font-bold text-whatsapp hover:bg-whatsapp/10"
             >
               <i className="ri-whatsapp-line text-xl" aria-hidden="true"></i>
               WhatsApp
