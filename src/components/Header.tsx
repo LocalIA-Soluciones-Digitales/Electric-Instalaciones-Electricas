@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
@@ -24,10 +25,15 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2 leading-none group" onClick={() => setOpen(false)}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-electric-400 text-neutral-950 group-hover:scale-105 transition-transform duration-200">
-            <i className="ri-flashlight-fill text-base" aria-hidden="true"></i>
-          </span>
+        <Link href="/" className="flex items-center gap-2.5 leading-none group" onClick={() => setOpen(false)}>
+          <Image
+            src="/images/logo-mark.png"
+            alt={`${business.name} - logo`}
+            width={40}
+            height={40}
+            priority
+            className="h-9 w-9 md:h-10 md:w-10 shrink-0 group-hover:scale-105 transition-transform duration-200"
+          />
           <div className="flex flex-col items-start">
             <span className="font-display text-lg md:text-xl font-extrabold tracking-tight text-white">
               {business.shortName.toUpperCase()}

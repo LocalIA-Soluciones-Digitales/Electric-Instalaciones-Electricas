@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { WHATSAPP_GREETING_GENERAL, business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
@@ -9,10 +10,14 @@ export default function Footer() {
     <footer className="border-t border-white/[0.06] bg-neutral-950 text-white/60">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:px-6 sm:grid-cols-2 md:grid-cols-5">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-electric-400 text-neutral-950">
-              <i className="ri-flashlight-fill text-xs" aria-hidden="true"></i>
-            </span>
+          <div className="flex items-center gap-2.5">
+            <Image
+              src="/images/logo-mark.png"
+              alt={`${business.name} - logo`}
+              width={32}
+              height={32}
+              className="h-8 w-8 shrink-0"
+            />
             <span className="font-display text-base font-extrabold tracking-tight text-white">
               {business.shortName.toUpperCase()}
             </span>
