@@ -37,6 +37,92 @@ function guideFor(inc?: AvisoIncidence): GuideQuestion[] {
   return one ? [one] : [];
 }
 
+const DANGER_INCIDENCES = INCIDENCES.filter((i) => i.danger);
+const COMMON_INCIDENCES = INCIDENCES.filter((i) => !i.danger && !i.unsure && i.id !== "otro");
+const FALLBACK_INCIDENCES = INCIDENCES.filter((i) => i.unsure || i.id === "otro");
+
+function IncidenceTile({
+  inc,
+  active,
+  onClick,
+}: {
+  inc: AvisoIncidence;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`group relative flex flex-col items-center gap-2.5 rounded-xl border px-3 py-4 text-center transition-all duration-200 cursor-pointer ${
+        active
+          ? "border-electric-400/60 bg-electric-400/10"
+          : inc.danger
+          ? "border-red-900/30 bg-red-950/10 hover:border-red-600/50 hover:bg-red-950/20"
+          : inc.unsure
+          ? "border-dashed border-electric-400/40 hover:border-electric-400 hover:bg-electric-400/5"
+          : "border-white/10 bg-white/[0.02] hover:border-electric-400/50 hover:bg-white/[0.04]"
+      }`}
+    >
+      {inc.danger && (
+        <span className="absolute right-2 top-2 rounded-full bg-red-600 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+          Urgente
+        </span>
+      )}
+      <span
+        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-lg transition-colors duration-200 ${
+          active
+            ? "bg-electric-400 text-neutral-950"
+            : inc.danger
+            ? "bg-red-950/40 text-red-400"
+            : "bg-electric-400/15 text-electric-400 group-hover:bg-electric-400 group-hover:text-neutral-950"
+        }`}
+      >
+        <i className={inc.icon} aria-hidden="true"></i>
+      </span>
+      <span className="text-[13px] md:text-sm font-semibold leading-snug text-white/85 group-hover:text-white">
+        {inc.label}
+      </span>
+    </button>
+  );
+}
+
+function IncidenceSection({
+  label,
+  icon,
+  labelClassName,
+  items,
+  columns,
+  activeId,
+  onChoose,
+}: {
+  label: string;
+  icon?: string;
+  labelClassName?: string;
+  items: AvisoIncidence[];
+  columns: string;
+  activeId?: string;
+  onChoose: (inc: AvisoIncidence) => void;
+}) {
+  return (
+    <div>
+      <p
+        className={`mb-2.5 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] ${
+          labelClassName ?? "text-white/40"
+        }`}
+      >
+        {icon && <i className={icon} aria-hidden="true"></i>} {label}
+      </p>
+      <div className={`grid gap-2.5 ${columns}`}>
+        {items.map((inc) => (
+          <IncidenceTile key={inc.id} inc={inc} active={activeId === inc.id} onClick={() => onChoose(inc)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function StepLayout({
   eyebrow,
   title,
@@ -379,45 +465,30 @@ export default function SolicitudWizard() {
                 title="¿Qué te ocurre?"
                 subtitle="Elige la opción que mejor lo describa. Si no estás seguro, no pasa nada: marca “No sé qué le pasa” y te guiamos."
               >
-                <div className="grid grid-cols-1 gap-2.5">
-                  {INCIDENCES.map((inc) => {
-                    const active = data.incidence?.id === inc.id;
-                    return (
-                      <button
-                        key={inc.id}
-                        type="button"
-                        onClick={() => chooseIncidence(inc)}
-                        aria-pressed={active}
-                        className={`group flex items-center gap-3 rounded-lg border px-4 py-3.5 text-left text-sm md:text-[15px] font-semibold transition-all duration-200 cursor-pointer ${
-                          active
-                            ? "border-electric-400/60 bg-electric-400/10 text-white"
-                            : inc.danger
-                            ? "border-red-900/30 text-white/85 hover:border-red-600/50 hover:bg-red-950/20"
-                            : inc.unsure
-                            ? "border-dashed border-electric-400/40 text-white hover:border-electric-400 hover:bg-electric-400/5"
-                            : "border-white/10 bg-white/[0.02] text-white/75 hover:border-electric-400/50 hover:bg-white/[0.04] hover:text-white"
-                        }`}
-                      >
-                        <span
-                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-base transition-colors duration-200 ${
-                            active
-                              ? "bg-electric-400 text-neutral-950"
-                              : inc.danger
-                              ? "bg-red-950/40 text-red-400"
-                              : "bg-electric-400/15 text-electric-400 group-hover:bg-electric-400 group-hover:text-neutral-950"
-                          }`}
-                        >
-                          <i className={inc.icon} aria-hidden="true"></i>
-                        </span>
-                        <span className="leading-snug">{inc.label}</span>
-                        {inc.danger && (
-                          <span className="ml-auto hidden text-[10px] font-bold uppercase tracking-wider text-red-400 sm:block">
-                            Urgente
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
+                <div className="space-y-6">
+                  <IncidenceSection
+                    label="Riesgo eléctrico: actúa ya"
+                    icon="ri-alarm-warning-line"
+                    labelClassName="text-red-400"
+                    items={DANGER_INCIDENCES}
+                    columns="grid-cols-2"
+                    activeId={data.incidence?.id}
+                    onChoose={chooseIncidence}
+                  />
+                  <IncidenceSection
+                    label="Problemas más comunes"
+                    items={COMMON_INCIDENCES}
+                    columns="grid-cols-2 sm:grid-cols-3"
+                    activeId={data.incidence?.id}
+                    onChoose={chooseIncidence}
+                  />
+                  <IncidenceSection
+                    label="¿No lo tienes claro?"
+                    items={FALLBACK_INCIDENCES}
+                    columns="grid-cols-2"
+                    activeId={data.incidence?.id}
+                    onChoose={chooseIncidence}
+                  />
                 </div>
               </StepLayout>
             )}
