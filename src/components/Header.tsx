@@ -50,7 +50,7 @@ export default function Header() {
                   href={`/servicios/${s.slug}`}
                   className="block rounded px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-electric-400"
                 >
-                  {s.name}
+                  {s.navLabel ?? s.name}
                 </Link>
               ))}
             </div>
@@ -117,7 +117,7 @@ export default function Header() {
                 onClick={() => setOpen(false)}
                 className="text-sm font-semibold text-white/70 hover:text-electric-400"
               >
-                {s.name}
+                {s.navLabel ?? s.name}
               </Link>
             ))}
             <div className="border-t border-white/[0.06] pt-4 flex flex-col gap-4">

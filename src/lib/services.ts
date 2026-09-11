@@ -2,6 +2,8 @@ export type Service = {
   slug: string;
   name: string;
   shortName: string;
+  /** Etiqueta alternativa para menús de navegación (si no se define, se usa `name`). */
+  navLabel?: string;
   metaTitle: string;
   metaDescription: string;
   h1: string;
@@ -110,6 +112,7 @@ export const services: Service[] = [
     slug: "iluminacion-led",
     name: "Iluminación LED",
     shortName: "Iluminación LED",
+    navLabel: "Iluminación",
     metaTitle: "Instalación de Iluminación LED en Bizkaia",
     metaDescription:
       "Diseño e instalación de iluminación LED eficiente para viviendas, locales y comercios en Barakaldo y Bizkaia. Ahorra en tu factura de luz.",
