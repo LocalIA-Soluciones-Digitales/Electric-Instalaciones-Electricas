@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { services } from "@/lib/services";
+import { HERO_DESKTOP_IMAGE, COVERAGE_IMAGE } from "@/lib/stockImages";
 import CTASection from "@/components/CTASection";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
@@ -11,37 +13,117 @@ export const metadata: Metadata = {
   alternates: { canonical: "/servicios" },
 };
 
+// Icono representativo por servicio (remixicon). Solo de uso visual en esta página.
+const SERVICE_ICONS: Record<string, string> = {
+  "averias-electricas": "ri-alarm-warning-line",
+  "cuadros-electricos": "ri-server-line",
+  cortocircuitos: "ri-fire-line",
+  "iluminacion-led": "ri-lightbulb-flash-line",
+  "instalaciones-electricas": "ri-plug-line",
+  "reparaciones-electricas": "ri-tools-line",
+  "puntos-recarga-vehiculo-electrico": "ri-charging-pile-2-line",
+  "electricista-urgente-24h": "ri-24-hours-line",
+};
+
 export default function ServiciosPage() {
   return (
     <div>
       <BreadcrumbJsonLd items={[{ name: "Inicio", path: "/" }, { name: "Servicios", path: "/servicios" }]} />
 
-      <section className="bg-neutral-950 py-14 text-white">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">Servicios de Electricista</h1>
-          <p className="mt-3 max-w-2xl text-white/50">
+      <section className="relative overflow-hidden bg-neutral-950 py-20 text-white md:py-28">
+        <div className="absolute inset-0" aria-hidden="true">
+          <Image
+            src={HERO_DESKTOP_IMAGE}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/80 via-neutral-950/85 to-neutral-950"></div>
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 md:px-6">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-px w-5 bg-electric-400"></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+              Nuestros servicios
+            </span>
+          </div>
+          <h1 className="text-shadow font-display mt-4 max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
+            Un electricista. Todos los trabajos. Una sola llamada.
+          </h1>
+          <p className="text-shadow-sm mt-4 max-w-2xl text-base text-white/60 md:text-lg">
             Trabajos eléctricos para viviendas, comunidades y locales comerciales en Barakaldo, Bilbao y
-            toda Euskadi.
+            toda Euskadi, con presupuesto claro antes de intervenir.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14 md:px-6">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <Link
-              key={s.slug}
-              href={`/servicios/${s.slug}`}
-              className="group rounded-lg border border-white/[0.08] bg-neutral-900/60 p-6 transition-colors duration-200 hover:border-electric-400/40"
-            >
-              <h2 className="font-display text-lg font-bold text-white group-hover:text-electric-400">
-                {s.name}
-              </h2>
-              <p className="mt-2 text-sm text-white/50">{s.intro.slice(0, 120)}…</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-400">
-                Ver más <i className="ri-arrow-right-line" aria-hidden="true"></i>
-              </span>
-            </Link>
+      <section className="bg-neutral-50">
+        <div className="mx-auto max-w-6xl divide-y divide-neutral-200 px-4 md:px-6">
+          {services.map((s, i) => (
+            <div key={s.slug} className="grid gap-6 py-10 md:grid-cols-[auto_1fr] md:gap-10 md:py-12">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-electric-100 text-2xl text-electric-600">
+                <i className={SERVICE_ICONS[s.slug] ?? "ri-flashlight-line"} aria-hidden="true"></i>
+              </div>
+
+              <div>
+                <Link href={`/servicios/${s.slug}`} className="group inline-flex items-center gap-2">
+                  <h2 className="font-display text-xl font-extrabold text-neutral-900 group-hover:text-electric-600 sm:text-2xl">
+                    {s.name}
+                  </h2>
+                  <i
+                    className="ri-arrow-right-line text-lg text-neutral-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-electric-600"
+                    aria-hidden="true"
+                  ></i>
+                </Link>
+                <p className="mt-2 max-w-2xl text-neutral-600">{s.intro}</p>
+
+                <ul className="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+                  {s.bullets.slice(0, 4).map((b) => (
+                    <li key={b} className="flex items-start gap-2 text-sm text-neutral-600">
+                      <i className="ri-check-line mt-0.5 shrink-0 text-electric-600" aria-hidden="true"></i>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href={`/servicios/${s.slug}#presupuesto`}
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-electric-400 px-5 py-2.5 text-sm font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
+                >
+                  Pedir presupuesto para {s.shortName.toLowerCase()}
+                  <i className="ri-arrow-right-line" aria-hidden="true"></i>
+                </Link>
+              </div>
+
+              {i === 3 && (
+                <div className="relative col-span-full my-4 overflow-hidden rounded-2xl">
+                  <div className="relative aspect-[16/6] w-full">
+                    <Image
+                      src={COVERAGE_IMAGE}
+                      alt="Vista de Euskadi, zona de cobertura del servicio"
+                      fill
+                      sizes="(min-width: 768px) 72vw, 100vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-neutral-950/55"></div>
+                  </div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+                      Cobertura
+                    </p>
+                    <p className="font-display text-xl font-extrabold text-white sm:text-2xl">
+                      Trabajamos en toda Euskadi
+                    </p>
+                    <p className="max-w-md text-sm text-white/70">
+                      Bizkaia, Gipuzkoa y Araba, con desplazamiento rápido a domicilio.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </section>
