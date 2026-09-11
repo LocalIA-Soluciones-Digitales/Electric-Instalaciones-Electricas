@@ -34,7 +34,7 @@ el aviso se sigue enviando por WhatsApp aunque no haya `RESEND_API_KEY`).
 ## Datos de negocio (editar en `src/lib/business.ts`)
 
 Extraídos de la tarjeta comercial: **Electric Instalaciones Eléctricas** (Eduardo Castellano),
-624 64 51 09, eduardocastellano16049806@gmail.com, Calle Cruces 18 Local 4, 48903 Barakaldo, Bizkaia.
+677 24 63 74, eduardocastellano16049806@gmail.com, Calle Cruces 18 Local 4, 48903 Barakaldo, Bizkaia.
 El **dominio usado en metadatos/schema es un placeholder** (`electric-euskadi.es`) — sustitúyelo en
 `business.domain` en cuanto se compre el dominio real.
 

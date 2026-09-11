@@ -3,9 +3,9 @@ export const business = {
   shortName: "Electric",
   owner: "Eduardo Castellano",
   slogan: "Electricista de confianza en Barakaldo y en toda Euskadi, disponible 24 horas",
-  phone: "624645109",
-  phoneDisplay: "624 64 51 09",
-  whatsapp: "34624645109",
+  phone: "677246374",
+  phoneDisplay: "677 24 63 74",
+  whatsapp: "34677246374",
   email: "eduardocastellano16049806@gmail.com",
   address: {
     street: "Calle Cruces, 18, Local 4",

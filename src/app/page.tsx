@@ -16,7 +16,7 @@ import PresupuestoForm from "@/components/lead/PresupuestoForm";
 export const metadata: Metadata = {
   title: "Electricista en Barakaldo y Euskadi 24 Horas",
   description:
-    "Electricista urgente en Barakaldo, Bilbao, Cruces y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Servicio 24h. Llama al 624 64 51 09.",
+    "Electricista urgente en Barakaldo, Bilbao, Cruces y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Servicio 24h. Llama al 677 24 63 74.",
   alternates: { canonical: "/" },
 };
 

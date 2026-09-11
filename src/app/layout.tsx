@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: `%s | ${business.shortName}`,
   },
   description:
-    "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Presupuesto sin compromiso. Llama al 624 64 51 09.",
+    "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Presupuesto sin compromiso. Llama al 677 24 63 74.",
   keywords: [
     "electricista barakaldo",
     "electricista cruces",
