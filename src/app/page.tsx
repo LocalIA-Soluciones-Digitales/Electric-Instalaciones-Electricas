@@ -59,8 +59,8 @@ export default function HomePage() {
               </span>
             </div>
 
-            <h1 className="text-shadow font-display max-w-2xl text-[2.4rem] leading-[1.05] sm:text-5xl md:text-6xl font-extrabold tracking-tight">
-              Electricista urgente en Barakaldo, Cruces y toda Euskadi
+            <h1 className="text-shadow font-display max-w-2xl text-[2.4rem] leading-[1.15] sm:text-5xl md:text-6xl font-extrabold tracking-tight">
+              Electricista urgente en Barakaldo y toda Euskadi
             </h1>
 
             <p className="text-shadow-sm mt-5 max-w-xl text-base md:text-lg leading-relaxed text-white/60">
