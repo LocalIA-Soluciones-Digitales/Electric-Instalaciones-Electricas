@@ -35,8 +35,7 @@ el aviso se sigue enviando por WhatsApp aunque no haya `RESEND_API_KEY`).
 
 Extraídos de la tarjeta comercial: **Electric Instalaciones Eléctricas** (Eduardo Castellano),
 677 24 63 74, eduardocastellano16049806@gmail.com, Calle Cruces 18 Local 4, 48903 Barakaldo, Bizkaia.
-El **dominio usado en metadatos/schema es un placeholder** (`electric-euskadi.es`) — sustitúyelo en
-`business.domain` en cuanto se compre el dominio real.
+El **dominio en `business.domain`** es `electricbarakaldo.com` — actualízalo si se compra otro.
 
 **Enfoque de posicionamiento**: la web se centra 100% en "electricista" (avería, cuadro, instalación,
 urgencias). Los servicios de reformas/pintura que aparecen en el reverso de la tarjeta no se han

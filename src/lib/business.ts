@@ -23,7 +23,7 @@ export const business = {
     lat: 43.2969,
     lng: -2.9836,
   },
-  domain: "https://www.electric-euskadi.es",
+  domain: "https://www.electricbarakaldo.com",
   openingHours: "24/7",
   priceRange: "€€",
   foundingArea: "Barakaldo, Bizkaia",
