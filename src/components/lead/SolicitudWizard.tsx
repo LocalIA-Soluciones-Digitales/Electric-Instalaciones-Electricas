@@ -143,7 +143,7 @@ function StepLayout({
           type="button"
           onClick={back}
           aria-label="Volver al paso anterior"
-          className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-white/45 transition-colors duration-200 hover:text-electric-400 cursor-pointer"
+          className="mb-5 flex items-center gap-1.5 text-sm font-semibold text-white/45 transition-colors duration-200 hover:text-electric-400 cursor-pointer"
         >
           <i className="ri-arrow-left-line" aria-hidden="true"></i> Atrás
         </button>
