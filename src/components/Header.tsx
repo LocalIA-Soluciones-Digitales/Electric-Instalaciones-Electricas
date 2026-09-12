@@ -55,7 +55,7 @@ export default function Header() {
             <span className="font-display text-lg md:text-xl font-extrabold tracking-tight text-neutral-900">
               {business.shortName.toUpperCase()}
             </span>
-            <span className="text-[9px] uppercase tracking-[0.15em] text-neutral-400 leading-none mt-0.5 hidden sm:block">
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.15em] text-neutral-400 leading-none mt-0.5 whitespace-nowrap">
               Instalaciones Eléctricas
             </span>
           </div>

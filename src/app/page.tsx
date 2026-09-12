@@ -11,8 +11,7 @@ import Faq, { FaqJsonLd } from "@/components/Faq";
 import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
 import ParallaxBanner from "@/components/ParallaxBanner";
-import SolicitudWizard from "@/components/lead/SolicitudWizard";
-import PresupuestoForm from "@/components/lead/PresupuestoForm";
+import ContactHub from "@/components/lead/ContactHub";
 
 export const metadata: Metadata = {
   title: "Electricista en Barakaldo y Euskadi 24 Horas",
@@ -39,6 +38,11 @@ const homeFaqs = [
     a: "Sí, tramitamos el boletín eléctrico para instalaciones nuevas, ampliaciones de cuadro y reformas que lo requieran.",
   },
 ];
+
+const localitiesByProvince = localities.reduce<Record<string, typeof localities>>((acc, l) => {
+  (acc[l.province] ??= []).push(l);
+  return acc;
+}, {});
 
 const trustStrip = [
   { icon: "ri-time-line", label: "Servicio 24h · 365 días" },
@@ -123,7 +127,7 @@ export default function HomePage() {
       <AboutPro />
 
       {/* Servicios */}
-      <section id="servicios" className="bg-white py-16 md:py-24">
+      <section id="servicios" className="bg-white py-10 md:py-24">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <Reveal className="text-center">
             <div className="inline-flex items-center gap-2">
@@ -226,16 +230,30 @@ export default function HomePage() {
                 Electricista de confianza con base en Barakaldo y servicio en toda Euskadi, con
                 desplazamiento rápido a domicilio.
               </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                {localities.map((l) => (
-                  <Link
-                    key={l.slug}
-                    href={`/electricista-${l.slug}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-600 transition-colors duration-200 hover:border-electric-400/60 hover:text-electric-600"
-                  >
-                    <i className="ri-map-pin-2-line" aria-hidden="true"></i>
-                    Electricista en {l.name}
-                  </Link>
+              <div className="mt-8 grid grid-cols-1 gap-4 text-left sm:grid-cols-3">
+                {Object.entries(localitiesByProvince).map(([province, items]) => (
+                  <div key={province} className="rounded-2xl border border-neutral-200 bg-white/80 p-5">
+                    <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-electric-600">
+                      <i className="ri-map-pin-2-fill" aria-hidden="true"></i>
+                      {province}
+                    </p>
+                    <ul className="mt-3 flex flex-col divide-y divide-neutral-100">
+                      {items.map((l) => (
+                        <li key={l.slug}>
+                          <Link
+                            href={`/electricista-${l.slug}`}
+                            className="group flex items-center justify-between gap-2 py-2 text-sm font-semibold text-neutral-700 transition-colors duration-200 hover:text-electric-600"
+                          >
+                            {l.name}
+                            <i
+                              className="ri-arrow-right-s-line text-neutral-300 transition-colors duration-200 group-hover:text-electric-500"
+                              aria-hidden="true"
+                            ></i>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
               </div>
             </div>
@@ -261,8 +279,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <SolicitudWizard />
-      <PresupuestoForm />
+      <ContactHub />
 
       <section className="bg-white py-16">
         <div className="mx-auto max-w-3xl px-4 md:px-6">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import {
   INCIDENCE_GUIDE,
   INCIDENCES,
@@ -350,6 +350,7 @@ function initialData(): AvisoData {
 
 export default function SolicitudWizard() {
   const { ref, visible } = useScrollReveal<HTMLElement>();
+  const stepTopRef = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState<AvisoStep>(1);
   const [data, setData] = useState<AvisoData>(initialData());
   const [guideValues, setGuideValues] = useState<Record<string, string>>({});
@@ -372,10 +373,20 @@ export default function SolicitudWizard() {
     setTouchError("");
   };
 
+  // Al cambiar de paso, el móvil mantiene el scroll donde estaba: si el paso
+  // anterior era más largo que el nuevo, el nuevo paso puede quedar por debajo
+  // de la pantalla. Se sube hasta el principio del paso en cada transición.
+  const scrollToStepTop = () => {
+    requestAnimationFrame(() => {
+      stepTopRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
+
   const go = (next: AvisoStep) => {
     setStep(next);
     setAtSummary(false);
     setTouchError("");
+    scrollToStepTop();
   };
 
   const chooseIncidence = (inc: AvisoIncidence) => {
@@ -423,6 +434,7 @@ export default function SolicitudWizard() {
     if (step === 2) flushAnswers();
     if (step === TOTAL_STEPS) {
       setAtSummary(true);
+      scrollToStepTop();
       return;
     }
     go((step + 1) as AvisoStep);
@@ -465,7 +477,10 @@ export default function SolicitudWizard() {
         </div>
 
         {!submitted && (
-          <div className={`reveal reveal-delay-1 ${visible ? "visible" : ""} mt-8 md:mt-10`}>
+          <div
+            ref={stepTopRef}
+            className={`reveal reveal-delay-1 ${visible ? "visible" : ""} mt-8 scroll-mt-20 md:mt-10`}
+          >
             <div className="flex items-center gap-4">
               <div
                 className="h-[3px] flex-1 overflow-hidden rounded-full bg-neutral-200"
