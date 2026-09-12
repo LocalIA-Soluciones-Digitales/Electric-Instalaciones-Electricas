@@ -7,6 +7,7 @@ import {
   TIME_SLOTS,
   buildWhatsAppMessage,
   formatFechaHora,
+  formatOtherDate,
   generarIdAviso,
   isValidEmail,
   isValidPhone,
@@ -132,8 +133,10 @@ export default function ResumenEnvio({
 
   const availability =
     data.urgency === "otro"
-      ? [data.otherDate, data.otherSlot].filter(Boolean).join(" · ")
-      : `${urgencyLabelTxt}${slotLabel ? ` · ${slotLabel}` : ""}${data.otherDate ? ` · ${data.otherDate}` : ""}`;
+      ? [formatOtherDate(data.otherDate), data.otherSlot].filter(Boolean).join(" · ")
+      : `${urgencyLabelTxt}${slotLabel ? ` · ${slotLabel}` : ""}${
+          data.otherDate ? ` · ${formatOtherDate(data.otherDate)}` : ""
+        }`;
 
   return (
     <div className="mt-6 md:mt-8 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm diag-enter">

@@ -261,6 +261,14 @@ export function formatFechaHora(d = new Date()) {
   return `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
 }
 
+// El <input type="date"> entrega "AAAA-MM-DD"; se muestra como "DD/MM/AAAA"
+// para que coincida con el formato de "Recibido" en el mismo mensaje.
+export function formatOtherDate(raw?: string) {
+  if (!raw) return raw;
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(raw);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : raw;
+}
+
 function propertyLabel(id: string) {
   return PROPERTY_TYPES.find((p) => p.id === id)?.label ?? id;
 }
@@ -332,7 +340,7 @@ export function buildWhatsAppMessage(
   L.push(waSection("🕐 DISPONIBILIDAD"));
   const disp =
     data.urgency === "otro"
-      ? [data.otherDate, data.otherSlot].filter(Boolean).join(" · ")
+      ? [formatOtherDate(data.otherDate), data.otherSlot].filter(Boolean).join(" · ")
       : urgencyLabel(data.urgency);
   L.push(waField("Preferencia", disp || "Sin especificar"));
   L.push("");
@@ -422,7 +430,7 @@ export function buildInternalEmail(
     ${emailRow(
       "Preferencia",
       data.urgency === "otro"
-        ? [data.otherDate, data.otherSlot].filter(Boolean).join(" · ")
+        ? [formatOtherDate(data.otherDate), data.otherSlot].filter(Boolean).join(" · ")
         : urgencyLabel(data.urgency)
     )}
     ${emailSection("📎 Información del aviso")}
