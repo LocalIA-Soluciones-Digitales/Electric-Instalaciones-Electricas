@@ -64,8 +64,16 @@ export default function HomePage() {
       {/* Hero */}
       <section id="hero" className="relative flex min-h-[92vh] items-end overflow-hidden bg-neutral-950 text-white">
         <div className="absolute inset-0" aria-hidden="true">
-          <Image src={HERO_IMAGE} alt="" fill priority sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/45 to-neutral-950/20"></div>
+          <Image
+            src={HERO_IMAGE}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="scale-110 object-cover object-center blur-[2px] brightness-[0.85] saturate-[1.1] md:scale-105 md:blur-[1px]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/55 to-neutral-950/35"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/40 via-transparent to-neutral-950/40"></div>
         </div>
 
         <div className="relative mx-auto w-full max-w-6xl px-4 pb-14 pt-32 text-center md:px-6 md:pb-20 md:pt-40">
