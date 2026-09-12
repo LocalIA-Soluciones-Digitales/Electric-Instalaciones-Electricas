@@ -3,8 +3,11 @@
 // cableado) aportadas para el rediseño claro y premium de la web — sustituir por
 // fotografías reales del negocio en cuanto estén disponibles.
 
-/** Cuadro eléctrico premium (fondo oscuro, cableado naranja/amarillo organizado). */
-export const HERO_IMAGE =
+/** Cuadro eléctrico con cableado de colores, desenfocado y oscurecido para servir de fondo del hero. */
+export const HERO_IMAGE = "/images/hero-panel-nublado.jpg";
+
+/** Cuadro eléctrico premium (fondo oscuro, cableado naranja/amarillo organizado), nítido para tarjetas. */
+export const PANEL_LUXURY_IMAGE =
   "/images/lucid-origin_Luxury_electrical_distribution_board_with_perfectly_organized_wiring_modern_circ-0.jpg";
 
 // Se mantienen ambos nombres (mismo archivo) para no romper los sitios que ya
@@ -35,9 +38,9 @@ export const PANEL_CLOSEUP_IMAGE =
 export const SERVICE_CARD_IMAGE: Record<string, string | null> = {
   "averias-electricas": SERVICES_IMAGE,
   "cuadros-electricos": PANEL_CLOSEUP_IMAGE,
-  cortocircuitos: HERO_IMAGE,
+  cortocircuitos: PANEL_LUXURY_IMAGE,
   "iluminacion-led": LIGHTING_IMAGE,
-  "instalaciones-electricas": HERO_IMAGE,
+  "instalaciones-electricas": PANEL_LUXURY_IMAGE,
   "reparaciones-electricas": SERVICES_IMAGE,
   "electricista-urgente-24h": PANEL_CLOSEUP_IMAGE,
 };
