@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { WHATSAPP_GREETING_URGENT, business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/tracking";
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -42,7 +44,14 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2.5 leading-none group" onClick={() => setOpen(false)}>
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 leading-none group"
+          onClick={() => {
+            setOpen(false);
+            if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
           <Image
             src="/images/logo-mark.png"
             alt={`${business.name} - logo`}

@@ -60,9 +60,9 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/45 to-neutral-950/20"></div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-6xl px-4 pb-14 pt-32 md:px-6 md:pb-20 md:pt-40">
+        <div className="relative mx-auto w-full max-w-6xl px-4 pb-14 pt-32 text-center md:px-6 md:pb-20 md:pt-40">
           <Reveal>
-            <div className="inline-flex items-center gap-2 mb-6">
+            <div className="mb-6 inline-flex items-center gap-2">
               <span className="h-px w-5 bg-electric-400"></span>
               <span className="text-[11px] md:text-xs font-bold uppercase tracking-[0.18em] text-electric-400">
                 Servicio 24 horas · Barakaldo y toda Euskadi
@@ -71,20 +71,20 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <h1 className="font-display max-w-2xl text-[2.4rem] leading-[1.12] sm:text-5xl md:text-6xl font-extrabold tracking-tight">
+            <h1 className="font-display mx-auto max-w-2xl text-[2.4rem] leading-[1.12] sm:text-5xl md:text-6xl font-extrabold tracking-tight">
               Electricista de confianza en Barakaldo y toda Euskadi
             </h1>
           </Reveal>
 
           <Reveal delay={0.16}>
-            <p className="mt-5 max-w-xl text-base md:text-lg leading-relaxed text-white/70">
+            <p className="mx-auto mt-5 max-w-xl text-base md:text-lg leading-relaxed text-white/70">
               Averías, cortocircuitos, cuadros eléctricos e instalaciones. Respuesta rápida, presupuesto
               claro y servicio disponible las 24 horas, los 365 días del año.
             </p>
           </Reveal>
 
           <Reveal delay={0.24}>
-            <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
+            <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
               <a
                 href="#solicitud"
                 className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-electric-400 px-7 py-3.5 text-[15px] font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
@@ -103,7 +103,7 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={0.32}>
-            <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-t border-white/15 pt-6">
+            <div className="mt-8 flex flex-wrap justify-center gap-x-7 gap-y-3 border-t border-white/15 pt-6">
               {trustStrip.map((t) => (
                 <span key={t.label} className="inline-flex items-center gap-2 text-sm font-semibold text-white/80">
                   <i className={`${t.icon} text-electric-400`} aria-hidden="true"></i>
