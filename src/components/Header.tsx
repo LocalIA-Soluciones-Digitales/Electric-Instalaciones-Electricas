@@ -12,6 +12,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -27,6 +28,8 @@ export default function Header() {
       return () => {
         document.documentElement.style.overflow = original;
       };
+    } else {
+      setMobileServicesOpen(false);
     }
   }, [open]);
 
@@ -166,17 +169,47 @@ export default function Header() {
           >
             <div className="px-4 py-5">
               <nav className="flex flex-col gap-4">
-                <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-400">Servicios</span>
-                {services.map((s) => (
-                  <Link
-                    key={s.slug}
-                    href={`/servicios/${s.slug}`}
-                    onClick={() => setOpen(false)}
-                    className="text-sm font-semibold text-neutral-700 hover:text-electric-600"
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => setMobileServicesOpen((v) => !v)}
+                    aria-expanded={mobileServicesOpen}
+                    className="flex w-full items-center justify-between text-sm font-semibold text-neutral-800"
                   >
-                    {s.navLabel ?? s.name}
-                  </Link>
-                ))}
+                    Servicios
+                    <i
+                      className={`ri-arrow-down-s-line text-lg text-neutral-400 transition-transform duration-200 ${
+                        mobileServicesOpen ? "rotate-180" : ""
+                      }`}
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <AnimatePresence>
+                    {mobileServicesOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="flex flex-col gap-3 pt-3 pl-1">
+                          {services.map((s) => (
+                            <Link
+                              key={s.slug}
+                              href={`/servicios/${s.slug}`}
+                              onClick={() => setOpen(false)}
+                              className="flex items-center gap-2.5 text-sm font-semibold text-neutral-700 hover:text-electric-600"
+                            >
+                              <i className={`${s.icon} text-electric-500`} aria-hidden="true"></i>
+                              {s.navLabel ?? s.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <div className="border-t border-neutral-200 pt-4 flex flex-col gap-4">
                   <Link href="/electricista-barakaldo" onClick={() => setOpen(false)} className="text-sm font-semibold text-neutral-800">
                     Zonas donde trabajamos
