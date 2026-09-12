@@ -84,6 +84,12 @@ Para añadir una localidad o servicio nuevo, basta con añadir una entrada en
   una notificación interna por email a `business.email` vía `src/app/api/lead/route.ts` (incluyendo la
   foto adjunta si el usuario la añadió). Sin esa variable, el aviso sigue llegando por WhatsApp con
   normalidad.
+- **Rate limiting y archivo de respaldo**: si se configuran `UPSTASH_REDIS_REST_URL` /
+  `UPSTASH_REDIS_REST_TOKEN` (capa gratuita de [Upstash](https://upstash.com)), `/api/lead` usa un
+  contador distribuido (válido entre instancias serverless, a diferencia del límite en memoria por
+  defecto) y guarda cada aviso/presupuesto en una lista de respaldo, para que quede registrado aunque
+  el email interno falle. Sin esas variables, el rate limit sigue funcionando en memoria y el archivo
+  simplemente no se escribe.
 
 ### Próximos pasos para activar Ads
 

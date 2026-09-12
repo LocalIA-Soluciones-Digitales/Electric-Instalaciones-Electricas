@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { business, telLink, waLink } from "@/lib/business";
+import { WHATSAPP_GREETING_URGENT, business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/tracking";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -45,11 +46,32 @@ export default function Header() {
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7">
-          <div className="group relative py-2">
-            <span className="text-sm font-semibold text-white/60 hover:text-white transition-colors duration-200 cursor-default">
+          <div
+            className="relative py-2"
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+            onFocus={() => setServicesOpen(true)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node)) setServicesOpen(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setServicesOpen(false);
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setServicesOpen((v) => !v)}
+              aria-expanded={servicesOpen}
+              aria-haspopup="true"
+              className="text-sm font-semibold text-white/60 hover:text-white transition-colors duration-200 cursor-pointer"
+            >
               Servicios
-            </span>
-            <div className="invisible absolute left-0 top-full z-10 w-64 rounded-md border border-white/[0.08] bg-neutral-900 p-2 opacity-0 shadow-xl transition duration-200 group-hover:visible group-hover:opacity-100">
+            </button>
+            <div
+              className={`absolute left-0 top-full z-10 w-64 rounded-md border border-white/[0.08] bg-neutral-900 p-2 shadow-xl transition duration-200 ${
+                servicesOpen ? "visible opacity-100" : "invisible opacity-0"
+              }`}
+            >
               {services.map((s) => (
                 <Link
                   key={s.slug}
@@ -74,11 +96,11 @@ export default function Header() {
 
         <div className="hidden lg:flex items-center gap-5">
           <a
-            href={waLink("Hola, necesito un electricista. ¿Podéis ayudarme?")}
+            href={waLink(WHATSAPP_GREETING_URGENT)}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick("header")}
-            className="text-sm font-semibold text-[#25D366] hover:text-[#34e07a] transition-colors duration-200"
+            className="text-sm font-semibold text-whatsapp hover:text-whatsapp-300 transition-colors duration-200"
           >
             WhatsApp
           </a>
@@ -139,11 +161,11 @@ export default function Header() {
             </div>
             <div className="border-t border-white/[0.06] pt-4 flex flex-col gap-3">
               <a
-                href={waLink("Hola, necesito un electricista. ¿Podéis ayudarme?")}
+                href={waLink(WHATSAPP_GREETING_URGENT)}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWhatsAppClick("header_mobile_menu")}
-                className="flex items-center gap-2 text-sm font-semibold text-[#25D366]"
+                className="flex items-center gap-2 text-sm font-semibold text-whatsapp"
               >
                 <i className="ri-whatsapp-line" aria-hidden="true"></i>
                 WhatsApp

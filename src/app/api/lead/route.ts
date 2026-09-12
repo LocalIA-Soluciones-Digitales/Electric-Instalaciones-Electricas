@@ -5,6 +5,7 @@ import { LeadRequestSchema } from "@/lib/leadSchema";
 import { decodeImageOrNull } from "@/lib/imageValidation";
 import { checkRateLimit, clientIpFrom } from "@/lib/rateLimit";
 import { verifyTurnstile } from "@/lib/turnstile";
+import { archiveLead } from "@/lib/leadStore";
 
 export const runtime = "nodejs";
 
@@ -45,7 +46,7 @@ export async function POST(req: Request) {
   }
 
   // 3. Rate limiting por IP.
-  if (!checkRateLimit(ip)) {
+  if (!(await checkRateLimit(ip))) {
     console.warn(`[api/lead] rate limit excedido (ip=${ip})`);
     return genericError(429, "demasiadas-solicitudes", "Demasiadas solicitudes, inténtalo más tarde.");
   }
@@ -86,11 +87,6 @@ export async function POST(req: Request) {
     return genericError(400, "email-invalido", "El email no es válido.");
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return genericError(503, "email-no-config", "El envío de email interno aún no está configurado.");
-  }
-
   const avisoId = sanitizeAvisoId(body.avisoId, body.kind === "aviso" ? "ELEC" : "BUD");
   const timestamp = new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" });
 
@@ -101,6 +97,25 @@ export async function POST(req: Request) {
   if (body.photo) {
     photoBuffer = decodeImageOrNull(body.photo);
     if (!photoBuffer) console.warn(`[api/lead] foto adjunta rechazada (ip=${ip})`);
+  }
+
+  // 7b. Archivo de respaldo (no-op si Upstash no está configurado): el aviso
+  // queda registrado aquí independientemente de si el email interno llega a
+  // enviarse o no, para que nunca se pierda solo por un fallo de Resend.
+  const archive = (emailSent: boolean) =>
+    archiveLead({
+      avisoId,
+      kind: body.kind,
+      data: body.data,
+      hasPhoto: !!photoBuffer,
+      emailSent,
+      createdAt: new Date().toISOString(),
+    });
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    await archive(false);
+    return genericError(503, "email-no-config", "El envío de email interno aún no está configurado.");
   }
 
   // 8. El asunto/HTML/texto del email se construyen siempre en el servidor a
@@ -128,11 +143,14 @@ export async function POST(req: Request) {
     const resJson = await res.json().catch(() => null);
     if (!res.ok) {
       console.error(`[api/lead] error de Resend (ip=${ip})`, res.status, resJson);
+      await archive(false);
       return genericError(502, "resend-error", "No se pudo enviar el email.");
     }
+    await archive(true);
     return NextResponse.json({ ok: true, emailId: resJson?.id });
   } catch (err) {
     console.error(`[api/lead] fallo al llamar a Resend (ip=${ip})`, err);
+    await archive(false);
     return genericError(502, "resend-error", "No se pudo enviar el email.");
   }
 }
