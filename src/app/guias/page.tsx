@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { guides } from "@/lib/guides";
 import CTASection from "@/components/CTASection";
+import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
@@ -16,15 +17,11 @@ export default function GuiasPage() {
     <div>
       <BreadcrumbJsonLd items={[{ name: "Inicio", path: "/" }, { name: "Guías", path: "/guias" }]} />
 
-      <section className="bg-neutral-950 py-14 text-white">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">Guías de Electricidad</h1>
-          <p className="mt-3 max-w-2xl text-white/50">
-            Respuestas claras, sin tecnicismos, a las dudas que más nos preguntan por teléfono antes de
-            pedir presupuesto.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Guías de Electricidad"
+        subtitle="Respuestas claras, sin tecnicismos, a las dudas que más nos preguntan por teléfono antes de pedir presupuesto."
+        contentWidth="6xl"
+      />
 
       <section className="bg-neutral-50 py-14">
         <div className="mx-auto max-w-6xl px-4 md:px-6">

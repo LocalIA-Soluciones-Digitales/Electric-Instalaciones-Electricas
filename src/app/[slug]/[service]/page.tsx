@@ -7,6 +7,7 @@ import { business, telLink, waLink } from "@/lib/business";
 import CTASection from "@/components/CTASection";
 import TrustBadges from "@/components/TrustBadges";
 import Faq, { FaqJsonLd } from "@/components/Faq";
+import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ServiceJsonLd from "@/components/ServiceJsonLd";
 import PresupuestoForm from "@/components/lead/PresupuestoForm";
@@ -71,47 +72,35 @@ export default async function ServiceLocalityPage({
       />
       <ServiceJsonLd service={service} locality={locality.name} />
 
-      <section className="bg-neutral-950 py-14 md:py-16 text-white">
-        <div className="mx-auto max-w-4xl px-4 md:px-6">
-          <nav className="mb-4 text-sm text-white/40">
-            <Link href="/" className="hover:text-electric-400">
-              Inicio
-            </Link>{" "}
-            /{" "}
-            <Link href={`/electricista-${locality.slug}`} className="hover:text-electric-400">
-              Electricista en {locality.name}
-            </Link>{" "}
-            / <span className="text-white/70">{service.name}</span>
-          </nav>
-          <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-electric-400/10 px-4 py-1 text-sm font-semibold text-electric-400">
-            {locality.province} · Servicio 24 horas
-          </p>
-          <h1 className="font-display text-3xl font-extrabold leading-tight sm:text-4xl">
-            {service.name} en {locality.name}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-white/60">
-            {service.intro} {locality.distanceNote}.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href={telLink()}
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-electric-400 px-6 py-4 text-center text-lg font-extrabold text-neutral-950 hover:bg-electric-300"
-            >
-              <i className="ri-phone-line text-xl" aria-hidden="true"></i>
-              Llamar: {business.phoneDisplay}
-            </a>
-            <a
-              href={waLink(`Hola, necesito ${service.shortName.toLowerCase()} en ${locality.name}.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-md border border-whatsapp/30 px-6 py-4 text-center text-lg font-bold text-whatsapp hover:bg-whatsapp/10"
-            >
-              <i className="ri-whatsapp-line text-xl" aria-hidden="true"></i>
-              WhatsApp
-            </a>
-          </div>
+      <PageHero
+        breadcrumb={[
+          { name: "Inicio", href: "/" },
+          { name: `Electricista en ${locality.name}`, href: `/electricista-${locality.slug}` },
+          { name: service.name },
+        ]}
+        eyebrow={`${locality.province} · Servicio 24 horas`}
+        title={`${service.name} en ${locality.name}`}
+        subtitle={`${service.intro} ${locality.distanceNote}.`}
+      >
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={telLink()}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-electric-400 px-6 py-4 text-center text-lg font-extrabold text-neutral-950 hover:bg-electric-300"
+          >
+            <i className="ri-phone-line text-xl" aria-hidden="true"></i>
+            Llamar: {business.phoneDisplay}
+          </a>
+          <a
+            href={waLink(`Hola, necesito ${service.shortName.toLowerCase()} en ${locality.name}.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-whatsapp/30 bg-whatsapp/10 px-6 py-4 text-center text-lg font-bold text-whatsapp-600 hover:bg-whatsapp/15"
+          >
+            <i className="ri-whatsapp-line text-xl" aria-hidden="true"></i>
+            WhatsApp
+          </a>
         </div>
-      </section>
+      </PageHero>
 
       <section className="bg-white py-12">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
@@ -178,9 +167,9 @@ export default async function ServiceLocalityPage({
         title={`${service.shortName} en ${locality.name}: te atendemos ahora`}
       />
 
-      <section className="bg-neutral-900 py-16">
+      <section className="bg-cloud py-16">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h2 className="font-display text-center text-xl font-extrabold text-white">
+          <h2 className="font-display text-center text-xl font-extrabold text-neutral-900">
             Otros servicios en {locality.name}
           </h2>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -188,7 +177,7 @@ export default async function ServiceLocalityPage({
               <Link
                 key={s.slug}
                 href={`/electricista-${locality.slug}/${s.slug}`}
-                className="rounded-full border border-white/[0.1] px-5 py-2 text-sm font-semibold text-white/70 hover:border-electric-400/50 hover:text-electric-400"
+                className="rounded-full border border-neutral-200 bg-white px-5 py-2 text-sm font-semibold text-neutral-600 hover:border-electric-400/60 hover:text-electric-600"
               >
                 {s.name} en {locality.name}
               </Link>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { business, telLink, waLink } from "@/lib/business";
-import { HERO_DESKTOP_IMAGE } from "@/lib/stockImages";
+import { PANEL_CLOSEUP_IMAGE } from "@/lib/stockImages";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import PageHero from "@/components/PageHero";
 import PresupuestoForm from "@/components/lead/PresupuestoForm";
 
 export const metadata: Metadata = {
@@ -16,15 +17,11 @@ export default function ContactoPage() {
     <div>
       <BreadcrumbJsonLd items={[{ name: "Inicio", path: "/" }, { name: "Contacto", path: "/contacto" }]} />
 
-      <section className="bg-neutral-950 py-14 text-white">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">Contacto</h1>
-          <p className="mt-3 max-w-2xl text-white/50">
-            Estamos disponibles 24 horas para urgencias eléctricas en Barakaldo y en toda Euskadi. Elige la
-            forma de contacto que prefieras.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Contacto"
+        subtitle="Estamos disponibles 24 horas para urgencias eléctricas en Barakaldo y en toda Euskadi. Elige la forma de contacto que prefieras."
+        contentWidth="6xl"
+      />
 
       <section className="bg-neutral-50 py-14">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
@@ -67,9 +64,9 @@ export default function ContactoPage() {
               </ul>
             </div>
             <div className="relative hidden md:block">
-              <div className="aspect-[4/5] overflow-hidden rounded-xl">
+              <div className="aspect-[4/5] overflow-hidden rounded-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element -- imagen de referencia externa, ver src/lib/stockImages.ts */}
-                <img src={HERO_DESKTOP_IMAGE} alt="Electricista en Euskadi" className="h-full w-full object-cover" />
+                <img src={PANEL_CLOSEUP_IMAGE} alt="Cuadro eléctrico organizado" className="h-full w-full object-cover" />
               </div>
               <div className="absolute -bottom-3 -left-3 bg-electric-400 text-neutral-950 px-4 py-2 rounded-sm">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em]">Atención 24h</p>
