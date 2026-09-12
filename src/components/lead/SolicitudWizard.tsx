@@ -55,23 +55,21 @@ function IncidenceTile({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`group relative flex flex-col items-center gap-2.5 rounded-xl border px-3 py-4 text-center transition-all duration-200 cursor-pointer ${
+      className={`group relative flex flex-col items-center gap-2.5 rounded-2xl border px-3 py-5 text-center transition-all duration-200 cursor-pointer hover:-translate-y-0.5 hover:shadow-md ${
         active
-          ? "border-electric-500/60 bg-electric-400/10"
+          ? "border-electric-500 bg-electric-400/10 shadow-md ring-1 ring-electric-400/30"
           : inc.danger
-          ? "border-red-200 bg-red-50 hover:border-red-300 hover:bg-red-100/60"
-          : inc.unsure
-          ? "border-dashed border-electric-400/50 hover:border-electric-500 hover:bg-electric-400/5"
+          ? "border-red-200 bg-white hover:border-red-300 hover:bg-red-50/70"
           : "border-neutral-200 bg-white hover:border-electric-400/60 hover:bg-electric-50/40"
       }`}
     >
       {inc.danger && (
-        <span className="absolute right-2 top-2 rounded-full bg-red-600 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
-          Urgente
+        <span className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-red-600 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+          <i className="ri-flashlight-fill text-[10px]" aria-hidden="true"></i> Urgente
         </span>
       )}
       <span
-        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-lg transition-colors duration-200 ${
+        className={`flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl text-xl sm:text-2xl transition-colors duration-200 ${
           active
             ? "bg-electric-400 text-neutral-950"
             : inc.danger
@@ -81,25 +79,49 @@ function IncidenceTile({
       >
         <i className={inc.icon} aria-hidden="true"></i>
       </span>
-      <span className="text-[13px] md:text-sm font-semibold leading-snug text-neutral-700 group-hover:text-neutral-900">
-        {inc.label}
+      <span>
+        <span className="block text-[13px] md:text-sm font-bold leading-snug text-neutral-800 group-hover:text-neutral-900">
+          {inc.label}
+        </span>
+        {inc.hint && (
+          <span className="mt-0.5 block text-[11px] leading-snug text-neutral-400">{inc.hint}</span>
+        )}
       </span>
     </button>
   );
 }
 
+function DangerSection({
+  items,
+  activeId,
+  onChoose,
+}: {
+  items: AvisoIncidence[];
+  activeId?: string;
+  onChoose: (inc: AvisoIncidence) => void;
+}) {
+  return (
+    <div className="rounded-2xl border border-red-200 bg-red-50/70 p-4">
+      <p className="mb-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-red-600">
+        <i className="ri-alarm-warning-line text-sm" aria-hidden="true"></i> Riesgo eléctrico: actúa ya
+      </p>
+      <div className="grid grid-cols-2 gap-2.5">
+        {items.map((inc) => (
+          <IncidenceTile key={inc.id} inc={inc} active={activeId === inc.id} onClick={() => onChoose(inc)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function IncidenceSection({
   label,
-  icon,
-  labelClassName,
   items,
   columns,
   activeId,
   onChoose,
 }: {
   label: string;
-  icon?: string;
-  labelClassName?: string;
   items: AvisoIncidence[];
   columns: string;
   activeId?: string;
@@ -107,19 +129,54 @@ function IncidenceSection({
 }) {
   return (
     <div>
-      <p
-        className={`mb-2.5 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] ${
-          labelClassName ?? "text-neutral-400"
-        }`}
-      >
-        {icon && <i className={icon} aria-hidden="true"></i>} {label}
-      </p>
+      <p className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-neutral-400">{label}</p>
       <div className={`grid gap-2.5 ${columns}`}>
         {items.map((inc) => (
           <IncidenceTile key={inc.id} inc={inc} active={activeId === inc.id} onClick={() => onChoose(inc)} />
         ))}
       </div>
     </div>
+  );
+}
+
+function IncidenceHelperRow({
+  inc,
+  active,
+  onClick,
+}: {
+  inc: AvisoIncidence;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`group flex items-center gap-3 rounded-xl border px-4 py-3.5 text-left transition-all duration-200 cursor-pointer hover:-translate-y-0.5 hover:shadow-md ${
+        active
+          ? "border-electric-500 bg-electric-400/10 shadow-md"
+          : "border-dashed border-electric-400/50 bg-electric-50/30 hover:border-electric-500 hover:bg-electric-400/5"
+      }`}
+    >
+      <span
+        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-lg transition-colors duration-200 ${
+          active
+            ? "bg-electric-400 text-neutral-950"
+            : "bg-electric-100 text-electric-600 group-hover:bg-electric-400 group-hover:text-neutral-950"
+        }`}
+      >
+        <i className={inc.icon} aria-hidden="true"></i>
+      </span>
+      <span className="flex-1">
+        <span className="block text-sm font-bold text-neutral-800">{inc.label}</span>
+        {inc.hint && <span className="block text-xs text-neutral-500">{inc.hint}</span>}
+      </span>
+      <i
+        className="ri-arrow-right-s-line text-lg text-neutral-300 transition-colors group-hover:text-electric-500"
+        aria-hidden="true"
+      ></i>
+    </button>
   );
 }
 
@@ -465,13 +522,9 @@ export default function SolicitudWizard() {
                 title="¿Qué te ocurre?"
                 subtitle="Elige la opción que mejor lo describa. Si no estás seguro, no pasa nada: marca “No sé qué le pasa” y te guiamos."
               >
-                <div className="space-y-6">
-                  <IncidenceSection
-                    label="Riesgo eléctrico: actúa ya"
-                    icon="ri-alarm-warning-line"
-                    labelClassName="text-red-600"
+                <div className="space-y-7">
+                  <DangerSection
                     items={DANGER_INCIDENCES}
-                    columns="grid-cols-2"
                     activeId={data.incidence?.id}
                     onChoose={chooseIncidence}
                   />
@@ -482,13 +535,21 @@ export default function SolicitudWizard() {
                     activeId={data.incidence?.id}
                     onChoose={chooseIncidence}
                   />
-                  <IncidenceSection
-                    label="¿No lo tienes claro?"
-                    items={FALLBACK_INCIDENCES}
-                    columns="grid-cols-2"
-                    activeId={data.incidence?.id}
-                    onChoose={chooseIncidence}
-                  />
+                  <div>
+                    <p className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-neutral-400">
+                      ¿No lo tienes claro?
+                    </p>
+                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                      {FALLBACK_INCIDENCES.map((inc) => (
+                        <IncidenceHelperRow
+                          key={inc.id}
+                          inc={inc}
+                          active={data.incidence?.id === inc.id}
+                          onClick={() => chooseIncidence(inc)}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </StepLayout>
             )}

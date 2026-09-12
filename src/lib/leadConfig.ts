@@ -40,22 +40,29 @@ export const SERVICE_ELECTRIC: AvisoService = {
 export interface AvisoIncidence {
   id: string;
   label: string;
+  hint?: string;
   icon: string;
   danger?: boolean;
   unsure?: boolean;
 }
 
 export const INCIDENCES: AvisoIncidence[] = [
-  { id: "sinluz", label: "Me he quedado sin luz", icon: "ri-flashlight-line" },
-  { id: "diferencial", label: "Salta el diferencial", icon: "ri-swap-box-line" },
-  { id: "automatico", label: "Salta el automático", icon: "ri-toggle-line" },
+  { id: "sinluz", label: "Me he quedado sin luz", hint: "En toda la casa o en parte", icon: "ri-flashlight-line" },
+  { id: "diferencial", label: "Salta el diferencial", hint: "El interruptor grande del cuadro", icon: "ri-swap-box-line" },
+  { id: "automatico", label: "Salta el automático", hint: "Uno de los interruptores pequeños", icon: "ri-toggle-line" },
   { id: "chispas", label: "Hay chispas o cortocircuito", icon: "ri-alert-line", danger: true },
   { id: "quemado", label: "Huele a quemado", icon: "ri-fire-line", danger: true },
-  { id: "iluminacion", label: "Problema de iluminación", icon: "ri-lightbulb-line" },
-  { id: "enchufes", label: "Enchufes o interruptores", icon: "ri-plug-line" },
-  { id: "reparacion", label: "Necesito una reparación", icon: "ri-tools-line" },
-  { id: "no-sabe", label: "No sé qué le pasa", icon: "ri-question-line", unsure: true },
-  { id: "otro", label: "Otro problema", icon: "ri-chat-smile-3-line" },
+  { id: "iluminacion", label: "Problema de iluminación", hint: "No enciende o parpadea", icon: "ri-lightbulb-line" },
+  { id: "enchufes", label: "Enchufes o interruptores", hint: "No dan corriente o están sueltos", icon: "ri-plug-line" },
+  { id: "reparacion", label: "Necesito una reparación", hint: "Sé lo que necesito", icon: "ri-tools-line" },
+  {
+    id: "no-sabe",
+    label: "No sé qué le pasa",
+    hint: "Te hacemos preguntas sencillas",
+    icon: "ri-question-line",
+    unsure: true,
+  },
+  { id: "otro", label: "Otro problema", hint: "Descríbelo con tus palabras", icon: "ri-chat-smile-3-line" },
 ];
 
 /* ---------- PREGUNTAS GUIADAS ----------
