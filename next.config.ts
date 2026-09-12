@@ -1,30 +1,21 @@
 import type { NextConfig } from "next";
-import { createHash } from "crypto";
-import { CONSENT_MODE_SCRIPT, gtmLoaderScript, metaPixelScript } from "./src/lib/inlineScripts";
 
-// Hashes en vez de 'unsafe-inline': los tres <script> sin `src` que existen en
-// el sitio (Analytics.tsx) tienen contenido fijo por despliegue (las claves
-// NEXT_PUBLIC_* son variables de entorno de build, no de request), así que su
-// SHA-256 se puede calcular aquí mismo, en next.config.ts, sin necesitar
-// middleware ni forzar renderizado dinámico en las páginas estáticas del
-// sitio. Si algún día cambia el texto de esos scripts, este hash se recalcula
-// solo porque ambos lados importan src/lib/inlineScripts.ts.
-function sha256(content: string) {
-  return createHash("sha256").update(content, "utf8").digest("base64");
-}
-
-const gtmId = process.env.NEXT_PUBLIC_GTM_ID || "";
-const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || "";
-
-const inlineScriptHashes = [sha256(CONSENT_MODE_SCRIPT)];
-if (gtmId) inlineScriptHashes.push(sha256(gtmLoaderScript(gtmId)));
-if (metaPixelId) inlineScriptHashes.push(sha256(metaPixelScript(metaPixelId)));
-
-const scriptSrcHashes = inlineScriptHashes.map((h) => `'sha256-${h}'`).join(" ");
-
+// 'unsafe-inline' en script-src (no hashes): el App Router de Next.js emite
+// sus propios <script> inline sin `src` en cada respuesta para hidratar los
+// Server Components en streaming (los payloads de RSC vía self.__next_f.push),
+// con contenido distinto en cada página e incluso en cada build. Un
+// allowlist de hashes fijos (como el que había aquí antes, calculado solo
+// para los scripts de Analytics.tsx) no puede cubrirlos: el navegador bloquea
+// esos scripts de Next y la hidratación de React no llega a completarse en
+// ninguna página, dejando inertes todos los componentes interactivos del
+// sitio (el asistente de solicitud, el desplegable de servicios del header,
+// el formulario de presupuesto...). Cubrir esto correctamente requeriría un
+// nonce por petición vía middleware, lo que a su vez obliga a renderizado
+// dinámico en todas las páginas (hoy estáticas). Se prioriza que el sitio
+// funcione.
 const csp = [
   "default-src 'self'",
-  `script-src 'self' ${scriptSrcHashes} https://www.googletagmanager.com https://connect.facebook.net https://challenges.cloudflare.com`,
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self'",

@@ -46,8 +46,8 @@ function EditRow({
   return value && value.trim() ? (
     <div className="flex items-center justify-between gap-4 py-3.5">
       <div className="min-w-0">
-        <dt className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/40">{label}</dt>
-        <dd className={`mt-1 text-sm font-semibold ${danger ? "text-red-400" : "text-white/90"}`}>
+        <dt className="text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-400">{label}</dt>
+        <dd className={`mt-1 text-sm font-semibold ${danger ? "text-red-600" : "text-neutral-900"}`}>
           {value}
         </dd>
       </div>
@@ -55,7 +55,7 @@ function EditRow({
         type="button"
         onClick={onEdit}
         aria-label={`Modificar ${label}`}
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/15 text-white/50 hover:border-electric-400/50 hover:text-electric-400 transition-colors duration-200 cursor-pointer"
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-neutral-200 text-neutral-500 hover:border-electric-400/60 hover:text-electric-600 transition-colors duration-200 cursor-pointer"
       >
         <i className="ri-edit-line text-sm" aria-hidden="true"></i>
       </button>
@@ -66,8 +66,8 @@ function EditRow({
 function Row({ label, value }: { label: string; value: string }) {
   return value && value.trim() ? (
     <div className="flex flex-col gap-1 py-3.5">
-      <dt className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/40">{label}</dt>
-      <dd className="text-sm font-semibold text-white/90">{value}</dd>
+      <dt className="text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-400">{label}</dt>
+      <dd className="text-sm font-semibold text-neutral-900">{value}</dd>
     </div>
   ) : null;
 }
@@ -139,27 +139,27 @@ export default function ResumenEnvio({
       : `${urgencyLabelTxt}${slotLabel ? ` · ${slotLabel}` : ""}${data.otherDate ? ` · ${data.otherDate}` : ""}`;
 
   return (
-    <div className="mt-6 md:mt-8 overflow-hidden rounded-xl border border-white/[0.08] bg-neutral-900/60 diag-enter">
-      <div className="border-b border-white/[0.06] px-5 md:px-6 py-5 flex items-center justify-between">
+    <div className="mt-6 md:mt-8 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm diag-enter">
+      <div className="border-b border-neutral-200 px-5 md:px-6 py-5 flex items-center justify-between">
         <div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
             Tu solicitud
           </span>
-          <h3 className="font-display mt-1 text-xl md:text-2xl font-extrabold text-white">
+          <h3 className="font-display mt-1 text-xl md:text-2xl font-extrabold text-neutral-900">
             Perfecto. Revisa los datos
           </h3>
         </div>
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/45 hover:text-electric-400 transition-colors duration-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-500 hover:text-electric-600 transition-colors duration-200 cursor-pointer"
         >
           <i className="ri-arrow-left-line" aria-hidden="true"></i> Atrás
         </button>
       </div>
 
       <div className="px-5 md:px-6 py-2">
-        <dl className="divide-y divide-white/[0.06]">
+        <dl className="divide-y divide-neutral-100">
           <EditRow label="Servicio" value={data.service.label} onEdit={() => onEdit(1)} />
           {incidence && (
             <EditRow
@@ -174,26 +174,26 @@ export default function ResumenEnvio({
           ))}
           <div className="flex items-center justify-between gap-4 py-3.5">
             <div className="min-w-0">
-              <dt className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/40">
+              <dt className="text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-400">
                 Descripción
               </dt>
-              <dd className="mt-1 text-sm font-semibold text-white/90">{data.description || "—"}</dd>
+              <dd className="mt-1 text-sm font-semibold text-neutral-900">{data.description || "—"}</dd>
             </div>
             <button
               type="button"
               onClick={() => onEdit(3)}
               aria-label="Modificar descripción"
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/15 text-white/50 hover:border-electric-400/50 hover:text-electric-400 transition-colors duration-200 cursor-pointer"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-neutral-200 text-neutral-500 hover:border-electric-400/60 hover:text-electric-600 transition-colors duration-200 cursor-pointer"
             >
               <i className="ri-edit-line text-sm" aria-hidden="true"></i>
             </button>
           </div>
           <div className="flex items-center justify-between gap-4 py-3.5">
             <div className="min-w-0">
-              <dt className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/40">
+              <dt className="text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-400">
                 Ubicación
               </dt>
-              <dd className="mt-1 text-sm font-semibold text-white/90">
+              <dd className="mt-1 text-sm font-semibold text-neutral-900">
                 {[data.address, data.locality, data.postalCode].filter(Boolean).join(", ") || "—"}
                 {propertyLabel && ` · ${propertyLabel}`}
               </dd>
@@ -202,7 +202,7 @@ export default function ResumenEnvio({
               type="button"
               onClick={() => onEdit(4)}
               aria-label="Modificar ubicación"
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/15 text-white/50 hover:border-electric-400/50 hover:text-electric-400 transition-colors duration-200 cursor-pointer"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-neutral-200 text-neutral-500 hover:border-electric-400/60 hover:text-electric-600 transition-colors duration-200 cursor-pointer"
             >
               <i className="ri-edit-line text-sm" aria-hidden="true"></i>
             </button>
@@ -215,28 +215,28 @@ export default function ResumenEnvio({
 
         {photo && (
           <div className="mt-3">
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-white/40">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-400">
               Fotografía adjunta
             </p>
             {/* eslint-disable-next-line @next/next/no-img-element -- vista previa de una data URL local */}
             <img
               src={photo}
               alt="Fotografía de la avería adjunta al aviso"
-              className="h-44 w-full rounded-lg border border-white/10 object-cover"
+              className="h-44 w-full rounded-lg border border-neutral-200 object-cover"
             />
           </div>
         )}
 
         {showUrgent && (
-          <div className="mt-4 flex items-start gap-3 rounded-lg border border-red-900/40 bg-red-950/15 p-4">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-600/20 text-red-400">
+          <div className="mt-4 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-100 text-red-600">
               <i className="ri-alert-line" aria-hidden="true"></i>
             </span>
-            <div className="text-sm leading-relaxed text-red-200">
-              <p className="font-semibold text-red-300">
+            <div className="text-sm leading-relaxed text-red-800">
+              <p className="font-semibold text-red-700">
                 Si existe riesgo eléctrico, no manipules la instalación.
               </p>
-              <p className="mt-1 text-red-200/90">
+              <p className="mt-1 text-red-700/80">
                 Aléjate de la zona y avísanos por teléfono para priorizarlo.
               </p>
             </div>
@@ -244,7 +244,7 @@ export default function ResumenEnvio({
         )}
 
         {error && (
-          <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-red-400" role="alert">
+          <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-red-600" role="alert">
             <i className="ri-error-warning-line" aria-hidden="true"></i> {error}
           </p>
         )}
@@ -285,16 +285,16 @@ export default function ResumenEnvio({
           </button>
           <a
             href={telLink()}
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-white/15 px-7 py-3.5 text-[15px] font-bold text-white transition-all duration-200 hover:bg-white/5 cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-neutral-300 px-7 py-3.5 text-[15px] font-bold text-neutral-800 transition-all duration-200 hover:bg-neutral-100 cursor-pointer"
           >
-            <i className="ri-phone-line text-lg text-electric-400" aria-hidden="true"></i> LLAMAR AHORA:{" "}
+            <i className="ri-phone-line text-lg text-electric-600" aria-hidden="true"></i> LLAMAR AHORA:{" "}
             {business.phoneDisplay}
           </a>
-          <p className="text-center text-xs text-white/35">
-            Al pulsar “Enviar” se abre WhatsApp con tu aviso hacia nuestro número y enviamos una
+          <p className="text-center text-xs text-neutral-400">
+            Al pulsar &ldquo;Enviar&rdquo; se abre WhatsApp con tu aviso hacia nuestro número y enviamos una
             notificación interna por email (con la foto si la has añadido). Al continuar aceptas
             nuestra{" "}
-            <Link href="/politica-privacidad" className="font-semibold text-electric-400 hover:underline">
+            <Link href="/politica-privacidad" className="font-semibold text-electric-600 hover:underline">
               Política de Privacidad
             </Link>
             .

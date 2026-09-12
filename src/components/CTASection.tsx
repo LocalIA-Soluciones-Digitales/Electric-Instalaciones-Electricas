@@ -13,15 +13,24 @@ export default function CTASection({
   source: string;
 }) {
   return (
-    <section className="bg-neutral-900 py-14 md:py-16 text-white">
-      <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 text-center">
-        <h2 className="font-display text-2xl font-extrabold sm:text-3xl">{title}</h2>
-        <p className="text-white/50">{subtitle}</p>
+    <section className="relative overflow-hidden bg-electric-400 py-14 md:py-16">
+      <div
+        className="absolute inset-0 opacity-[0.06]"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, black 1px, transparent 1px), linear-gradient(to bottom, black 1px, transparent 1px)",
+          backgroundSize: "42px 42px",
+        }}
+      ></div>
+      <div className="relative mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 text-center">
+        <h2 className="font-display text-2xl font-extrabold text-neutral-950 sm:text-3xl">{title}</h2>
+        <p className="text-neutral-950/70">{subtitle}</p>
         <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
           <a
             href={telLink()}
             onClick={() => trackCallClick(source)}
-            className="inline-flex items-center justify-center gap-2 rounded-md bg-electric-400 px-8 py-4 text-lg font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-950 px-8 py-4 text-lg font-extrabold text-white transition-colors duration-200 hover:bg-neutral-800"
           >
             <i className="ri-phone-line text-xl" aria-hidden="true"></i>
             Llamar: {business.phoneDisplay}
@@ -31,7 +40,7 @@ export default function CTASection({
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick(source)}
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-whatsapp/30 px-8 py-4 text-lg font-bold text-whatsapp transition-colors duration-200 hover:bg-whatsapp/10"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-neutral-950/15 bg-white/40 px-8 py-4 text-lg font-bold text-neutral-950 backdrop-blur-sm transition-colors duration-200 hover:bg-white/70"
           >
             <i className="ri-whatsapp-line text-xl" aria-hidden="true"></i>
             WhatsApp

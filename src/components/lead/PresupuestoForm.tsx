@@ -19,8 +19,8 @@ import PhotoPicker from "@/components/PhotoPicker";
 import TurnstileWidget from "@/components/lead/TurnstileWidget";
 
 const inputCls =
-  "w-full rounded-md border border-white/[0.1] bg-neutral-950/40 px-4 py-3 md:py-3.5 text-base text-white placeholder:text-white/30 focus:border-electric-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
-const labelCls = "mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-white/50";
+  "w-full rounded-md border border-neutral-300 bg-white px-4 py-3 md:py-3.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
+const labelCls = "mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-neutral-500";
 
 const WORK_OPTIONS = [
   "Instalación eléctrica nueva",
@@ -58,10 +58,10 @@ function Field({
   return (
     <div className={className}>
       <label htmlFor={id} className={labelCls}>
-        {label} {required && <span className="text-electric-400">*</span>}
+        {label} {required && <span className="text-electric-600">*</span>}
       </label>
       {children}
-      {hint && <p className="mt-1.5 text-xs text-white/35">{hint}</p>}
+      {hint && <p className="mt-1.5 text-xs text-neutral-400">{hint}</p>}
     </div>
   );
 }
@@ -152,41 +152,41 @@ export default function PresupuestoForm() {
       id="presupuesto"
       ref={ref}
       aria-label="Pedir presupuesto sin compromiso"
-      className="bg-neutral-900 py-12 md:py-16"
+      className="bg-cloud py-12 md:py-16"
     >
       <div className="mx-auto max-w-2xl px-4 md:px-6">
         <div className={`reveal ${visible ? "visible" : ""} text-center`}>
           <div className="inline-flex items-center gap-2">
-            <span className="h-px w-5 bg-electric-400"></span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+            <span className="h-px w-5 bg-electric-500"></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
               Presupuesto sin compromiso
             </span>
-            <span className="h-px w-5 bg-electric-400"></span>
+            <span className="h-px w-5 bg-electric-500"></span>
           </div>
-          <h2 className="font-display mt-4 text-2xl md:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="font-display mt-4 text-2xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
             ¿Tienes un trabajo eléctrico en mente?
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm md:text-lg text-white/50 leading-relaxed">
+          <p className="mx-auto mt-3 max-w-xl text-sm md:text-lg text-neutral-600 leading-relaxed">
             Cuéntanos qué necesitas y te preparamos un presupuesto a medida, sin compromiso.
           </p>
         </div>
 
         <div className={`reveal reveal-delay-1 ${visible ? "visible" : ""} mt-8 md:mt-12`}>
           {done ? (
-            <div className="overflow-hidden rounded-xl border border-white/[0.08] bg-neutral-950/50 p-5 md:p-12 text-center diag-enter">
-              <span className="mx-auto flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-electric-400/15">
-                <i className="text-2xl md:text-3xl ri-check-line text-electric-400" aria-hidden="true"></i>
+            <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white p-5 md:p-12 text-center shadow-sm diag-enter">
+              <span className="mx-auto flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-electric-100">
+                <i className="text-2xl md:text-3xl ri-check-line text-electric-600" aria-hidden="true"></i>
               </span>
-              <h3 className="font-display mt-5 text-xl md:text-3xl font-extrabold text-white">
+              <h3 className="font-display mt-5 text-xl md:text-3xl font-extrabold text-neutral-900">
                 Solicitud de presupuesto enviada
               </h3>
-              <p className="mx-auto mt-3 max-w-md text-sm md:text-base text-white/60 leading-relaxed">
+              <p className="mx-auto mt-3 max-w-md text-sm md:text-base text-neutral-600 leading-relaxed">
                 Tu solicitud con la referencia{" "}
-                <span className="font-bold text-electric-400">{done.refId}</span> se ha enviado por
+                <span className="font-bold text-electric-600">{done.refId}</span> se ha enviado por
                 WhatsApp. Te contactaremos con un presupuesto a medida, sin compromiso.
               </p>
               {!done.ok && (
-                <p className="mx-auto mt-4 flex max-w-md items-start gap-2 rounded-md border border-white/[0.06] bg-neutral-950/40 px-4 py-3 text-sm text-white/45 leading-relaxed">
+                <p className="mx-auto mt-4 flex max-w-md items-start gap-2 rounded-md border border-neutral-200 bg-cloud px-4 py-3 text-sm text-neutral-500 leading-relaxed">
                   <i className="ri-information-line mt-0.5" aria-hidden="true"></i>
                   La notificación interna por email no ha llegado; tu solicitud ya nos ha llegado por
                   WhatsApp igualmente.
@@ -196,7 +196,7 @@ export default function PresupuestoForm() {
                 <button
                   type="button"
                   onClick={reset}
-                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-white/20 px-6 md:px-7 py-3 md:py-3.5 text-[14px] md:text-[15px] font-bold text-white transition-all duration-200 hover:bg-white/5 cursor-pointer"
+                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-neutral-300 px-6 md:px-7 py-3 md:py-3.5 text-[14px] md:text-[15px] font-bold text-neutral-800 transition-all duration-200 hover:bg-neutral-100 cursor-pointer"
                 >
                   <i className="ri-add-line text-lg" aria-hidden="true"></i> Nueva solicitud
                 </button>
@@ -204,14 +204,14 @@ export default function PresupuestoForm() {
                   href={waLink(`Hola, quería pedir un presupuesto. Trabajo: ${workType || "sin especificar"}`)}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-whatsapp/25 px-6 md:px-7 py-3 md:py-3.5 text-[14px] md:text-[15px] font-bold text-whatsapp hover:bg-whatsapp/10 transition-all duration-200 cursor-pointer"
+                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-whatsapp/25 px-6 md:px-7 py-3 md:py-3.5 text-[14px] md:text-[15px] font-bold text-whatsapp-600 hover:bg-whatsapp/10 transition-all duration-200 cursor-pointer"
                 >
                   <i className="ri-whatsapp-line text-lg" aria-hidden="true"></i> WhatsApp
                 </a>
               </div>
             </div>
           ) : (
-            <div className="rounded-xl border border-white/[0.08] bg-neutral-950/40 p-4 md:p-6">
+            <div className="rounded-xl border border-neutral-200 bg-white p-4 md:p-6 shadow-sm">
               <Field
                 id="bud-trabajo"
                 label="¿Qué trabajo necesitas?"
@@ -229,14 +229,14 @@ export default function PresupuestoForm() {
                         aria-pressed={active}
                         className={`flex items-center justify-between gap-3 rounded-lg border px-3.5 py-3 text-left text-sm font-semibold transition-all duration-200 cursor-pointer ${
                           active
-                            ? "border-electric-400/60 bg-electric-400/10 text-white"
-                            : "border-white/10 bg-white/[0.02] text-white/70 hover:border-electric-400/40 hover:text-white"
+                            ? "border-electric-500/60 bg-electric-400/10 text-neutral-900"
+                            : "border-neutral-200 bg-cloud text-neutral-600 hover:border-electric-400/50 hover:text-neutral-900"
                         }`}
                       >
                         <span className="leading-snug">{w}</span>
                         <span
                           className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                            active ? "border-electric-400 bg-electric-400" : "border-white/25"
+                            active ? "border-electric-400 bg-electric-400" : "border-neutral-300"
                           }`}
                         >
                           {active && (
@@ -260,9 +260,9 @@ export default function PresupuestoForm() {
                       maxLength={500}
                       placeholder="Describe el trabajo, la zona aproximada o cualquier detalle…"
                       aria-label="Descripción del trabajo"
-                      className="w-full resize-none rounded-md border border-white/[0.1] bg-neutral-950/40 px-4 py-3 md:py-3.5 text-base text-white placeholder:text-white/30 focus:border-electric-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
+                      className="w-full resize-none rounded-md border border-neutral-300 bg-white px-4 py-3 md:py-3.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
                     ></textarea>
-                    <p className="mt-1 text-right text-xs text-white/35">{description.length}/500</p>
+                    <p className="mt-1 text-right text-xs text-neutral-400">{description.length}/500</p>
                   </Field>
 
                   <Field label="Foto o plano (opcional)">
@@ -289,8 +289,8 @@ export default function PresupuestoForm() {
                             aria-pressed={active}
                             className={`whitespace-nowrap rounded-md border px-3 py-2.5 text-sm font-bold transition-all duration-200 cursor-pointer ${
                               active
-                                ? "border-electric-400/60 bg-electric-400 text-neutral-950"
-                                : "border-white/10 bg-white/[0.02] text-white/70 hover:border-white/25"
+                                ? "border-electric-500/60 bg-electric-400 text-neutral-950"
+                                : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
                             }`}
                           >
                             {w.label}
@@ -387,7 +387,7 @@ export default function PresupuestoForm() {
                   </div>
 
                   {error && (
-                    <p className="flex items-center gap-2 text-sm font-semibold text-red-400" role="alert">
+                    <p className="flex items-center gap-2 text-sm font-semibold text-red-600" role="alert">
                       <i className="ri-error-warning-line" aria-hidden="true"></i> {error}
                     </p>
                   )}
@@ -426,13 +426,13 @@ export default function PresupuestoForm() {
                       </>
                     )}
                   </button>
-                  <p className="text-center text-xs text-white/35">
+                  <p className="text-center text-xs text-neutral-400">
                     Al enviar aceptas nuestra{" "}
-                    <Link href="/politica-privacidad" className="font-semibold text-electric-400 hover:underline">
+                    <Link href="/politica-privacidad" className="font-semibold text-electric-600 hover:underline">
                       Política de Privacidad
                     </Link>
                     . Usaremos tus datos solo para contactarte con este presupuesto. También puedes{" "}
-                    <a href={telLink()} className="font-semibold text-electric-400">
+                    <a href={telLink()} className="font-semibold text-electric-600">
                       llamarnos al {business.phoneDisplay}
                     </a>
                     .

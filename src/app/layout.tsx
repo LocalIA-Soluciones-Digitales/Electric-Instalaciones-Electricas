@@ -71,7 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <link rel="stylesheet" href="/fonts/remixicon/remixicon.css" />
       </head>
-      <body className="flex min-h-full flex-col bg-neutral-950 pb-20 md:pb-0">
+      <body className="flex min-h-full flex-col bg-white pb-20 md:pb-0">
         <ConsentGate>
           <Analytics />
         </ConsentGate>

@@ -27,8 +27,8 @@ export type AvisoStep = 1 | 2 | 3 | 4 | 5 | 6;
 const TOTAL_STEPS = 6;
 
 const inputCls =
-  "w-full rounded-md border border-white/[0.1] bg-neutral-900/70 px-4 py-3.5 text-base md:text-[15px] text-white placeholder:text-white/30 focus:border-electric-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
-const labelCls = "mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-white/50";
+  "w-full rounded-md border border-neutral-300 bg-white px-4 py-3.5 text-base md:text-[15px] text-neutral-900 placeholder:text-neutral-400 focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
+const labelCls = "mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-neutral-500";
 
 function guideFor(inc?: AvisoIncidence): GuideQuestion[] {
   if (!inc) return [];
@@ -57,12 +57,12 @@ function IncidenceTile({
       aria-pressed={active}
       className={`group relative flex flex-col items-center gap-2.5 rounded-xl border px-3 py-4 text-center transition-all duration-200 cursor-pointer ${
         active
-          ? "border-electric-400/60 bg-electric-400/10"
+          ? "border-electric-500/60 bg-electric-400/10"
           : inc.danger
-          ? "border-red-900/30 bg-red-950/10 hover:border-red-600/50 hover:bg-red-950/20"
+          ? "border-red-200 bg-red-50 hover:border-red-300 hover:bg-red-100/60"
           : inc.unsure
-          ? "border-dashed border-electric-400/40 hover:border-electric-400 hover:bg-electric-400/5"
-          : "border-white/10 bg-white/[0.02] hover:border-electric-400/50 hover:bg-white/[0.04]"
+          ? "border-dashed border-electric-400/50 hover:border-electric-500 hover:bg-electric-400/5"
+          : "border-neutral-200 bg-white hover:border-electric-400/60 hover:bg-electric-50/40"
       }`}
     >
       {inc.danger && (
@@ -75,13 +75,13 @@ function IncidenceTile({
           active
             ? "bg-electric-400 text-neutral-950"
             : inc.danger
-            ? "bg-red-950/40 text-red-400"
-            : "bg-electric-400/15 text-electric-400 group-hover:bg-electric-400 group-hover:text-neutral-950"
+            ? "bg-red-100 text-red-600"
+            : "bg-electric-100 text-electric-600 group-hover:bg-electric-400 group-hover:text-neutral-950"
         }`}
       >
         <i className={inc.icon} aria-hidden="true"></i>
       </span>
-      <span className="text-[13px] md:text-sm font-semibold leading-snug text-white/85 group-hover:text-white">
+      <span className="text-[13px] md:text-sm font-semibold leading-snug text-neutral-700 group-hover:text-neutral-900">
         {inc.label}
       </span>
     </button>
@@ -109,7 +109,7 @@ function IncidenceSection({
     <div>
       <p
         className={`mb-2.5 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] ${
-          labelClassName ?? "text-white/40"
+          labelClassName ?? "text-neutral-400"
         }`}
       >
         {icon && <i className={icon} aria-hidden="true"></i>} {label}
@@ -143,14 +143,14 @@ function StepLayout({
           type="button"
           onClick={back}
           aria-label="Volver al paso anterior"
-          className="mb-5 flex items-center gap-1.5 text-sm font-semibold text-white/45 transition-colors duration-200 hover:text-electric-400 cursor-pointer"
+          className="mb-5 flex items-center gap-1.5 text-sm font-semibold text-neutral-500 transition-colors duration-200 hover:text-electric-600 cursor-pointer"
         >
           <i className="ri-arrow-left-line" aria-hidden="true"></i> Atrás
         </button>
       )}
-      <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">{eyebrow}</span>
-      <h3 className="font-display mt-2 text-xl md:text-2xl font-extrabold tracking-tight text-white">{title}</h3>
-      <p className="mt-2 text-sm text-white/50">{subtitle}</p>
+      <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">{eyebrow}</span>
+      <h3 className="font-display mt-2 text-xl md:text-2xl font-extrabold tracking-tight text-neutral-900">{title}</h3>
+      <p className="mt-2 text-sm text-neutral-600">{subtitle}</p>
       <div className="mt-6">{children}</div>
     </div>
   );
@@ -178,12 +178,12 @@ function ContinueBar({
 
 function DangerBanner() {
   return (
-    <div className="rounded-lg border border-red-900/40 bg-red-950/20 p-4">
+    <div className="rounded-lg border border-red-200 bg-red-50 p-4">
       <div className="flex items-start gap-3">
-        <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-600/20 text-red-400">
+        <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-100 text-red-600">
           <i className="ri-alert-line text-lg" aria-hidden="true"></i>
         </span>
-        <p className="text-sm font-semibold leading-relaxed text-red-200">
+        <p className="text-sm font-semibold leading-relaxed text-red-800">
           Si hay chispas, humo o riesgo eléctrico, no manipules la instalación y evita tocar elementos
           eléctricos. Aléjate de la zona y avísanos cuanto antes.
         </p>
@@ -196,7 +196,7 @@ function DangerBanner() {
         <i className="ri-phone-line text-lg" aria-hidden="true"></i>
         LLAMAR AHORA: {business.phoneDisplay}
       </a>
-      <p className="mt-2 text-center text-xs text-red-200/60">
+      <p className="mt-2 text-center text-xs text-red-700/70">
         En caso de riesgo, es más rápido llamar directamente que seguir con el formulario.
       </p>
     </div>
@@ -205,11 +205,11 @@ function DangerBanner() {
 
 function ComfortBox() {
   return (
-    <div className="flex items-start gap-3 rounded-lg border border-electric-400/15 bg-electric-400/[0.05] p-4">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-electric-400/15 text-electric-400">
+    <div className="flex items-start gap-3 rounded-lg border border-electric-500/20 bg-electric-400/[0.06] p-4">
+      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-electric-100 text-electric-600">
         <i className="ri-question-line text-lg" aria-hidden="true"></i>
       </span>
-      <div className="text-sm leading-relaxed text-white/80">
+      <div className="text-sm leading-relaxed text-neutral-700">
         {UNSURE_COMFORT.map((line) => (
           <p key={line}>{line}</p>
         ))}
@@ -228,37 +228,37 @@ function Confirmation({
   onReset: () => void;
 }) {
   return (
-    <div className="mt-6 md:mt-8 overflow-hidden rounded-xl border border-white/[0.08] bg-neutral-900/60 p-6 md:p-12 text-center">
-      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-electric-400/15">
-        <i className="ri-check-line text-3xl text-electric-400" aria-hidden="true"></i>
+    <div className="mt-6 md:mt-8 overflow-hidden rounded-xl border border-neutral-200 bg-white p-6 md:p-12 text-center shadow-sm">
+      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-electric-100">
+        <i className="ri-check-line text-3xl text-electric-600" aria-hidden="true"></i>
       </span>
-      <h3 className="font-display mt-5 text-2xl md:text-3xl font-extrabold text-white">
+      <h3 className="font-display mt-5 text-2xl md:text-3xl font-extrabold text-neutral-900">
         Aviso preparado correctamente
       </h3>
-      <p className="mx-auto mt-3 max-w-md text-base text-white/60 leading-relaxed">
+      <p className="mx-auto mt-3 max-w-md text-base text-neutral-600 leading-relaxed">
         Hemos generado tu aviso con el código{" "}
-        <span className="font-bold text-electric-400">{avisoId}</span>.
+        <span className="font-bold text-electric-600">{avisoId}</span>.
       </p>
-      <div className="mx-auto mt-5 max-w-sm rounded-lg border border-electric-400/25 bg-electric-400/[0.06] p-4 text-left">
-        <p className="text-xs font-bold uppercase tracking-[0.12em] text-electric-400">
+      <div className="mx-auto mt-5 max-w-sm rounded-lg border border-electric-500/25 bg-electric-400/[0.06] p-4 text-left">
+        <p className="text-xs font-bold uppercase tracking-[0.12em] text-electric-700">
           Un último paso importante
         </p>
-        <ol className="mt-2 space-y-1.5 text-sm text-white/75 leading-relaxed list-decimal list-inside">
+        <ol className="mt-2 space-y-1.5 text-sm text-neutral-700 leading-relaxed list-decimal list-inside">
           <li>Se ha abierto WhatsApp con tu aviso ya redactado.</li>
           <li>
-            <span className="font-bold text-white">Pulsa &ldquo;Enviar&rdquo;</span> dentro de WhatsApp: sin ese
+            <span className="font-bold text-neutral-900">Pulsa &ldquo;Enviar&rdquo;</span> dentro de WhatsApp: sin ese
             paso, el aviso no nos llega.
           </li>
           <li>En cuanto lo recibamos, nos pondremos en contacto contigo.</li>
         </ol>
       </div>
       {emailOk ? (
-        <p className="mx-auto mt-4 flex max-w-md items-center justify-center gap-2 rounded-md border border-electric-400/20 bg-electric-400/[0.06] px-4 py-3 text-sm text-electric-300 leading-relaxed">
+        <p className="mx-auto mt-4 flex max-w-md items-center justify-center gap-2 rounded-md border border-electric-500/20 bg-electric-400/[0.06] px-4 py-3 text-sm text-electric-700 leading-relaxed">
           <i className="ri-mail-check-line" aria-hidden="true"></i>
           También hemos enviado una notificación interna por email del aviso.
         </p>
       ) : (
-        <p className="mx-auto mt-4 flex max-w-md items-start gap-2 rounded-md border border-white/[0.06] bg-neutral-950/40 px-4 py-3 text-sm text-white/45 leading-relaxed">
+        <p className="mx-auto mt-4 flex max-w-md items-start gap-2 rounded-md border border-neutral-200 bg-cloud px-4 py-3 text-sm text-neutral-500 leading-relaxed">
           <i className="ri-information-line mt-0.5" aria-hidden="true"></i>
           La notificación por email interno no ha llegado; el aviso ya te ha llegado por WhatsApp igualmente.
         </p>
@@ -266,7 +266,7 @@ function Confirmation({
       <button
         type="button"
         onClick={onReset}
-        className="mt-7 inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-white/20 px-7 py-3.5 text-[15px] font-bold text-white transition-all duration-200 hover:bg-white/5 cursor-pointer"
+        className="mt-7 inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-neutral-300 px-7 py-3.5 text-[15px] font-bold text-neutral-800 transition-all duration-200 hover:bg-neutral-100 cursor-pointer"
       >
         <i className="ri-add-line text-lg" aria-hidden="true"></i> Enviar otro aviso
       </button>
@@ -391,20 +391,20 @@ export default function SolicitudWizard() {
       id="solicitud"
       ref={ref}
       aria-label="Solicitar asistencia eléctrica"
-      className="bg-neutral-950 py-14 md:py-16"
+      className="bg-cloud py-14 md:py-16"
     >
       <div className="mx-auto max-w-2xl px-4 md:px-6">
         <div className={`reveal ${visible ? "visible" : ""}`}>
           <div className="inline-flex items-center gap-2">
-            <span className="h-px w-5 bg-electric-400"></span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+            <span className="h-px w-5 bg-electric-500"></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
               Solicitar asistencia
             </span>
           </div>
-          <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
             Cuéntanos qué ocurre en pocos pasos
           </h2>
-          <p className="mt-3 max-w-xl text-base md:text-lg text-white/50 leading-relaxed">
+          <p className="mt-3 max-w-xl text-base md:text-lg text-neutral-600 leading-relaxed">
             No hace falta que sepas qué le pasa a la instalación: te hacemos unas preguntas muy
             sencillas y recibimos tu aviso para atenderte cuanto antes.
           </p>
@@ -414,7 +414,7 @@ export default function SolicitudWizard() {
           <div className={`reveal reveal-delay-1 ${visible ? "visible" : ""} mt-8 md:mt-10`}>
             <div className="flex items-center gap-4">
               <div
-                className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/10"
+                className="h-[3px] flex-1 overflow-hidden rounded-full bg-neutral-200"
                 role="progressbar"
                 aria-valuemin={0}
                 aria-valuemax={100}
@@ -426,7 +426,7 @@ export default function SolicitudWizard() {
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
-              <span className="whitespace-nowrap text-xs font-bold uppercase tracking-wider text-white/40">
+              <span className="whitespace-nowrap text-xs font-bold uppercase tracking-wider text-neutral-400">
                 {atSummary ? "Revisión" : `Paso ${step} de ${TOTAL_STEPS}`}
               </span>
             </div>
@@ -457,7 +457,7 @@ export default function SolicitudWizard() {
         ) : (
           <div
             key={step}
-            className={`reveal reveal-delay-1 ${visible ? "visible" : ""} mt-6 md:mt-8 overflow-hidden rounded-xl border border-white/[0.08] bg-neutral-900/60 p-5 md:p-6 diag-enter`}
+            className={`reveal reveal-delay-1 ${visible ? "visible" : ""} mt-6 md:mt-8 overflow-hidden rounded-xl border border-neutral-200 bg-white p-5 md:p-6 shadow-sm diag-enter`}
           >
             {step === 1 && (
               <StepLayout
@@ -469,7 +469,7 @@ export default function SolicitudWizard() {
                   <IncidenceSection
                     label="Riesgo eléctrico: actúa ya"
                     icon="ri-alarm-warning-line"
-                    labelClassName="text-red-400"
+                    labelClassName="text-red-600"
                     items={DANGER_INCIDENCES}
                     columns="grid-cols-2"
                     activeId={data.incidence?.id}
@@ -520,11 +520,11 @@ export default function SolicitudWizard() {
                   onChange={(qid, optId) => setGuideValues((v) => ({ ...v, [qid]: optId }))}
                 />
                 {incidence?.unsure && (
-                  <div className="mt-6 flex items-start gap-3 rounded-lg border border-white/[0.06] bg-white/[0.02] p-4">
-                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-electric-400/15 text-electric-400">
+                  <div className="mt-6 flex items-start gap-3 rounded-lg border border-neutral-200 bg-cloud p-4">
+                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-electric-100 text-electric-600">
                       <i className="ri-user-heart-line text-lg" aria-hidden="true"></i>
                     </span>
-                    <p className="text-sm leading-relaxed text-white/70">{SOFT_DIAGNOSIS_NOTE}</p>
+                    <p className="text-sm leading-relaxed text-neutral-600">{SOFT_DIAGNOSIS_NOTE}</p>
                   </div>
                 )}
                 <ContinueBar onContinue={nextStep} label="Continuar" icon="ri-arrow-right-line" />
@@ -550,12 +550,12 @@ export default function SolicitudWizard() {
                   maxLength={500}
                   placeholder="Ej. Al enchufar la lavadora se va la luz en toda la casa…"
                   aria-label="Descripción del problema"
-                  className="w-full resize-none rounded-md border border-white/[0.1] bg-neutral-900/70 px-4 py-4 text-base text-white placeholder-white/30 transition-colors focus:border-electric-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
+                  className="w-full resize-none rounded-md border border-neutral-300 bg-white px-4 py-4 text-base text-neutral-900 placeholder-neutral-400 transition-colors focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
                 ></textarea>
-                <p className="mt-2 text-right text-xs text-white/35">{data.description.length}/500</p>
+                <p className="mt-2 text-right text-xs text-neutral-400">{data.description.length}/500</p>
                 <div className="mt-5">
-                  <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-white/50">
-                    Foto de la avería <span className="font-normal normal-case text-white/30">(opcional)</span>
+                  <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-neutral-500">
+                    Foto de la avería <span className="font-normal normal-case text-neutral-400">(opcional)</span>
                   </span>
                   <PhotoPicker
                     id="wiz-foto"
@@ -658,13 +658,13 @@ export default function SolicitudWizard() {
                         aria-pressed={active}
                         className={`flex items-center gap-3 rounded-lg border px-4 py-3.5 text-left transition-all duration-200 cursor-pointer ${
                           active
-                            ? "border-electric-400/60 bg-electric-400/10"
-                            : "border-white/10 bg-white/[0.02] hover:border-white/25"
+                            ? "border-electric-500/60 bg-electric-400/10"
+                            : "border-neutral-200 bg-white hover:border-neutral-300"
                         }`}
                       >
                         <span
                           className={`flex h-5 w-5 items-center justify-center rounded-full border-2 transition-colors ${
-                            active ? "border-electric-400 bg-electric-400" : "border-white/30"
+                            active ? "border-electric-400 bg-electric-400" : "border-neutral-300"
                           }`}
                         >
                           {active && (
@@ -672,8 +672,8 @@ export default function SolicitudWizard() {
                           )}
                         </span>
                         <span className="flex-1">
-                          <span className="block text-sm font-semibold text-white">{u.label}</span>
-                          {u.hint && <span className="block text-xs text-white/40">{u.hint}</span>}
+                          <span className="block text-sm font-semibold text-neutral-900">{u.label}</span>
+                          {u.hint && <span className="block text-xs text-neutral-400">{u.hint}</span>}
                         </span>
                       </button>
                     );
@@ -681,7 +681,7 @@ export default function SolicitudWizard() {
                 </div>
 
                 {data.urgency === "otro" && (
-                  <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 rounded-lg border border-white/10 bg-neutral-950/40 p-5 diag-enter">
+                  <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 rounded-lg border border-neutral-200 bg-cloud p-5 diag-enter">
                     <div>
                       <label htmlFor="aviso-fecha" className={labelCls}>
                         Día (opcional)
@@ -755,7 +755,7 @@ export default function SolicitudWizard() {
                   </div>
                   <div>
                     <label htmlFor="aviso-email" className={labelCls}>
-                      Email <span className="font-normal text-white/30">(opcional)</span>
+                      Email <span className="font-normal text-neutral-400">(opcional)</span>
                     </label>
                     <input
                       id="aviso-email"
@@ -768,7 +768,7 @@ export default function SolicitudWizard() {
                     />
                   </div>
                 </div>
-                <p className="mt-4 text-xs text-white/35">
+                <p className="mt-4 text-xs text-neutral-400">
                   Usaremos estos datos para contactar contigo sobre tu solicitud.
                 </p>
                 <ContinueBar onContinue={nextStep} label="Ver resumen" icon="ri-file-list-3-line" />
@@ -776,7 +776,7 @@ export default function SolicitudWizard() {
             )}
 
             {touchError && (
-              <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-red-400" role="alert">
+              <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-red-600" role="alert">
                 <i className="ri-error-warning-line" aria-hidden="true"></i> {touchError}
               </p>
             )}

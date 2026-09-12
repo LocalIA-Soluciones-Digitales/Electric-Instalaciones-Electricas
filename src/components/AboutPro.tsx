@@ -22,16 +22,18 @@ export default function AboutPro() {
   ].filter((p): p is Pill => p !== null);
 
   return (
-    <section aria-label="Sobre el profesional" className="border-y border-white/[0.06] bg-neutral-900/40 py-8">
+    <section aria-label="Sobre el profesional" className="border-y border-neutral-200 bg-white py-8">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 sm:flex-row sm:items-center sm:justify-between md:px-6">
         <div className="flex items-center gap-4">
           {/* Avatar de iniciales: sustituir por foto real del profesional en cuanto esté disponible */}
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-electric-400/15 text-lg font-extrabold text-electric-400">
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-electric-100 text-lg font-extrabold text-electric-600">
             {initials}
           </span>
           <div>
-            <p className="font-display text-base font-bold text-white">{business.owner}</p>
-            <p className="text-sm text-white/50">Electricista responsable · {business.address.city}, {business.address.region}</p>
+            <p className="font-display text-base font-bold text-neutral-900">{business.owner}</p>
+            <p className="text-sm text-neutral-500">
+              Electricista responsable · {business.address.city}, {business.address.region}
+            </p>
           </div>
         </div>
 
@@ -39,9 +41,9 @@ export default function AboutPro() {
           {pills.map((p) => (
             <span
               key={p.label}
-              className="inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-neutral-950/40 px-4 py-2 text-xs font-semibold text-white/70"
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-cloud px-4 py-2 text-xs font-semibold text-neutral-600"
             >
-              <i className={`${p.icon} text-electric-400`} aria-hidden="true"></i>
+              <i className={`${p.icon} text-electric-600`} aria-hidden="true"></i>
               {p.label}
             </span>
           ))}
@@ -51,7 +53,7 @@ export default function AboutPro() {
               href={reviews.googleUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-electric-400/30 bg-electric-400/10 px-4 py-2 text-xs font-bold text-electric-400 transition-colors duration-200 hover:bg-electric-400/20"
+              className="inline-flex items-center gap-2 rounded-full border border-electric-500/25 bg-electric-400/10 px-4 py-2 text-xs font-bold text-electric-700 transition-colors duration-200 hover:bg-electric-400/20"
             >
               <i className="ri-google-fill" aria-hidden="true"></i>
               {reviews.rating} en Google{reviews.count ? ` · ${reviews.count} reseñas` : ""}

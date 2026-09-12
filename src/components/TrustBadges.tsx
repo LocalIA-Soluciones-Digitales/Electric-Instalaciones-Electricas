@@ -5,30 +5,18 @@ const badges = [
   { icon: "ri-moon-clear-line", label: "Disponible 24h, 365 días" },
 ];
 
-export default function TrustBadges({ light = false }: { light?: boolean }) {
+export default function TrustBadges() {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
       {badges.map((b) => (
         <div
           key={b.label}
-          className={
-            light
-              ? "flex flex-col items-center gap-2 rounded-lg border border-neutral-200 bg-white p-4 text-center shadow-sm"
-              : "flex flex-col items-center gap-2 rounded-lg border border-white/[0.08] bg-neutral-900/60 p-4 text-center"
-          }
+          className="flex flex-col items-center gap-3 rounded-2xl border border-neutral-200 bg-white p-5 text-center shadow-sm shadow-neutral-900/[0.03] transition-shadow duration-200 hover:shadow-md"
         >
-          <span
-            className={
-              light
-                ? "flex h-9 w-9 items-center justify-center rounded-full bg-electric-100 text-electric-600"
-                : "flex h-9 w-9 items-center justify-center rounded-full bg-electric-400/15 text-electric-400"
-            }
-          >
-            <i className={`${b.icon} text-lg`} aria-hidden="true"></i>
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-electric-100 text-electric-600">
+            <i className={`${b.icon} text-xl`} aria-hidden="true"></i>
           </span>
-          <span className={light ? "text-sm font-semibold text-neutral-700" : "text-sm font-semibold text-white/70"}>
-            {b.label}
-          </span>
+          <span className="text-sm font-semibold text-neutral-700">{b.label}</span>
         </div>
       ))}
     </div>

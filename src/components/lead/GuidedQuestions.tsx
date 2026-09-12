@@ -16,8 +16,8 @@ export default function GuidedQuestions({ questions, values, onChange }: GuidedQ
         const selected = values[q.id];
         return (
           <div key={q.id}>
-            <p className="mb-2 flex items-start gap-2 text-[15px] font-bold leading-snug text-white">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-electric-400/15 text-xs font-extrabold text-electric-400">
+            <p className="mb-2 flex items-start gap-2 text-[15px] font-bold leading-snug text-neutral-900">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-electric-100 text-xs font-extrabold text-electric-600">
                 {idx + 1}
               </span>
               <span>{q.question}</span>
@@ -33,13 +33,13 @@ export default function GuidedQuestions({ questions, values, onChange }: GuidedQ
                     aria-pressed={active}
                     className={`flex items-center gap-3 rounded-lg border px-4 py-3 text-left text-sm md:text-[15px] font-semibold transition-all duration-200 cursor-pointer ${
                       active
-                        ? "border-electric-400/60 bg-electric-400/10 text-white"
-                        : "border-white/10 bg-white/[0.02] text-white/75 hover:border-electric-400/40 hover:bg-white/[0.04] hover:text-white"
+                        ? "border-electric-500/60 bg-electric-400/10 text-neutral-900"
+                        : "border-neutral-200 bg-white text-neutral-600 hover:border-electric-400/50 hover:bg-electric-50/40 hover:text-neutral-900"
                     }`}
                   >
                     <span
                       className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                        active ? "border-electric-400 bg-electric-400" : "border-white/30"
+                        active ? "border-electric-400 bg-electric-400" : "border-neutral-300"
                       }`}
                     >
                       {active && (

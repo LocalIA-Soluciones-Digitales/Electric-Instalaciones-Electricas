@@ -115,7 +115,7 @@ export default async function ServiceLocalityPage({
 
       <section className="bg-white py-12">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <TrustBadges light />
+          <TrustBadges />
         </div>
       </section>
 
@@ -148,7 +148,7 @@ export default async function ServiceLocalityPage({
 
             <h2 className="font-display mt-12 text-2xl font-extrabold text-neutral-900">Preguntas frecuentes</h2>
             <div className="mt-6">
-              <Faq items={faqs} light />
+              <Faq items={faqs} />
             </div>
             <FaqJsonLd items={faqs} />
           </div>

@@ -7,9 +7,9 @@ import { guides } from "@/lib/guides";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] bg-neutral-950 text-white/60">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:px-6 sm:grid-cols-2 md:grid-cols-5">
-        <div>
+    <footer className="bg-carbon text-white/60">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:px-6 md:py-16 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-2.5">
             <Image
               src="/images/logo-mark.png"
@@ -22,31 +22,59 @@ export default function Footer() {
               {business.shortName.toUpperCase()}
             </span>
           </div>
+          <p className="mt-4 text-sm leading-relaxed">
+            Electricista de confianza en Barakaldo y en toda Euskadi, disponible las 24 horas.
+          </p>
           <p className="mt-4 text-sm">
             {business.address.street}
             <br />
             {business.address.postalCode} {business.address.city}, {business.address.region}
           </p>
-          <p className="mt-3 text-sm">
-            <a href={telLink()} className="font-semibold text-electric-400 hover:text-electric-300">
-              {business.phoneDisplay}
+          <div className="mt-5 flex items-center gap-3">
+            <a
+              href={telLink()}
+              aria-label="Llamar"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-electric-400 hover:text-electric-400"
+            >
+              <i className="ri-phone-line" aria-hidden="true"></i>
             </a>
-          </p>
-          <p className="text-sm">
             <a
               href={waLink(WHATSAPP_GREETING_GENERAL)}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-electric-400 hover:text-electric-300"
+              aria-label="WhatsApp"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-whatsapp hover:text-whatsapp"
             >
-              Escribir por WhatsApp
+              <i className="ri-whatsapp-line" aria-hidden="true"></i>
             </a>
-          </p>
+            {business.socials.instagram && (
+              <a
+                href={business.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-electric-400 hover:text-electric-400"
+              >
+                <i className="ri-instagram-line" aria-hidden="true"></i>
+              </a>
+            )}
+            {business.socials.facebook && (
+              <a
+                href={business.socials.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-electric-400 hover:text-electric-400"
+              >
+                <i className="ri-facebook-fill" aria-hidden="true"></i>
+              </a>
+            )}
+          </div>
         </div>
 
         <div>
-          <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white/40">Servicios</h3>
-          <ul className="space-y-2 text-sm">
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Servicios</h3>
+          <ul className="space-y-2.5 text-sm">
             {services.map((s) => (
               <li key={s.slug}>
                 <Link href={`/servicios/${s.slug}`} className="hover:text-electric-400 transition-colors duration-200">
@@ -58,8 +86,8 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white/40">Zonas de servicio</h3>
-          <ul className="space-y-2 text-sm">
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Zonas de servicio</h3>
+          <ul className="space-y-2.5 text-sm">
             {localities.map((l) => (
               <li key={l.slug}>
                 <Link href={`/electricista-${l.slug}`} className="hover:text-electric-400 transition-colors duration-200">
@@ -71,8 +99,8 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white/40">Guías</h3>
-          <ul className="space-y-2 text-sm">
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Guías</h3>
+          <ul className="space-y-2.5 text-sm">
             {guides.map((g) => (
               <li key={g.slug}>
                 <Link href={`/guias/${g.slug}`} className="hover:text-electric-400 transition-colors duration-200">
@@ -84,9 +112,19 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white/40">Legal</h3>
-          <ul className="space-y-2 text-sm">
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Contacto y legal</h3>
+          <ul className="space-y-2.5 text-sm">
             <li>
+              <a href={telLink()} className="font-semibold text-white hover:text-electric-400">
+                {business.phoneDisplay}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${business.email}`} className="hover:text-electric-400 transition-colors duration-200">
+                {business.email}
+              </a>
+            </li>
+            <li className="pt-2">
               <Link href="/aviso-legal" className="hover:text-electric-400 transition-colors duration-200">
                 Aviso legal
               </Link>
@@ -104,7 +142,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/[0.06] py-4 text-center text-xs text-white/30">
+      <div className="border-t border-white/[0.08] py-5 text-center text-xs text-white/35">
         © {new Date().getFullYear()} {business.name}. Todos los derechos reservados.
       </div>
     </footer>

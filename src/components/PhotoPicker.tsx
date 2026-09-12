@@ -36,10 +36,10 @@ export default function PhotoPicker({ id, value, onChange, label, hint }: PhotoP
       />
 
       {value ? (
-        <div className="relative overflow-hidden rounded-lg border border-white/[0.1]">
+        <div className="relative overflow-hidden rounded-lg border border-neutral-200">
           {/* eslint-disable-next-line @next/next/no-img-element -- vista previa de una data URL local, no un recurso optimizable por next/image */}
           <img src={value} alt="Fotografía de la avería seleccionada" className="h-40 md:h-52 w-full object-cover" />
-          <div className="absolute inset-x-0 bottom-0 flex justify-end gap-2 bg-gradient-to-t from-neutral-950/90 to-transparent p-2.5">
+          <div className="absolute inset-x-0 bottom-0 flex justify-end gap-2 bg-gradient-to-t from-neutral-950/80 to-transparent p-2.5">
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
@@ -50,7 +50,7 @@ export default function PhotoPicker({ id, value, onChange, label, hint }: PhotoP
             <button
               type="button"
               onClick={() => onChange("")}
-              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border border-white/25 px-3 py-2 text-xs font-bold text-white hover:bg-white/10 cursor-pointer"
+              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border border-white/40 px-3 py-2 text-xs font-bold text-white hover:bg-white/10 cursor-pointer"
             >
               <i className="ri-delete-bin-line" aria-hidden="true"></i> Quitar
             </button>
@@ -60,15 +60,15 @@ export default function PhotoPicker({ id, value, onChange, label, hint }: PhotoP
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
-          className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-white/20 bg-white/[0.02] px-4 py-5 md:py-6 text-center transition-colors duration-200 hover:border-electric-400/60 hover:bg-electric-400/5 cursor-pointer"
+          className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-neutral-300 bg-cloud px-4 py-5 md:py-6 text-center transition-colors duration-200 hover:border-electric-400/60 hover:bg-electric-400/5 cursor-pointer"
         >
-          <span className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full bg-electric-400/15">
-            <i className="ri-camera-line text-base md:text-lg text-electric-400" aria-hidden="true"></i>
+          <span className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full bg-electric-100">
+            <i className="ri-camera-line text-base md:text-lg text-electric-600" aria-hidden="true"></i>
           </span>
-          <span className="text-xs md:text-sm font-bold text-white/80">
+          <span className="text-xs md:text-sm font-bold text-neutral-700">
             {label || "Añadir foto de la avería"}
           </span>
-          {hint && <span className="text-[11px] md:text-xs text-white/40">{hint}</span>}
+          {hint && <span className="text-[11px] md:text-xs text-neutral-400">{hint}</span>}
         </button>
       )}
     </div>

@@ -2,8 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { services } from "@/lib/services";
-import { HERO_DESKTOP_IMAGE, COVERAGE_IMAGE } from "@/lib/stockImages";
+import { HERO_IMAGE, COVERAGE_IMAGE } from "@/lib/stockImages";
 import CTASection from "@/components/CTASection";
+import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
@@ -18,35 +19,14 @@ export default function ServiciosPage() {
     <div>
       <BreadcrumbJsonLd items={[{ name: "Inicio", path: "/" }, { name: "Servicios", path: "/servicios" }]} />
 
-      <section className="relative overflow-hidden bg-neutral-950 py-20 text-white md:py-28">
-        <div className="absolute inset-0" aria-hidden="true">
-          <Image
-            src={HERO_DESKTOP_IMAGE}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/80 via-neutral-950/85 to-neutral-950"></div>
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-4 md:px-6">
-          <div className="inline-flex items-center gap-2">
-            <span className="h-px w-5 bg-electric-400"></span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
-              Nuestros servicios
-            </span>
-          </div>
-          <h1 className="text-shadow font-display mt-4 max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
-            Un electricista. Todos los trabajos. Una sola llamada.
-          </h1>
-          <p className="text-shadow-sm mt-4 max-w-2xl text-base text-white/60 md:text-lg">
-            Trabajos eléctricos para viviendas, comunidades y locales comerciales en Barakaldo, Bilbao y
-            toda Euskadi, con presupuesto claro antes de intervenir.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Nuestros servicios"
+        title="Un electricista. Todos los trabajos. Una sola llamada."
+        subtitle="Trabajos eléctricos para viviendas, comunidades y locales comerciales en Barakaldo, Bilbao y toda Euskadi, con presupuesto claro antes de intervenir."
+        image={HERO_IMAGE}
+        contentWidth="6xl"
+        size="large"
+      />
 
       <section className="bg-neutral-50">
         <div className="mx-auto max-w-6xl divide-y divide-neutral-200 px-4 md:px-6">

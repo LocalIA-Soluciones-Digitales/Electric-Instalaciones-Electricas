@@ -122,7 +122,7 @@ export default async function LocalityPage({
 
       <section className="bg-white py-12">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <TrustBadges light />
+          <TrustBadges />
         </div>
       </section>
 
@@ -186,7 +186,7 @@ export default async function LocalityPage({
             Preguntas frecuentes sobre nuestro servicio en {locality.name}
           </h2>
           <div className="mt-8">
-            <Faq items={faqs} light />
+            <Faq items={faqs} />
           </div>
           <FaqJsonLd items={faqs} />
         </div>

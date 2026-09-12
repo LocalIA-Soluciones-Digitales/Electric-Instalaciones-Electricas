@@ -5,6 +5,7 @@ import { getService, services } from "@/lib/services";
 import { localities } from "@/lib/localities";
 import CTASection from "@/components/CTASection";
 import Faq, { FaqJsonLd } from "@/components/Faq";
+import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ServiceJsonLd from "@/components/ServiceJsonLd";
 import PresupuestoForm from "@/components/lead/PresupuestoForm";
@@ -49,21 +50,14 @@ export default async function ServicePage({
       />
       <ServiceJsonLd service={service} />
 
-      <section className="bg-neutral-950 py-14 text-white">
-        <div className="mx-auto max-w-4xl px-4 md:px-6">
-          <nav className="mb-4 text-sm text-white/40">
-            <Link href="/" className="hover:text-electric-400">
-              Inicio
-            </Link>{" "}
-            /{" "}
-            <Link href="/servicios" className="hover:text-electric-400">
-              Servicios
-            </Link>{" "}
-            / <span className="text-white/70">{service.name}</span>
-          </nav>
-          <h1 className="font-display text-3xl font-extrabold sm:text-4xl">{service.h1}</h1>
-        </div>
-      </section>
+      <PageHero
+        breadcrumb={[
+          { name: "Inicio", href: "/" },
+          { name: "Servicios", href: "/servicios" },
+          { name: service.name },
+        ]}
+        title={service.h1}
+      />
 
       <section className="bg-neutral-50 py-14">
         <div className="mx-auto grid max-w-4xl gap-10 px-4 md:px-6 lg:max-w-6xl lg:grid-cols-3">
@@ -85,7 +79,7 @@ export default async function ServicePage({
 
             <h2 className="font-display mt-12 text-2xl font-extrabold text-neutral-900">Preguntas frecuentes</h2>
             <div className="mt-6">
-              <Faq items={service.faqs} light />
+              <Faq items={service.faqs} />
             </div>
             <FaqJsonLd items={service.faqs} />
 

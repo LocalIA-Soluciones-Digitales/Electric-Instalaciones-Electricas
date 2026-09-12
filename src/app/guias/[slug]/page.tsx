@@ -87,7 +87,7 @@ export default async function GuiaPage({
             <div className="mt-14">
               <h2 className="font-display text-2xl font-extrabold text-neutral-900">Preguntas frecuentes</h2>
               <div className="mt-6">
-                <Faq items={guide.faqs} light />
+                <Faq items={guide.faqs} />
               </div>
               <FaqJsonLd items={guide.faqs} />
             </div>
