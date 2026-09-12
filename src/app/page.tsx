@@ -273,11 +273,11 @@ export default function HomePage() {
                           </li>
                         ))}
                       </ul>
-                      {rest > 0 && (
-                        <p className="mt-2 pt-2 text-xs text-neutral-400">
-                          Y {rest} localidad{rest === 1 ? "" : "es"} más en {province}
-                        </p>
-                      )}
+                      <p className="mt-2 pt-2 text-xs text-neutral-400">
+                        {rest > 0
+                          ? `Y ${rest} localidad${rest === 1 ? "" : "es"} más en ${province}`
+                          : `Y el resto de municipios de ${province}`}
+                      </p>
                     </div>
                   );
                 })}
