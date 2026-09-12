@@ -292,8 +292,7 @@ export default function ResumenEnvio({
           </a>
           <p className="text-center text-xs text-neutral-400">
             Al pulsar &ldquo;Enviar&rdquo; se abre WhatsApp con tu aviso hacia nuestro número y enviamos una
-            notificación interna por email (con la foto si la has añadido). Al continuar aceptas
-            nuestra{" "}
+            notificación interna por email. Al continuar aceptas nuestra{" "}
             <Link href="/politica-privacidad" className="font-semibold text-electric-600 hover:underline">
               Política de Privacidad
             </Link>
