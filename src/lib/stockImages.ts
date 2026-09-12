@@ -30,17 +30,26 @@ export const LIGHTING_IMAGE =
 export const PANEL_CLOSEUP_IMAGE =
   "/images/lucid-origin_Close-up_of_a_perfectly_organized_electrical_distribution_board_professional_ele-0.jpg";
 
+/** Fotografías reales del negocio para las tarjetas de la sección "Servicios". */
+export const SERVICE_PHOTO_AVERIAS = "/images/servicio-averias-electricas.jpg";
+export const SERVICE_PHOTO_CUADROS = "/images/servicio-cuadros-electricos.jpg";
+export const SERVICE_PHOTO_CORTOCIRCUITOS = "/images/servicio-cortocircuitos.jpg";
+export const SERVICE_PHOTO_ILUMINACION = "/images/servicio-iluminacion-led.jpg";
+export const SERVICE_PHOTO_INSTALACIONES = "/images/servicio-instalaciones-electricas.jpg";
+export const SERVICE_PHOTO_REPARACIONES = "/images/servicio-reparaciones-electricas.jpg";
+export const SERVICE_PHOTO_URGENCIAS_24H = "/images/servicio-urgencias-24h.jpg";
+
 /**
  * Imagen destacada por servicio (tarjetas de la sección "Servicios"). `null` cuando no
  * existe una imagen real que represente el servicio con fidelidad: la tarjeta se
  * muestra entonces solo con icono, sin forzar una foto que no corresponda.
  */
 export const SERVICE_CARD_IMAGE: Record<string, string | null> = {
-  "averias-electricas": SERVICES_IMAGE,
-  "cuadros-electricos": PANEL_CLOSEUP_IMAGE,
-  cortocircuitos: PANEL_LUXURY_IMAGE,
-  "iluminacion-led": LIGHTING_IMAGE,
-  "instalaciones-electricas": PANEL_LUXURY_IMAGE,
-  "reparaciones-electricas": SERVICES_IMAGE,
-  "electricista-urgente-24h": PANEL_CLOSEUP_IMAGE,
+  "averias-electricas": SERVICE_PHOTO_AVERIAS,
+  "cuadros-electricos": SERVICE_PHOTO_CUADROS,
+  cortocircuitos: SERVICE_PHOTO_CORTOCIRCUITOS,
+  "iluminacion-led": SERVICE_PHOTO_ILUMINACION,
+  "instalaciones-electricas": SERVICE_PHOTO_INSTALACIONES,
+  "reparaciones-electricas": SERVICE_PHOTO_REPARACIONES,
+  "electricista-urgente-24h": SERVICE_PHOTO_URGENCIAS_24H,
 };
