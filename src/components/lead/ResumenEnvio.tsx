@@ -24,6 +24,7 @@ interface ResumenEnvioProps {
   data: AvisoData;
   incidence?: AvisoIncidence;
   showUrgent: boolean;
+  photo: string;
   hp: string;
   onHpChange: (value: string) => void;
   onEdit: (step: AvisoStep) => void;
@@ -75,6 +76,7 @@ export default function ResumenEnvio({
   data,
   incidence,
   showUrgent,
+  photo,
   hp,
   onHpChange,
   onEdit,
@@ -105,7 +107,7 @@ export default function ResumenEnvio({
     const avisoId = generarIdAviso(data.service.code);
     const timestamp = formatFechaHora();
 
-    const msg = buildWhatsAppMessage(data, avisoId, timestamp);
+    const msg = buildWhatsAppMessage(data, avisoId, timestamp, Boolean(photo));
 
     try {
       const log = JSON.parse(localStorage.getItem("electric_aviso_log") || "[]");
@@ -123,6 +125,7 @@ export default function ResumenEnvio({
       kind: "aviso",
       avisoId,
       data,
+      photo: photo || undefined,
       hp,
       turnstileToken: turnstileToken || undefined,
     });
@@ -209,6 +212,20 @@ export default function ResumenEnvio({
           <Row label="Teléfono" value={data.phone} />
           <Row label="Email" value={data.email} />
         </dl>
+
+        {photo && (
+          <div className="mt-3">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-400">
+              Fotografía adjunta
+            </p>
+            {/* eslint-disable-next-line @next/next/no-img-element -- vista previa de una data URL local */}
+            <img
+              src={photo}
+              alt="Fotografía de la avería adjunta al aviso"
+              className="h-44 w-full rounded-lg border border-neutral-200 object-cover"
+            />
+          </div>
+        )}
 
         {showUrgent && (
           <div className="mt-4 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4">

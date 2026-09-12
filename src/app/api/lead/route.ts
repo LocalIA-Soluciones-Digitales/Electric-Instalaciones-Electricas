@@ -125,7 +125,7 @@ export async function POST(req: Request) {
   const { subject, html, text } =
     body.kind === "aviso"
       ? buildInternalEmail(body.data, avisoId, timestamp, !!photoBuffer)
-      : buildBudgetEmail(body.data, avisoId, timestamp);
+      : buildBudgetEmail(body.data, avisoId, timestamp, !!photoBuffer);
 
   const from = process.env.RESEND_FROM_EMAIL || `avisos@${new URL(business.domain).hostname.replace(/^www\./, "")}`;
 
