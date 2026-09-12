@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { business, telLink, waLink } from "@/lib/business";
-import { PANEL_CLOSEUP_IMAGE } from "@/lib/stockImages";
+import { PANEL_LUXURY_IMAGE } from "@/lib/stockImages";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import PageHero from "@/components/PageHero";
 import PresupuestoForm from "@/components/lead/PresupuestoForm";
@@ -66,7 +66,11 @@ export default function ContactoPage() {
             <div className="relative hidden md:block">
               <div className="aspect-[4/5] overflow-hidden rounded-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element -- imagen de referencia externa, ver src/lib/stockImages.ts */}
-                <img src={PANEL_CLOSEUP_IMAGE} alt="Cuadro eléctrico organizado" className="h-full w-full object-cover" />
+                <img
+                  src={PANEL_LUXURY_IMAGE}
+                  alt="Cuadro eléctrico premium con cableado organizado"
+                  className="h-full w-full object-cover object-center"
+                />
               </div>
               <div className="absolute -bottom-3 -left-3 bg-electric-400 text-neutral-950 px-4 py-2 rounded-sm">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em]">Atención 24h</p>
