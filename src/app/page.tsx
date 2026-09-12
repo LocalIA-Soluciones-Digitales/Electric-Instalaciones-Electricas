@@ -170,7 +170,7 @@ export default function HomePage() {
                     </div>
                     <div className="flex flex-1 flex-col p-6">
                       <h3 className="font-display text-lg font-bold text-neutral-900 group-hover:text-electric-600">
-                        {s.name}
+                        {s.slug === "iluminacion-led" ? "Iluminación" : s.name}
                       </h3>
                       <p className="mt-2 text-sm text-neutral-600 flex-1">{s.intro.slice(0, 110)}…</p>
                       <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-600">
