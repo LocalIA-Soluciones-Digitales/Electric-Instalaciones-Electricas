@@ -6,6 +6,7 @@ import { decodeImageOrNull } from "@/lib/imageValidation";
 import { checkRateLimit, clientIpFrom } from "@/lib/rateLimit";
 import { verifyTurnstile } from "@/lib/turnstile";
 import { archiveLead } from "@/lib/leadStore";
+import { notifyLeadFailure } from "@/lib/alerts";
 
 export const runtime = "nodejs";
 
@@ -144,6 +145,7 @@ export async function POST(req: Request) {
     if (!res.ok) {
       console.error(`[api/lead] error de Resend (ip=${ip})`, res.status, resJson);
       await archive(false);
+      await notifyLeadFailure("resend-error", { avisoId, status: res.status, ip });
       return genericError(502, "resend-error", "No se pudo enviar el email.");
     }
     await archive(true);
@@ -151,6 +153,7 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error(`[api/lead] fallo al llamar a Resend (ip=${ip})`, err);
     await archive(false);
+    await notifyLeadFailure("resend-fetch-exception", { avisoId, ip });
     return genericError(502, "resend-error", "No se pudo enviar el email.");
   }
 }
