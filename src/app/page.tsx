@@ -3,7 +3,13 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { services } from "@/lib/services";
 import { localities } from "@/lib/localities";
-import { COVERAGE_IMAGE, HERO_IMAGE, LIGHTING_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
+import {
+  COVERAGE_IMAGE,
+  HERO_IMAGE,
+  LIGHTING_IMAGE,
+  SERVICE_CARD_IMAGE,
+  SERVICE_CARD_IMAGE_POSITION,
+} from "@/lib/stockImages";
 import TrustBadges from "@/components/TrustBadges";
 import AboutPro from "@/components/AboutPro";
 import Testimonials from "@/components/Testimonials";
@@ -178,7 +184,9 @@ export default function HomePage() {
                           alt=""
                           fill
                           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
+                            SERVICE_CARD_IMAGE_POSITION[s.slug] ?? "object-center"
+                          }`}
                         />
                       ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-electric-100 via-cloud to-electric-50"></div>
