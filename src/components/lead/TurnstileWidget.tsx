@@ -33,7 +33,13 @@ export default function TurnstileWidget({ onToken }: TurnstileWidgetProps) {
   return (
     <>
       <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" async defer />
-      <div className="cf-turnstile" data-sitekey={SITE_KEY} data-callback="onTurnstileToken" data-theme="dark" />
+      <div
+        className="cf-turnstile"
+        data-sitekey={SITE_KEY}
+        data-callback="onTurnstileToken"
+        data-theme="dark"
+        data-appearance="interaction-only"
+      />
     </>
   );
 }
