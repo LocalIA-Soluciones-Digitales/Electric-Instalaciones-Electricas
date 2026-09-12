@@ -27,11 +27,11 @@ export default function AboutPro() {
   return (
     <section aria-label="Sobre el profesional" className="border-y border-neutral-200 bg-white py-4 md:py-5">
       <div
-        className={`mx-auto flex max-w-6xl flex-col px-4 sm:flex-row sm:items-center md:px-6 ${
+        className={`mx-auto flex max-w-6xl flex-col items-center px-4 sm:flex-row md:px-6 ${
           hasSecondaryRow ? "gap-4 sm:justify-between sm:gap-6" : "sm:justify-center"
         }`}
       >
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:gap-4 sm:text-left">
           {/* Avatar de iniciales: sustituir por foto real del profesional en cuanto esté disponible */}
           <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-electric-100 text-lg font-extrabold text-electric-600">
             {initials}
@@ -39,7 +39,10 @@ export default function AboutPro() {
           <div>
             <p className="font-display text-base font-bold text-neutral-900">{business.owner}</p>
             <p className="text-sm text-neutral-500">
-              Electricista profesional · {business.address.city}, {business.address.region}
+              Electricista profesional
+              <br className="sm:hidden" />
+              <span className="hidden sm:inline"> · </span>
+              {business.address.city}, {business.address.region}
             </p>
           </div>
         </div>
