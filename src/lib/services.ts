@@ -193,46 +193,6 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: "puntos-recarga-vehiculo-electrico",
-    name: "Puntos de Recarga para Vehículo Eléctrico",
-    shortName: "Recarga VE",
-    navLabel: "Recarga VE",
-    icon: "ri-charging-pile-2-line",
-    metaTitle: "Instalación de Punto de Recarga para Coche Eléctrico en Euskadi",
-    metaDescription:
-      "Instalación de puntos de recarga (wallbox) para coche eléctrico en vivienda, garaje comunitario o local comercial en Barakaldo y toda Euskadi. Presupuesto sin compromiso.",
-    h1: "Instalación de Puntos de Recarga para Vehículo Eléctrico",
-    intro:
-      "¿Necesitas cargar tu coche eléctrico en casa o en la plaza de garaje de la comunidad? En Electric instalamos puntos de recarga (wallbox) adaptados a tu instalación eléctrica, con el estudio de potencia y la documentación necesaria, en Barakaldo y en toda Euskadi.",
-    bullets: [
-      "Instalación de wallbox en vivienda unifamiliar o plaza de garaje",
-      "Estudio previo de la potencia disponible en tu instalación",
-      "Instalación en comunidades de vecinos, con la gestión técnica frente a la comunidad",
-      "Puntos de recarga para flotas de empresa y locales comerciales",
-      "Boletín eléctrico y documentación necesaria para dar de alta el punto de recarga",
-    ],
-    keywords: [
-      "punto de recarga coche eléctrico",
-      "instalación wallbox",
-      "cargador coche eléctrico",
-      "recarga vehículo eléctrico garaje comunidad",
-    ],
-    faqs: [
-      {
-        q: "¿Puedo instalar un punto de recarga en mi plaza de un garaje comunitario?",
-        a: "Sí. La normativa reconoce el derecho a instalarlo en tu propia plaza aunque la comunidad no lo apruebe por unanimidad, siempre que se comunique previamente siguiendo el procedimiento legal. Te ayudamos con toda la gestión técnica frente a la comunidad.",
-      },
-      {
-        q: "¿Qué potencia necesito para instalar un wallbox en casa?",
-        a: "Depende del punto de recarga elegido y de tu potencia contratada actual. Hacemos un estudio previo de tu instalación para decirte si necesitas ampliar potencia y qué velocidad de carga vas a poder tener.",
-      },
-      {
-        q: "¿Necesito boletín eléctrico para instalar un punto de recarga?",
-        a: "En la mayoría de los casos sí, sobre todo si se modifica el cuadro eléctrico o se amplía la potencia contratada. Nos encargamos de tramitarlo.",
-      },
-    ],
-  },
-  {
     slug: "electricista-urgente-24h",
     name: "Electricista Urgente 24 Horas",
     shortName: "Urgencias 24h",

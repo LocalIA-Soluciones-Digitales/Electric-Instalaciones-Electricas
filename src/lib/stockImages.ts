@@ -29,9 +29,8 @@ export const PANEL_CLOSEUP_IMAGE =
 
 /**
  * Imagen destacada por servicio (tarjetas de la sección "Servicios"). `null` cuando no
- * existe una imagen real que represente el servicio con fidelidad (p. ej. puntos de
- * recarga de VE): la tarjeta se muestra entonces solo con icono, sin forzar una foto
- * que no corresponda.
+ * existe una imagen real que represente el servicio con fidelidad: la tarjeta se
+ * muestra entonces solo con icono, sin forzar una foto que no corresponda.
  */
 export const SERVICE_CARD_IMAGE: Record<string, string | null> = {
   "averias-electricas": SERVICES_IMAGE,
@@ -40,6 +39,5 @@ export const SERVICE_CARD_IMAGE: Record<string, string | null> = {
   "iluminacion-led": LIGHTING_IMAGE,
   "instalaciones-electricas": HERO_IMAGE,
   "reparaciones-electricas": SERVICES_IMAGE,
-  "puntos-recarga-vehiculo-electrico": null,
   "electricista-urgente-24h": PANEL_CLOSEUP_IMAGE,
 };
