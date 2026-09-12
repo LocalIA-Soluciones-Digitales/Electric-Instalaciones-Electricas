@@ -267,61 +267,63 @@ function propertyLabel(id: string) {
 
 function answersBlock(data: AvisoData) {
   if (!data.answers || data.answers.length === 0) return [];
-  const L = ["", "❓ CÓMO LO DESCRIBE EL CLIENTE", ""];
+  const L = ["", waSection("❓ CÓMO LO DESCRIBE EL CLIENTE"), ""];
   data.answers.forEach((a) => {
-    L.push(`• ${a.q}`);
-    L.push(`   → ${a.a}`);
+    L.push(`▪️ ${a.q}`);
+    L.push(`    ↳ ${a.a}`);
   });
   return L;
 }
 
-/* ---------- MENSAJE DE WHATSAPP ---------- */
-export function buildWhatsAppMessage(data: AvisoData, avisoId: string, timestamp: string, hasPhoto = false) {
+/* ---------- MENSAJE DE WHATSAPP ----------
+   Usa el formato nativo de WhatsApp (*negrita*, _cursiva_) y un divisor visual
+   para que el aviso se lea de un vistazo en el móvil: título, secciones con
+   emoji y cada dato destacado en negrita. */
+const WA_DIVIDER = "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬";
+function waField(label: string, value: string) {
+  return `*${label}:* ${value}`;
+}
+function waSection(title: string) {
+  return `*${title}*`;
+}
+
+export function buildWhatsAppMessage(data: AvisoData, avisoId: string, timestamp: string) {
   const L: string[] = [];
-  L.push("🚨 NUEVO AVISO DE SERVICIO");
+  L.push("🚨 *NUEVO AVISO DE SERVICIO*");
+  L.push(WA_DIVIDER);
   L.push("");
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("");
-  L.push("📌 DATOS DEL AVISO");
-  L.push(`Servicio: ${data.service.label}`);
-  if (data.incidence) L.push(`Tipo de incidencia: ${data.incidence.label}`);
-  L.push(`Urgencia: ${urgencyLabel(data.urgency)}${data.otherSlot ? ` (${data.otherSlot})` : ""}`);
+  L.push(waSection("📌 DATOS DEL AVISO"));
+  L.push(waField("Servicio", data.service.label));
+  if (data.incidence) L.push(waField("Tipo de incidencia", data.incidence.label));
+  L.push(waField("Urgencia", `${urgencyLabel(data.urgency)}${data.otherSlot ? ` (${data.otherSlot})` : ""}`));
   L.push(...answersBlock(data));
   L.push("");
-  L.push("🏠 UBICACIÓN");
-  if (data.propertyType) L.push(`Tipo de inmueble: ${propertyLabel(data.propertyType)}`);
-  if (data.address.trim()) L.push(`Dirección: ${data.address.trim()}`);
-  if (data.locality.trim()) L.push(`Localidad: ${data.locality.trim()}`);
-  if (data.postalCode.trim()) L.push(`Código postal: ${data.postalCode.trim()}`);
+  L.push(waSection("🏠 UBICACIÓN"));
+  if (data.propertyType) L.push(waField("Tipo de inmueble", propertyLabel(data.propertyType)));
+  if (data.address.trim()) L.push(waField("Dirección", data.address.trim()));
+  if (data.locality.trim()) L.push(waField("Localidad", data.locality.trim()));
+  if (data.postalCode.trim()) L.push(waField("Código postal", data.postalCode.trim()));
   L.push("");
-  L.push("👤 DATOS DEL CLIENTE");
-  if (data.name.trim()) L.push(`Nombre: ${data.name.trim()}`);
-  if (data.phone.trim()) L.push(`Teléfono: ${data.phone.trim()}`);
-  if (data.email.trim()) L.push(`Email: ${data.email.trim()}`);
+  L.push(waSection("👤 DATOS DEL CLIENTE"));
+  if (data.name.trim()) L.push(waField("Nombre", data.name.trim()));
+  if (data.phone.trim()) L.push(waField("Teléfono", data.phone.trim()));
+  if (data.email.trim()) L.push(waField("Email", data.email.trim()));
   L.push("");
-  if (hasPhoto) {
-    // WhatsApp no permite adjuntar la foto en un enlace wa.me?text=: solo se
-    // puede precargar texto. Se avisa aquí de que llega por email en vez de
-    // dejar que la foto desaparezca sin explicación.
-    L.push("📷 Foto adjunta (recibida también por email)");
-    L.push("");
-  }
   if (data.description.trim()) {
-    L.push("📝 DESCRIPCIÓN DEL PROBLEMA");
-    L.push(`"${data.description.trim()}"`);
+    L.push(waSection("📝 DESCRIPCIÓN DEL PROBLEMA"));
+    L.push(`_"${data.description.trim()}"_`);
     L.push("");
   }
-  L.push("🕐 DISPONIBILIDAD");
+  L.push(waSection("🕐 DISPONIBILIDAD"));
   const disp =
     data.urgency === "otro"
       ? [data.otherDate, data.otherSlot].filter(Boolean).join(" · ")
       : urgencyLabel(data.urgency);
-  L.push(`Preferencia: ${disp || "Sin especificar"}`);
+  L.push(waField("Preferencia", disp || "Sin especificar"));
   L.push("");
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("");
-  L.push(`Aviso recibido: ${timestamp}`);
-  L.push(`ID del aviso: ${avisoId}`);
+  L.push(WA_DIVIDER);
+  L.push(waField("🕐 Recibido", timestamp));
+  L.push(waField("🔖 ID de aviso", avisoId));
   return L.join("\n");
 }
 
@@ -421,7 +423,9 @@ export function buildInternalEmail(
   );
 
   const text =
-    buildWhatsAppMessage(data, avisoId, timestamp).replace(/━━+/g, "-----") +
+    buildWhatsAppMessage(data, avisoId, timestamp)
+      .replace(/▬▬+/g, "-----")
+      .replace(/\*/g, "") +
     (hasPhoto ? "\n\n📷 Fotografía de la avería adjunta a este email." : "");
 
   return { subject, html, text };
@@ -441,11 +445,41 @@ export interface BudgetData {
   email: string;
 }
 
+/* Mismo formato visual que buildWhatsAppMessage (secciones con emoji, datos en
+   negrita, divisor) para que el presupuesto se lea igual de claro que un aviso. */
+export function buildBudgetWhatsAppMessage(data: BudgetData, refId: string, timestamp: string) {
+  const L: string[] = [];
+  L.push("📋 *SOLICITUD DE PRESUPUESTO SIN COMPROMISO*");
+  L.push(WA_DIVIDER);
+  L.push("");
+  L.push(waSection("🔨 TRABAJO SOLICITADO"));
+  L.push(waField("Tipo de trabajo", data.workType || "Sin especificar"));
+  if (data.description.trim()) L.push(`_"${data.description.trim()}"_`);
+  L.push("");
+  L.push(waSection("🏠 UBICACIÓN"));
+  if (data.propertyType) L.push(waField("Tipo de inmueble", propertyLabel(data.propertyType)));
+  if (data.address.trim()) L.push(waField("Dirección", data.address.trim()));
+  if (data.locality.trim()) L.push(waField("Localidad", data.locality.trim()));
+  if (data.postalCode.trim()) L.push(waField("Código postal", data.postalCode.trim()));
+  L.push("");
+  L.push(waSection("📅 CUÁNDO"));
+  L.push(waField("Preferencia", data.whenApprox || "Sin especificar"));
+  L.push("");
+  L.push(waSection("👤 DATOS DEL CLIENTE"));
+  if (data.name.trim()) L.push(waField("Nombre", data.name.trim()));
+  if (data.phone.trim()) L.push(waField("Teléfono", data.phone.trim()));
+  if (data.email.trim()) L.push(waField("Email", data.email.trim()));
+  L.push("");
+  L.push(WA_DIVIDER);
+  L.push(waField("🕐 Recibido", timestamp));
+  L.push(waField("🔖 Referencia", refId));
+  return L.join("\n");
+}
+
 export function buildBudgetEmail(
   data: BudgetData,
   refId: string,
-  timestamp: string,
-  hasPhoto = false
+  timestamp: string
 ): { subject: string; html: string; text: string } {
   const subject = `SOLICITUD DE PRESUPUESTO — ${data.locality.trim() || "BIZKAIA"} — ${refId}`;
 
@@ -475,17 +509,9 @@ export function buildBudgetEmail(
     "Acción: preparar presupuesto sin compromiso y contactar con el cliente."
   );
 
-  const text = `📋 SOLICITUD DE PRESUPUESTO SIN COMPROMISO
-Ref: ${refId}
-Tipo de trabajo: ${data.workType || "—"}
-Descripción: ${data.description || "—"}
-Ubicación: ${[data.address, data.locality, data.postalCode].filter(Boolean).join(", ") || "—"}
-Tipo de inmueble: ${data.propertyType ? propertyLabel(data.propertyType) : "—"}
-Cuándo: ${data.whenApprox || "—"}
-Nombre: ${data.name || "—"}
-Teléfono: ${data.phone || "—"}
-Email: ${data.email || "—"}${hasPhoto ? "\n📷 Foto adjunta (recibida también por email)" : ""}
-Recibido: ${timestamp}`;
+  const text = buildBudgetWhatsAppMessage(data, refId, timestamp)
+    .replace(/▬▬+/g, "-----")
+    .replace(/\*/g, "");
 
   return { subject, html, text };
 }

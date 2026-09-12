@@ -18,7 +18,6 @@ import {
 } from "@/lib/leadConfig";
 import ResumenEnvio from "./ResumenEnvio";
 import GuidedQuestions from "./GuidedQuestions";
-import PhotoPicker from "@/components/PhotoPicker";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { business, telLink } from "@/lib/business";
 import { trackCallClick } from "@/lib/tracking";
@@ -360,7 +359,6 @@ export default function SolicitudWizard() {
   const [submitted, setSubmitted] = useState(false);
   const [lastId, setLastId] = useState("");
   const [lastEmailOk, setLastEmailOk] = useState(false);
-  const [photo, setPhoto] = useState("");
   const [hp, setHp] = useState("");
 
   const incidence = INCIDENCES.find((i) => i.id === data.incidence?.id) ?? data.incidence;
@@ -436,7 +434,6 @@ export default function SolicitudWizard() {
     setSubmitted(false);
     setLastId("");
     setLastEmailOk(false);
-    setPhoto("");
     setHp("");
     setGuideValues({});
     setTouchError("");
@@ -499,7 +496,6 @@ export default function SolicitudWizard() {
             data={data}
             incidence={incidence}
             showUrgent={danger}
-            photo={photo}
             hp={hp}
             onHpChange={setHp}
             onEdit={(s) => go(s)}
@@ -596,7 +592,7 @@ export default function SolicitudWizard() {
               <StepLayout
                 eyebrow={`Paso ${step}`}
                 title="Cuéntanos algo más"
-                subtitle="Describe lo que ocurre con tus propias palabras y, si puedes, añade una foto. Todo es opcional."
+                subtitle="Describe lo que ocurre con tus propias palabras. Es opcional."
                 back={() => go(hasGuide ? 2 : 1)}
               >
                 {danger && (
@@ -614,18 +610,6 @@ export default function SolicitudWizard() {
                   className="w-full resize-none rounded-md border border-neutral-300 bg-white px-4 py-4 text-base text-neutral-900 placeholder-neutral-400 transition-colors focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
                 ></textarea>
                 <p className="mt-2 text-right text-xs text-neutral-400">{data.description.length}/500</p>
-                <div className="mt-5">
-                  <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-neutral-500">
-                    Foto de la avería <span className="font-normal normal-case text-neutral-400">(opcional)</span>
-                  </span>
-                  <PhotoPicker
-                    id="wiz-foto"
-                    value={photo}
-                    onChange={setPhoto}
-                    label="Añadir foto"
-                    hint="Se adjunta a la notificación que recibimos."
-                  />
-                </div>
                 <ContinueBar onContinue={nextStep} />
               </StepLayout>
             )}
