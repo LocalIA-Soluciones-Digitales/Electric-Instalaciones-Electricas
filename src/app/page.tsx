@@ -158,7 +158,7 @@ export default function HomePage() {
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base md:text-lg text-neutral-600 leading-relaxed">
               Electricistas cualificados para cualquier trabajo eléctrico en vivienda, comunidad o local
-              comercial, en Barakaldo y toda Euskadi.
+              comercial,<br className="sm:hidden" /> en Barakaldo y toda Euskadi.
             </p>
           </Reveal>
 
