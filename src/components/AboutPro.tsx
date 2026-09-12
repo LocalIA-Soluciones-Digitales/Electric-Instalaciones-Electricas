@@ -32,7 +32,7 @@ export default function AboutPro() {
           <div>
             <p className="font-display text-base font-bold text-neutral-900">{business.owner}</p>
             <p className="text-sm text-neutral-500">
-              Electricista responsable · {business.address.city}, {business.address.region}
+              Electricista profesional · {business.address.city}, {business.address.region}
             </p>
           </div>
         </div>
