@@ -276,7 +276,7 @@ function answersBlock(data: AvisoData) {
 }
 
 /* ---------- MENSAJE DE WHATSAPP ---------- */
-export function buildWhatsAppMessage(data: AvisoData, avisoId: string, timestamp: string) {
+export function buildWhatsAppMessage(data: AvisoData, avisoId: string, timestamp: string, hasPhoto = false) {
   const L: string[] = [];
   L.push("🚨 NUEVO AVISO DE SERVICIO");
   L.push("");
@@ -299,6 +299,13 @@ export function buildWhatsAppMessage(data: AvisoData, avisoId: string, timestamp
   if (data.phone.trim()) L.push(`Teléfono: ${data.phone.trim()}`);
   if (data.email.trim()) L.push(`Email: ${data.email.trim()}`);
   L.push("");
+  if (hasPhoto) {
+    // WhatsApp no permite adjuntar la foto en un enlace wa.me?text=: solo se
+    // puede precargar texto. Se avisa aquí de que llega por email en vez de
+    // dejar que la foto desaparezca sin explicación.
+    L.push("📷 Foto adjunta (recibida también por email)");
+    L.push("");
+  }
   if (data.description.trim()) {
     L.push("📝 DESCRIPCIÓN DEL PROBLEMA");
     L.push(`"${data.description.trim()}"`);
@@ -437,7 +444,8 @@ export interface BudgetData {
 export function buildBudgetEmail(
   data: BudgetData,
   refId: string,
-  timestamp: string
+  timestamp: string,
+  hasPhoto = false
 ): { subject: string; html: string; text: string } {
   const subject = `SOLICITUD DE PRESUPUESTO — ${data.locality.trim() || "BIZKAIA"} — ${refId}`;
 
@@ -476,7 +484,7 @@ Tipo de inmueble: ${data.propertyType ? propertyLabel(data.propertyType) : "—"
 Cuándo: ${data.whenApprox || "—"}
 Nombre: ${data.name || "—"}
 Teléfono: ${data.phone || "—"}
-Email: ${data.email || "—"}
+Email: ${data.email || "—"}${hasPhoto ? "\n📷 Foto adjunta (recibida también por email)" : ""}
 Recibido: ${timestamp}`;
 
   return { subject, html, text };

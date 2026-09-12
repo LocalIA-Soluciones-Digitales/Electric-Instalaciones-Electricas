@@ -125,7 +125,7 @@ export default function PresupuestoForm() {
     };
 
     const refId = generarIdAviso("BUD");
-    const { text } = buildBudgetEmail(data, refId, formatFechaHora());
+    const { text } = buildBudgetEmail(data, refId, formatFechaHora(), Boolean(photo));
 
     setSending(true);
     trackFormSubmit("presupuesto_form");

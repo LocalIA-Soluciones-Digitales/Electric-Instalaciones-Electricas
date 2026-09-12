@@ -107,7 +107,7 @@ export default function ResumenEnvio({
     const avisoId = generarIdAviso(data.service.code);
     const timestamp = formatFechaHora();
 
-    const msg = buildWhatsAppMessage(data, avisoId, timestamp);
+    const msg = buildWhatsAppMessage(data, avisoId, timestamp, Boolean(photo));
 
     try {
       const log = JSON.parse(localStorage.getItem("electric_aviso_log") || "[]");

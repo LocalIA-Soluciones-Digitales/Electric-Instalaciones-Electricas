@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
-import MobileBar from "@/components/MobileBar";
 import CookieConsent from "@/components/CookieConsent";
 import Analytics from "@/components/Analytics";
 import ConsentGate from "@/components/ConsentGate";
@@ -71,7 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <link rel="stylesheet" href="/fonts/remixicon/remixicon.css" />
       </head>
-      <body className="flex min-h-full flex-col bg-white pb-20 md:pb-0">
+      <body className="flex min-h-full flex-col bg-white">
         <ConsentGate>
           <Analytics />
         </ConsentGate>
@@ -80,7 +79,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1">{children}</main>
         <Footer />
         <FloatingButtons />
-        <MobileBar />
         <CookieConsent />
       </body>
     </html>
