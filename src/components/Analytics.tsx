@@ -1,37 +1,38 @@
 "use client";
 
-import Script from "next/script";
+import { useEffect } from "react";
 import { CONSENT_MODE_SCRIPT, gtmLoaderScript, metaPixelScript } from "@/lib/inlineScripts";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
-// Este componente entero solo se monta *después* de que ConsentGate confirme
-// consentimiento (nunca en el render inicial) — por eso los tres scripts usan
-// `strategy="afterInteractive"`. `beforeInteractive` solo tiene efecto para
-// scripts presentes en el layout raíz desde el primer render; usarlo aquí
-// hacía que Next.js nunca llegara a insertar ni ejecutar el script de Consent
-// Mode por defecto (bug real detectado en producción: `window.dataLayer`
-// nunca se inicializaba y GTM/GA no recibían el estado de consentimiento).
+// Este componente solo se monta *después* del render inicial (cuando
+// ConsentGate confirma consentimiento), nunca durante la carga/hidratación
+// de la página. `next/script` (con cualquier `strategy`) da por hecho que
+// sus <Script> forman parte del árbol desde el principio; usado en un
+// componente que aparece mucho más tarde, el <script> podía llegar a
+// insertarse en el DOM sin que su contenido se ejecutara nunca — bug real
+// confirmado en producción (window.dataLayer no se inicializaba pese a que
+// el elemento existía). Se inyectan los tres scripts a mano con
+// document.createElement + appendChild, la misma técnica que usan
+// internamente los propios snippets de Google/Meta, que sí garantiza
+// ejecución sea cual sea el momento del ciclo de vida en que se inserten.
+function injectInlineScript(id: string, code: string) {
+  if (document.getElementById(id)) return;
+  const script = document.createElement("script");
+  script.id = id;
+  script.text = code;
+  document.head.appendChild(script);
+}
+
 export default function Analytics() {
-  return (
-    <>
-      {/* Google Consent Mode v2 — denegado por defecto hasta consentimiento explícito */}
-      <Script id="consent-mode-default" strategy="afterInteractive">
-        {CONSENT_MODE_SCRIPT}
-      </Script>
+  useEffect(() => {
+    // Orden importa: el consentimiento por defecto debe declararse antes de
+    // que se carguen los tags de GTM/Meta que lo consultan.
+    injectInlineScript("consent-mode-default", CONSENT_MODE_SCRIPT);
+    if (GTM_ID) injectInlineScript("gtm-loader", gtmLoaderScript(GTM_ID));
+    if (META_PIXEL_ID) injectInlineScript("meta-pixel", metaPixelScript(META_PIXEL_ID));
+  }, []);
 
-      {GTM_ID && (
-        <Script id="gtm-loader" strategy="afterInteractive">
-          {gtmLoaderScript(GTM_ID)}
-        </Script>
-      )}
-
-      {META_PIXEL_ID && (
-        <Script id="meta-pixel" strategy="afterInteractive">
-          {metaPixelScript(META_PIXEL_ID)}
-        </Script>
-      )}
-    </>
-  );
+  return null;
 }
