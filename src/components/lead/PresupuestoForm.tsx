@@ -15,7 +15,6 @@ import {
 import { enviarAvisoEmail } from "@/lib/sendLead";
 import { business, telLink, waLink } from "@/lib/business";
 import { trackFormSubmit, trackWhatsAppClick } from "@/lib/tracking";
-import PhotoPicker from "@/components/PhotoPicker";
 import TurnstileWidget from "@/components/lead/TurnstileWidget";
 
 const inputCls =
@@ -71,7 +70,6 @@ export default function PresupuestoForm() {
 
   const [workType, setWorkType] = useState("");
   const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState("");
   const [propertyType, setPropertyType] = useState("");
   const [address, setAddress] = useState("");
   const [locality, setLocality] = useState("");
@@ -90,7 +88,6 @@ export default function PresupuestoForm() {
   const reset = () => {
     setWorkType("");
     setDescription("");
-    setPhoto("");
     setPropertyType("");
     setAddress("");
     setLocality("");
@@ -125,7 +122,7 @@ export default function PresupuestoForm() {
     };
 
     const refId = generarIdAviso("BUD");
-    const text = buildBudgetWhatsAppMessage(data, refId, formatFechaHora(), Boolean(photo));
+    const text = buildBudgetWhatsAppMessage(data, refId, formatFechaHora());
 
     setSending(true);
     trackFormSubmit("presupuesto_form");
@@ -139,7 +136,6 @@ export default function PresupuestoForm() {
       kind: "presupuesto",
       avisoId: refId,
       data,
-      photo: photo || undefined,
       hp,
       turnstileToken: turnstileToken || undefined,
     });
@@ -253,16 +249,6 @@ export default function PresupuestoForm() {
                       className="w-full resize-none rounded-md border border-neutral-300 bg-white px-4 py-3 md:py-3.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
                     ></textarea>
                     <p className="mt-1 text-right text-xs text-neutral-400">{description.length}/500</p>
-                  </Field>
-
-                  <Field label="Foto o plano (opcional)">
-                    <PhotoPicker
-                      id="bud-foto"
-                      value={photo}
-                      onChange={setPhoto}
-                      label="Añadir foto o plano"
-                      hint="Se adjunta a la solicitud que recibimos."
-                    />
                   </Field>
                 </div>
 

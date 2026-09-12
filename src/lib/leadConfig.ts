@@ -462,12 +462,7 @@ export interface BudgetData {
 
 /* Mismo formato visual que buildWhatsAppMessage (secciones con emoji, datos en
    negrita, divisor) para que el presupuesto se lea igual de claro que un aviso. */
-export function buildBudgetWhatsAppMessage(
-  data: BudgetData,
-  refId: string,
-  timestamp: string,
-  hasPhoto = false
-) {
+export function buildBudgetWhatsAppMessage(data: BudgetData, refId: string, timestamp: string) {
   const L: string[] = [];
   L.push("📋 *SOLICITUD DE PRESUPUESTO SIN COMPROMISO*");
   L.push(WA_DIVIDER);
@@ -490,10 +485,6 @@ export function buildBudgetWhatsAppMessage(
   if (data.phone.trim()) L.push(waField("📞", "Teléfono", data.phone.trim()));
   if (data.email.trim()) L.push(waField("✉️", "Email", data.email.trim()));
   L.push("");
-  if (hasPhoto) {
-    L.push(waField("📷", "Foto o plano", "Adjunto, enviado también por email"));
-    L.push("");
-  }
   L.push(WA_DIVIDER);
   L.push(waField("🕐", "Recibido", timestamp));
   L.push(waField("🔖", "Referencia", refId));
@@ -503,8 +494,7 @@ export function buildBudgetWhatsAppMessage(
 export function buildBudgetEmail(
   data: BudgetData,
   refId: string,
-  timestamp: string,
-  hasPhoto = false
+  timestamp: string
 ): { subject: string; html: string; text: string } {
   const subject = `SOLICITUD DE PRESUPUESTO — ${data.locality.trim() || "BIZKAIA"} — ${refId}`;
 
@@ -534,11 +524,9 @@ export function buildBudgetEmail(
     "Acción: preparar presupuesto sin compromiso y contactar con el cliente."
   );
 
-  const text =
-    buildBudgetWhatsAppMessage(data, refId, timestamp)
-      .replace(/▬▬+/g, "-----")
-      .replace(/\*/g, "") +
-    (hasPhoto ? "\n\n📷 Fotografía o plano adjunto a este email." : "");
+  const text = buildBudgetWhatsAppMessage(data, refId, timestamp)
+    .replace(/▬▬+/g, "-----")
+    .replace(/\*/g, "");
 
   return { subject, html, text };
 }
