@@ -25,7 +25,7 @@ export default function AboutPro() {
   const hasSecondaryRow = pills.length > 0 || hasReview;
 
   return (
-    <section aria-label="Sobre el profesional" className="border-y border-neutral-200 bg-white py-6 md:py-8">
+    <section aria-label="Sobre el profesional" className="border-y border-neutral-200 bg-white py-4 md:py-5">
       <div
         className={`mx-auto flex max-w-6xl flex-col px-4 sm:flex-row sm:items-center md:px-6 ${
           hasSecondaryRow ? "gap-4 sm:justify-between sm:gap-6" : "sm:justify-center"

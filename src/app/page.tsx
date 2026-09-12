@@ -39,10 +39,18 @@ const homeFaqs = [
   },
 ];
 
-const localitiesByProvince = localities.reduce<Record<string, typeof localities>>((acc, l) => {
-  (acc[l.province] ??= []).push(l);
-  return acc;
-}, {});
+// Cruces es un barrio dentro de la propia página de Barakaldo (que ya lo
+// menciona junto a Retuerto, Lutxana, etc.): listarlo aparte en el resumen de
+// portada sugería que otros barrios no listados no tenían servicio.
+const HOME_ZONE_EXCLUDE = new Set(["cruces"]);
+const HOME_ZONE_LIMIT = 4;
+
+const localitiesByProvince = localities
+  .filter((l) => !HOME_ZONE_EXCLUDE.has(l.slug))
+  .reduce<Record<string, typeof localities>>((acc, l) => {
+    (acc[l.province] ??= []).push(l);
+    return acc;
+  }, {});
 
 const trustStrip = [
   { icon: "ri-time-line", label: "Servicio 24h · 365 días" },
@@ -116,7 +124,7 @@ export default function HomePage() {
       </section>
 
       {/* Confianza */}
-      <section className="bg-cloud py-14 md:py-16">
+      <section className="bg-cloud py-10 md:py-12">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <Reveal>
             <TrustBadges />
@@ -127,7 +135,7 @@ export default function HomePage() {
       <AboutPro />
 
       {/* Servicios */}
-      <section id="servicios" className="bg-white py-10 md:py-24">
+      <section id="servicios" className="bg-white py-10 md:py-16">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <Reveal className="text-center">
             <div className="inline-flex items-center gap-2">
@@ -208,7 +216,7 @@ export default function HomePage() {
       </ParallaxBanner>
 
       {/* Cobertura */}
-      <section className="relative overflow-hidden py-16 md:py-24">
+      <section className="relative overflow-hidden py-12 md:py-16">
         <div className="absolute inset-0" aria-hidden="true">
           <Image src={COVERAGE_IMAGE} alt="" fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/70 to-white/95"></div>
@@ -227,35 +235,52 @@ export default function HomePage() {
                 Zonas donde damos servicio
               </h2>
               <p className="mx-auto mt-3 max-w-2xl text-neutral-600">
-                Electricista de confianza con base en Barakaldo y servicio en toda Euskadi, con
-                desplazamiento rápido a domicilio.
+                Con base en Barakaldo, trabajamos en <strong className="text-neutral-900">toda Euskadi</strong>:
+                Bizkaia, Gipuzkoa y Araba al completo, también en los barrios y municipios que no
+                aparecen en esta lista.
               </p>
               <div className="mt-8 grid grid-cols-1 gap-4 text-left sm:grid-cols-3">
-                {Object.entries(localitiesByProvince).map(([province, items]) => (
-                  <div key={province} className="rounded-2xl border border-neutral-200 bg-white/80 p-5">
-                    <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-electric-600">
-                      <i className="ri-map-pin-2-fill" aria-hidden="true"></i>
-                      {province}
-                    </p>
-                    <ul className="mt-3 flex flex-col divide-y divide-neutral-100">
-                      {items.map((l) => (
-                        <li key={l.slug}>
-                          <Link
-                            href={`/electricista-${l.slug}`}
-                            className="group flex items-center justify-between gap-2 py-2 text-sm font-semibold text-neutral-700 transition-colors duration-200 hover:text-electric-600"
-                          >
-                            {l.name}
-                            <i
-                              className="ri-arrow-right-s-line text-neutral-300 transition-colors duration-200 group-hover:text-electric-500"
-                              aria-hidden="true"
-                            ></i>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                {Object.entries(localitiesByProvince).map(([province, items]) => {
+                  const shown = items.slice(0, HOME_ZONE_LIMIT);
+                  const rest = items.length - shown.length;
+                  return (
+                    <div key={province} className="rounded-2xl border border-neutral-200 bg-white/80 p-5">
+                      <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-electric-600">
+                        <i className="ri-map-pin-2-fill" aria-hidden="true"></i>
+                        {province}
+                      </p>
+                      <ul className="mt-3 flex flex-col divide-y divide-neutral-100">
+                        {shown.map((l) => (
+                          <li key={l.slug}>
+                            <Link
+                              href={`/electricista-${l.slug}`}
+                              className="group flex items-center justify-between gap-2 py-2 text-sm font-semibold text-neutral-700 transition-colors duration-200 hover:text-electric-600"
+                            >
+                              {l.name}
+                              <i
+                                className="ri-arrow-right-s-line text-neutral-300 transition-colors duration-200 group-hover:text-electric-500"
+                                aria-hidden="true"
+                              ></i>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                      {rest > 0 && (
+                        <p className="mt-2 pt-2 text-xs text-neutral-400">
+                          Y {rest} localidad{rest === 1 ? "" : "es"} más en {province}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
+              <p className="mx-auto mt-6 max-w-xl text-sm text-neutral-500">
+                ¿Tu localidad no aparece?{" "}
+                <a href="#solicitud" className="font-semibold text-electric-600 hover:underline">
+                  Escríbenos
+                </a>{" "}
+                y confirmamos cobertura en minutos.
+              </p>
             </div>
           </Reveal>
         </div>
