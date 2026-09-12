@@ -27,7 +27,7 @@ const WORK_OPTIONS = [
   "Reforma eléctrica",
   "Nuevos puntos de luz o enchufes",
   "Cambio de cuadro eléctrico",
-  "Iluminación LED",
+  "Iluminación",
   "Boletín / legalización",
   "Mejora de la instalación",
   "Otro trabajo",
@@ -218,34 +218,24 @@ export default function PresupuestoForm() {
                 required
                 hint="Elige la opción más parecida y, si quieres, lo detallas después."
               >
-                <div className="grid grid-cols-1 gap-2">
-                  {WORK_OPTIONS.map((w) => {
-                    const active = workType === w;
-                    return (
-                      <button
-                        key={w}
-                        type="button"
-                        onClick={() => setWorkType(w)}
-                        aria-pressed={active}
-                        className={`flex items-center justify-between gap-3 rounded-lg border px-3.5 py-3 text-left text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                          active
-                            ? "border-electric-500/60 bg-electric-400/10 text-neutral-900"
-                            : "border-neutral-200 bg-cloud text-neutral-600 hover:border-electric-400/50 hover:text-neutral-900"
-                        }`}
-                      >
-                        <span className="leading-snug">{w}</span>
-                        <span
-                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                            active ? "border-electric-400 bg-electric-400" : "border-neutral-300"
-                          }`}
-                        >
-                          {active && (
-                            <i className="ri-check-line text-[11px] text-neutral-950" aria-hidden="true"></i>
-                          )}
-                        </span>
-                      </button>
-                    );
-                  })}
+                <div className="relative">
+                  <select
+                    id="bud-trabajo"
+                    value={workType}
+                    onChange={(e) => setWorkType(e.target.value)}
+                    className={`${inputCls} appearance-none pr-10`}
+                  >
+                    <option value="">Selecciona un tipo de trabajo…</option>
+                    {WORK_OPTIONS.map((w) => (
+                      <option key={w} value={w}>
+                        {w}
+                      </option>
+                    ))}
+                  </select>
+                  <i
+                    className="ri-arrow-down-s-line pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-lg text-neutral-400"
+                    aria-hidden="true"
+                  ></i>
                 </div>
               </Field>
 
