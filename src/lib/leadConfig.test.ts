@@ -85,7 +85,6 @@ describe("buildWhatsAppMessage", () => {
     expect(msg).toContain("Electricidad");
     expect(msg).toContain("Jane Doe");
     expect(msg).toContain("600000000");
-    expect(msg).toContain("#ELEC-260101-001");
   });
 });
 

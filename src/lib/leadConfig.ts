@@ -278,11 +278,13 @@ function answersBlock(data: AvisoData) {
 /* ---------- MENSAJE DE WHATSAPP ----------
    Usa el formato nativo de WhatsApp (*negrita*, _cursiva_) y un divisor visual
    para que el aviso se lea de un vistazo en el móvil: título, secciones con
-   emoji y cada dato con su propio emoji delante para que se distinga a simple
-   vista sin tener que leer la etiqueta. */
+   emoji y cada dato destacado en negrita. Se evita poner un emoji distinto en
+   cada campo (servicio, urgencia, dirección...): en algunos móviles y
+   navegadores esos emoji no se representan bien y el mensaje llega con
+   símbolos sueltos en vez del icono. */
 const WA_DIVIDER = "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬";
-function waField(emoji: string, label: string, value: string) {
-  return `${emoji} *${label}:* ${value}`;
+function waField(label: string, value: string) {
+  return `*${label}:* ${value}`;
 }
 function waSection(title: string) {
   return `*${title}*`;
@@ -299,29 +301,27 @@ export function buildWhatsAppMessage(
   L.push(WA_DIVIDER);
   L.push("");
   L.push(waSection("📌 DATOS DEL AVISO"));
-  L.push(waField("🔧", "Servicio", data.service.label));
-  if (data.incidence) L.push(waField("⚠️", "Tipo de incidencia", data.incidence.label));
-  L.push(
-    waField("⏱️", "Urgencia", `${urgencyLabel(data.urgency)}${data.otherSlot ? ` (${data.otherSlot})` : ""}`)
-  );
+  L.push(waField("Servicio", data.service.label));
+  if (data.incidence) L.push(waField("Tipo de incidencia", data.incidence.label));
+  L.push(waField("Urgencia", `${urgencyLabel(data.urgency)}${data.otherSlot ? ` (${data.otherSlot})` : ""}`));
   L.push(...answersBlock(data));
   L.push("");
   L.push(waSection("🏠 UBICACIÓN"));
-  if (data.propertyType) L.push(waField("🏢", "Tipo de inmueble", propertyLabel(data.propertyType)));
-  if (data.address.trim()) L.push(waField("📍", "Dirección", data.address.trim()));
-  if (data.locality.trim()) L.push(waField("🏙️", "Localidad", data.locality.trim()));
-  if (data.postalCode.trim()) L.push(waField("📮", "Código postal", data.postalCode.trim()));
+  if (data.propertyType) L.push(waField("Tipo de inmueble", propertyLabel(data.propertyType)));
+  if (data.address.trim()) L.push(waField("Dirección", data.address.trim()));
+  if (data.locality.trim()) L.push(waField("Localidad", data.locality.trim()));
+  if (data.postalCode.trim()) L.push(waField("Código postal", data.postalCode.trim()));
   L.push("");
   L.push(waSection("👤 DATOS DEL CLIENTE"));
-  if (data.name.trim()) L.push(waField("🙋", "Nombre", data.name.trim()));
-  if (data.phone.trim()) L.push(waField("📞", "Teléfono", data.phone.trim()));
-  if (data.email.trim()) L.push(waField("✉️", "Email", data.email.trim()));
+  if (data.name.trim()) L.push(waField("Nombre", data.name.trim()));
+  if (data.phone.trim()) L.push(waField("Teléfono", data.phone.trim()));
+  if (data.email.trim()) L.push(waField("Email", data.email.trim()));
   L.push("");
   if (hasPhoto) {
     // WhatsApp no permite adjuntar la foto en un enlace wa.me?text=: solo se
     // puede precargar texto. Se avisa aquí de que llega por email en vez de
     // dejar que la foto desaparezca sin explicación.
-    L.push(waField("📷", "Foto", "Adjunta, enviada también por email"));
+    L.push(waField("Foto", "Adjunta, enviada también por email"));
     L.push("");
   }
   if (data.description.trim()) {
@@ -334,11 +334,10 @@ export function buildWhatsAppMessage(
     data.urgency === "otro"
       ? [data.otherDate, data.otherSlot].filter(Boolean).join(" · ")
       : urgencyLabel(data.urgency);
-  L.push(waField("🗓️", "Preferencia", disp || "Sin especificar"));
+  L.push(waField("Preferencia", disp || "Sin especificar"));
   L.push("");
   L.push(WA_DIVIDER);
-  L.push(waField("🕐", "Recibido", timestamp));
-  L.push(waField("🔖", "ID de aviso", avisoId));
+  L.push(waField("Recibido", timestamp));
   return L.join("\n");
 }
 
@@ -468,26 +467,25 @@ export function buildBudgetWhatsAppMessage(data: BudgetData, refId: string, time
   L.push(WA_DIVIDER);
   L.push("");
   L.push(waSection("🔨 TRABAJO SOLICITADO"));
-  L.push(waField("🛠️", "Tipo de trabajo", data.workType || "Sin especificar"));
+  L.push(waField("Tipo de trabajo", data.workType || "Sin especificar"));
   if (data.description.trim()) L.push(`_"${data.description.trim()}"_`);
   L.push("");
   L.push(waSection("🏠 UBICACIÓN"));
-  if (data.propertyType) L.push(waField("🏢", "Tipo de inmueble", propertyLabel(data.propertyType)));
-  if (data.address.trim()) L.push(waField("📍", "Dirección", data.address.trim()));
-  if (data.locality.trim()) L.push(waField("🏙️", "Localidad", data.locality.trim()));
-  if (data.postalCode.trim()) L.push(waField("📮", "Código postal", data.postalCode.trim()));
+  if (data.propertyType) L.push(waField("Tipo de inmueble", propertyLabel(data.propertyType)));
+  if (data.address.trim()) L.push(waField("Dirección", data.address.trim()));
+  if (data.locality.trim()) L.push(waField("Localidad", data.locality.trim()));
+  if (data.postalCode.trim()) L.push(waField("Código postal", data.postalCode.trim()));
   L.push("");
   L.push(waSection("📅 CUÁNDO"));
-  L.push(waField("🗓️", "Preferencia", data.whenApprox || "Sin especificar"));
+  L.push(waField("Preferencia", data.whenApprox || "Sin especificar"));
   L.push("");
   L.push(waSection("👤 DATOS DEL CLIENTE"));
-  if (data.name.trim()) L.push(waField("🙋", "Nombre", data.name.trim()));
-  if (data.phone.trim()) L.push(waField("📞", "Teléfono", data.phone.trim()));
-  if (data.email.trim()) L.push(waField("✉️", "Email", data.email.trim()));
+  if (data.name.trim()) L.push(waField("Nombre", data.name.trim()));
+  if (data.phone.trim()) L.push(waField("Teléfono", data.phone.trim()));
+  if (data.email.trim()) L.push(waField("Email", data.email.trim()));
   L.push("");
   L.push(WA_DIVIDER);
-  L.push(waField("🕐", "Recibido", timestamp));
-  L.push(waField("🔖", "Referencia", refId));
+  L.push(waField("Recibido", timestamp));
   return L.join("\n");
 }
 
