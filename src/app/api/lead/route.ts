@@ -7,6 +7,7 @@ import { checkRateLimit, clientIpFrom } from "@/lib/rateLimit";
 import { verifyTurnstile } from "@/lib/turnstile";
 import { archiveLead } from "@/lib/leadStore";
 import { notifyLeadFailure } from "@/lib/alerts";
+import { insertLeadForDashboard } from "@/lib/supabaseLeads";
 
 export const runtime = "nodejs";
 
@@ -103,8 +104,15 @@ export async function POST(req: Request) {
   // 7b. Archivo de respaldo (no-op si Upstash no está configurado): el aviso
   // queda registrado aquí independientemente de si el email interno llega a
   // enviarse o no, para que nunca se pierda solo por un fallo de Resend.
-  const archive = (emailSent: boolean) =>
-    archiveLead({
+  const archive = (emailSent: boolean) => {
+    void insertLeadForDashboard({
+      nombre: body.data.name,
+      telefono: body.data.phone,
+      email: body.data.email,
+      mensaje: body.data.description,
+      origen: body.kind,
+    });
+    return archiveLead({
       avisoId,
       kind: body.kind,
       data: body.data,
@@ -112,6 +120,7 @@ export async function POST(req: Request) {
       emailSent,
       createdAt: new Date().toISOString(),
     });
+  };
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
