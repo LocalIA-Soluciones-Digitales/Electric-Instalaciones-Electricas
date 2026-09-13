@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { business } from "@/lib/business";
+import { SERVICE_PHOTO_INSTALACIONES } from "@/lib/stockImages";
 
 const initials = business.owner
   .split(" ")
@@ -25,53 +27,70 @@ export default function AboutPro() {
   const hasSecondaryRow = pills.length > 0 || hasReview;
 
   return (
-    <section aria-label="Sobre el profesional" className="border-y border-neutral-200 bg-white py-4 md:py-5">
-      <div
-        className={`mx-auto flex max-w-6xl flex-col items-center px-4 sm:flex-row md:px-6 ${
-          hasSecondaryRow ? "gap-4 sm:justify-between sm:gap-6" : "sm:justify-center"
-        }`}
-      >
-        <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:gap-4 sm:text-left">
-          {/* Avatar de iniciales: sustituir por foto real del profesional en cuanto esté disponible */}
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-electric-100 text-lg font-extrabold text-electric-600">
-            {initials}
-          </span>
-          <div>
-            <p className="font-display text-base font-bold text-neutral-900">{business.owner}</p>
-            <p className="text-sm text-neutral-500">
-              Electricista profesional
-              <br className="sm:hidden" />
-              <span className="hidden sm:inline"> · </span>
-              {business.address.city}, {business.address.region}
-            </p>
+    <section aria-label="Sobre el profesional" className="bg-ink py-16 md:py-24">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-2 md:items-center md:px-6">
+        <div className="order-2 md:order-1">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-px w-5 bg-electric-400"></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+              Sobre la empresa
+            </span>
           </div>
+          <p className="font-display mt-4 text-2xl font-extrabold tracking-tight text-offwhite sm:text-3xl">
+            Hay una persona detrás de cada aviso.
+          </p>
+
+          <div className="mt-6 flex items-center gap-4">
+            {/* Avatar de iniciales: sustituir por foto real del profesional en cuanto esté disponible */}
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-electric-400/30 bg-carbon text-lg font-extrabold text-electric-400">
+              {initials}
+            </span>
+            <div>
+              <p className="font-display text-base font-bold text-offwhite">{business.owner}</p>
+              <p className="text-sm text-white/50">
+                Electricista profesional · {business.address.city}, {business.address.region}
+              </p>
+            </div>
+          </div>
+
+          {hasSecondaryRow && (
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              {pills.map((p) => (
+                <span
+                  key={p.label}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-carbon px-4 py-2 text-xs font-semibold text-white/70"
+                >
+                  <i className={`${p.icon} text-electric-400`} aria-hidden="true"></i>
+                  {p.label}
+                </span>
+              ))}
+
+              {hasReview && (
+                <a
+                  href={reviews.googleUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-electric-400/25 bg-electric-400/10 px-4 py-2 text-xs font-bold text-electric-400 transition-colors duration-200 hover:bg-electric-400/20"
+                >
+                  <i className="ri-google-fill" aria-hidden="true"></i>
+                  {reviews.rating} en Google{reviews.count ? ` · ${reviews.count} reseñas` : ""}
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
-        {hasSecondaryRow && (
-          <div className="flex flex-wrap items-center gap-3">
-            {pills.map((p) => (
-              <span
-                key={p.label}
-                className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-cloud px-4 py-2 text-xs font-semibold text-neutral-600"
-              >
-                <i className={`${p.icon} text-electric-600`} aria-hidden="true"></i>
-                {p.label}
-              </span>
-            ))}
-
-            {hasReview && (
-              <a
-                href={reviews.googleUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-electric-500/25 bg-electric-400/10 px-4 py-2 text-xs font-bold text-electric-700 transition-colors duration-200 hover:bg-electric-400/20"
-              >
-                <i className="ri-google-fill" aria-hidden="true"></i>
-                {reviews.rating} en Google{reviews.count ? ` · ${reviews.count} reseñas` : ""}
-              </a>
-            )}
+        <div className="order-1 overflow-hidden rounded-lg border border-white/10 md:order-2">
+          <div className="relative aspect-[4/3] w-full">
+            <Image
+              src={SERVICE_PHOTO_INSTALACIONES}
+              alt="Trabajo de instalación eléctrica realizado por Electric"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

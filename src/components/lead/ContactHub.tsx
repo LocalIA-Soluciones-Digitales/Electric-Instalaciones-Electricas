@@ -11,14 +11,14 @@ const OPTIONS: { id: Tab; hash: string; icon: string; title: string; desc: strin
     id: "urgente",
     hash: "solicitud",
     icon: "ri-flashlight-line",
-    title: "Tengo una avería ahora mismo",
+    title: "Estoy teniendo una avería",
     desc: "Cuéntanos qué ocurre en pocos pasos y te atendemos cuanto antes.",
   },
   {
     id: "presupuesto",
     hash: "presupuesto",
     icon: "ri-price-tag-3-line",
-    title: "Quiero un presupuesto sin compromiso",
+    title: "Quiero un presupuesto",
     desc: "Tienes un trabajo eléctrico en mente y quieres saber el precio.",
   },
 ];
@@ -47,19 +47,19 @@ export default function ContactHub() {
 
   return (
     <>
-      <section className="border-t border-neutral-200 bg-white py-12 md:py-16">
+      <section id="contacto-hub" className="border-t border-white/10 bg-ink py-16 md:py-24">
         <div className="mx-auto max-w-2xl px-4 text-center md:px-6">
           <div className="inline-flex items-center gap-2">
-            <span className="h-px w-5 bg-electric-500"></span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
+            <span className="h-px w-5 bg-electric-400"></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
               Contacto
             </span>
-            <span className="h-px w-5 bg-electric-500"></span>
+            <span className="h-px w-5 bg-electric-400"></span>
           </div>
-          <h2 className="font-display mt-4 text-2xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
-            ¿Qué necesitas ahora mismo?
+          <h2 className="font-display mt-4 text-2xl md:text-4xl font-extrabold tracking-tight text-offwhite">
+            Cuéntanos qué necesitas.
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm md:text-lg text-neutral-600 leading-relaxed">
+          <p className="mx-auto mt-3 max-w-xl text-sm md:text-lg text-white/55 leading-relaxed">
             Elige la opción que mejor se ajuste y te guiamos en unos pocos pasos.
           </p>
 
@@ -72,22 +72,22 @@ export default function ContactHub() {
                   type="button"
                   onClick={() => setTab(o.id)}
                   aria-pressed={active}
-                  className={`flex flex-col gap-3 rounded-xl border p-5 text-left transition-all duration-200 cursor-pointer ${
+                  className={`flex flex-col gap-3 rounded-lg border p-5 text-left transition-all duration-200 cursor-pointer ${
                     active
-                      ? "border-electric-500 bg-electric-400/10 shadow-md ring-1 ring-electric-400/30"
-                      : "border-neutral-200 bg-white hover:border-electric-400/60 hover:bg-electric-50/40"
+                      ? "border-electric-400/50 bg-electric-400/10 ring-1 ring-electric-400/30"
+                      : "border-white/10 bg-carbon hover:border-electric-400/30 hover:bg-white/5"
                   }`}
                 >
                   <span
                     className={`flex h-11 w-11 items-center justify-center rounded-lg text-xl transition-colors duration-200 ${
-                      active ? "bg-electric-400 text-neutral-950" : "bg-electric-100 text-electric-600"
+                      active ? "bg-electric-400 text-neutral-950" : "bg-white/5 text-electric-400"
                     }`}
                   >
                     <i className={o.icon} aria-hidden="true"></i>
                   </span>
                   <span>
-                    <span className="block text-sm font-bold text-neutral-900">{o.title}</span>
-                    <span className="mt-1 block text-xs leading-relaxed text-neutral-500">{o.desc}</span>
+                    <span className="block text-sm font-bold text-offwhite">{o.title}</span>
+                    <span className="mt-1 block text-xs leading-relaxed text-white/50">{o.desc}</span>
                   </span>
                 </button>
               );

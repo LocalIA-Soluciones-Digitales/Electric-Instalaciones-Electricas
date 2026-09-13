@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { services } from "@/lib/services";
 import { localities } from "@/lib/localities";
-import { COVERAGE_IMAGE, HERO_IMAGE, HERO_VIDEO, LIGHTING_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
+import { HERO_IMAGE, HERO_VIDEO, PANEL_CLOSEUP_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
 import TrustBadges from "@/components/TrustBadges";
 import AboutPro from "@/components/AboutPro";
 import Testimonials from "@/components/Testimonials";
@@ -12,6 +12,10 @@ import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
 import ParallaxBanner from "@/components/ParallaxBanner";
 import ContactHub from "@/components/lead/ContactHub";
+import UrgentBanner from "@/components/UrgentBanner";
+import ProcessSteps from "@/components/ProcessSteps";
+import CoverageMap from "@/components/CoverageMap";
+import HeroVideo from "@/components/HeroVideo";
 
 export const metadata: Metadata = {
   title: "Electricista en Barakaldo y Euskadi 24 Horas",
@@ -52,99 +56,98 @@ const localitiesByProvince = localities
     return acc;
   }, {});
 
-const trustStrip = [
-  { icon: "ri-time-line", label: "Servicio 24h · 365 días" },
-  { icon: "ri-price-tag-3-line", label: "Presupuesto sin compromiso" },
-  { icon: "ri-flashlight-line", label: "Respuesta rápida en Euskadi" },
+// Spans asimétricos para las 7 tarjetas de servicio (grid de 6 columnas en desktop).
+const SERVICE_SPANS = [
+  "md:col-span-3",
+  "md:col-span-3",
+  "md:col-span-2",
+  "md:col-span-2",
+  "md:col-span-2",
+  "md:col-span-4",
+  "md:col-span-2",
 ];
 
 export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section id="hero" className="relative flex min-h-[92vh] items-end overflow-hidden bg-neutral-950 text-white">
+      <section
+        id="hero"
+        className="relative -mt-16 flex min-h-[92vh] items-center overflow-hidden bg-ink text-offwhite"
+      >
         <div className="absolute inset-0" aria-hidden="true">
-          <video
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
+          <HeroVideo
+            src={HERO_VIDEO}
             poster={HERO_IMAGE}
-            disablePictureInPicture
-            disableRemotePlayback
-            className="absolute inset-0 h-full w-full scale-110 object-cover object-center blur-[2px] brightness-[0.85] saturate-[1.1] motion-reduce:hidden md:scale-105 md:blur-[1px]"
-          >
-            <source src={HERO_VIDEO} type="video/mp4" />
-          </video>
+            className="absolute inset-0 h-full w-full scale-105 object-cover object-center brightness-[0.75] saturate-[1.05] motion-reduce:hidden"
+          />
           <Image
             src={HERO_IMAGE}
             alt=""
             fill
             priority
             sizes="100vw"
-            className="hidden scale-110 object-cover object-center blur-[2px] brightness-[0.85] saturate-[1.1] motion-reduce:block md:scale-105 md:blur-[1px]"
+            className="hidden scale-105 object-cover object-center brightness-[0.75] saturate-[1.05] motion-reduce:block"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/55 to-neutral-950/35"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/40 via-transparent to-neutral-950/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/65 to-ink/15"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-ink/25"></div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-6xl px-4 pb-14 pt-32 text-center md:px-6 md:pb-20 md:pt-40">
-          <Reveal>
-            <div className="mb-6 inline-flex items-center gap-2">
-              <span className="h-px w-5 bg-electric-400"></span>
-              <span className="text-[11px] md:text-xs font-bold uppercase tracking-[0.18em] text-electric-400">
-                Servicio 24 horas · Barakaldo y toda Euskadi
-              </span>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <h1 className="font-display mx-auto max-w-2xl text-[2.4rem] leading-[1.12] sm:text-5xl md:text-6xl font-extrabold tracking-tight">
-              Electricista de confianza en Barakaldo y toda Euskadi
-            </h1>
-          </Reveal>
-
-          <Reveal delay={0.16}>
-            <p className="mx-auto mt-5 max-w-xl text-base md:text-lg leading-relaxed text-white/70">
-              Averías, cortocircuitos, cuadros eléctricos e instalaciones. Respuesta rápida, presupuesto
-              claro y servicio disponible las 24 horas, los 365 días del año.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.24}>
-            <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-              <a
-                href="#solicitud"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-electric-400 px-7 py-3.5 text-[15px] font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
-              >
-                <i className="ri-customer-service-2-line text-lg" aria-hidden="true"></i>
-                Solicitar asistencia
-              </a>
-              <a
-                href="#presupuesto"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-7 py-3.5 text-[15px] font-bold text-white backdrop-blur-sm transition-colors duration-200 hover:bg-white/20"
-              >
-                <i className="ri-price-tag-3-line text-lg" aria-hidden="true"></i>
-                Pedir presupuesto
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.32}>
-            <div className="mt-8 flex flex-wrap justify-center gap-x-7 gap-y-3 border-t border-white/15 pt-6">
-              {trustStrip.map((t) => (
-                <span key={t.label} className="inline-flex items-center gap-2 text-sm font-semibold text-white/80">
-                  <i className={`${t.icon} text-electric-400`} aria-hidden="true"></i>
-                  {t.label}
+        <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-28 md:px-6 md:pb-24 md:pt-32">
+          <div className="max-w-xl">
+            <Reveal>
+              <div className="mb-6 inline-flex items-center gap-2">
+                <span className="h-px w-8 bg-electric-400"></span>
+                <span className="text-[11px] md:text-xs font-bold uppercase tracking-[0.22em] text-electric-400">
+                  Instalaciones eléctricas · Barakaldo · Euskadi
                 </span>
-              ))}
-            </div>
-          </Reveal>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <h1 className="font-display text-[2.6rem] leading-[1.08] tracking-tight sm:text-5xl md:text-6xl font-extrabold">
+                Electricidad bien hecha.
+                <br />
+                Sin complicaciones.
+              </h1>
+            </Reveal>
+
+            <Reveal delay={0.16}>
+              <p className="mt-5 max-w-md text-base md:text-lg leading-relaxed text-white/70">
+                Averías, instalaciones y soluciones eléctricas profesionales para viviendas, comunidades y
+                negocios.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.24}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="#solicitud"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-electric-400 px-7 py-3.5 text-[15px] font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
+                >
+                  <i className="ri-customer-service-2-line text-lg" aria-hidden="true"></i>
+                  Solicitar asistencia
+                </a>
+                <a
+                  href="#servicios"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-[15px] font-bold text-offwhite backdrop-blur-sm transition-colors duration-200 hover:bg-white/10"
+                >
+                  Ver servicios
+                </a>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.32}>
+              <p className="mt-9 border-t border-white/15 pt-5 text-xs md:text-sm font-semibold uppercase tracking-[0.1em] text-white/50">
+                24 h · 365 días · Respuesta rápida · Presupuesto claro
+              </p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
       {/* Confianza */}
-      <section className="bg-cloud py-10 md:py-12">
+      <section className="bg-ink py-10 md:py-12">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <Reveal>
             <TrustBadges />
@@ -152,61 +155,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      <AboutPro />
-
       {/* Servicios */}
-      <section id="servicios" className="bg-white py-10 md:py-16">
+      <section id="servicios" className="bg-ink py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <Reveal className="text-center">
+          <Reveal>
             <div className="inline-flex items-center gap-2">
-              <span className="h-px w-5 bg-electric-500"></span>
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
+              <span className="h-px w-5 bg-electric-400"></span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
                 Servicios
               </span>
-              <span className="h-px w-5 bg-electric-500"></span>
             </div>
-            <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
-              Todo lo que necesita tu instalación, con un mismo electricista
+            <h2 className="font-display mt-4 max-w-xl text-3xl md:text-4xl font-extrabold tracking-tight text-offwhite">
+              Soluciones eléctricas, de principio a fin.
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base md:text-lg text-neutral-600 leading-relaxed">
+            <p className="mt-4 max-w-xl text-base md:text-lg text-white/55 leading-relaxed">
               Electricistas cualificados para cualquier trabajo eléctrico en vivienda, comunidad o local
-              comercial,<br className="sm:hidden" /> en Barakaldo y toda Euskadi.
+              comercial, en Barakaldo y toda Euskadi.
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-6">
             {services.map((s, i) => {
               const img = SERVICE_CARD_IMAGE[s.slug];
               return (
-                <Reveal key={s.slug} delay={(i % 3) * 0.06}>
+                <Reveal key={s.slug} delay={(i % 4) * 0.06} className={SERVICE_SPANS[i]}>
                   <Link
                     href={`/servicios/${s.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm shadow-neutral-900/[0.03] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-neutral-900/[0.08]"
+                    className="group relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-lg border border-white/10 bg-carbon p-6 transition-all duration-300 hover:-translate-y-1 hover:border-electric-400/40"
                   >
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-cloud">
-                      {img ? (
-                        <Image
-                          src={img}
-                          alt=""
-                          fill
-                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-electric-100 via-cloud to-electric-50"></div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/50 via-transparent to-transparent"></div>
-                      <span className="absolute bottom-3 left-3 flex h-11 w-11 items-center justify-center rounded-full bg-electric-400 text-xl text-neutral-950 shadow-sm">
-                        <i className={s.icon} aria-hidden="true"></i>
+                    {img && (
+                      <Image
+                        src={img}
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 33vw, 100vw"
+                        className="absolute inset-0 object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-[0.15]"
+                      />
+                    )}
+                    <div className="relative flex items-start justify-between">
+                      <span className="font-display text-sm font-bold text-white/25">
+                        {String(i + 1).padStart(2, "0")}
                       </span>
+                      <i className={`${s.icon} text-xl text-electric-400`} aria-hidden="true"></i>
                     </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <h3 className="font-display text-lg font-bold text-neutral-900 group-hover:text-electric-600">
+                    <div className="relative mt-10">
+                      <h3 className="font-display text-lg font-bold text-offwhite transition-colors duration-200 group-hover:text-electric-400">
                         {s.slug === "iluminacion-led" ? "Iluminación" : s.name}
                       </h3>
-                      <p className="mt-2 text-sm text-neutral-600 flex-1">{s.intro.slice(0, 110)}…</p>
-                      <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-600">
-                        Ver más <i className="ri-arrow-right-line" aria-hidden="true"></i>
+                      <p className="mt-2 text-sm text-white/50">{s.intro.slice(0, 100)}…</p>
+                      <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-electric-400">
+                        Ver más
+                        <i
+                          className="ri-arrow-right-line transition-transform duration-200 group-hover:translate-x-1"
+                          aria-hidden="true"
+                        ></i>
                       </span>
                     </div>
                   </Link>
@@ -217,75 +219,82 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Separador parallax: iluminación */}
+      {/* Precisión */}
       <ParallaxBanner
-        image={LIGHTING_IMAGE}
-        imageAlt="Instalación de iluminación arquitectónica LED"
+        image={PANEL_CLOSEUP_IMAGE}
+        imageAlt="Primer plano de un cuadro eléctrico organizado, cableado y conexiones"
         className="py-24 md:py-32"
       >
-        <div className="mx-auto max-w-6xl px-4 text-center md:px-6">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
           <Reveal>
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
-              Iluminación e instalaciones premium
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">Precisión</p>
+            <p className="font-display mt-3 max-w-lg text-3xl font-extrabold text-offwhite sm:text-4xl">
+              Cada conexión importa.
             </p>
-            <p className="font-display mx-auto mt-3 max-w-xl text-2xl font-extrabold text-white sm:text-3xl">
-              Cuidamos cada detalle, del cuadro eléctrico a la última bombilla
+            <p className="mt-4 max-w-md text-base leading-relaxed text-white/65">
+              Cuidamos tanto la seguridad como el acabado de cada instalación: cableado ordenado,
+              conexiones bien hechas y un cuadro que se entiende de un vistazo.
             </p>
           </Reveal>
         </div>
       </ParallaxBanner>
 
+      <UrgentBanner />
+
+      <ProcessSteps />
+
       {/* Cobertura */}
-      <section className="relative overflow-hidden py-12 md:py-16">
-        <div className="absolute inset-0" aria-hidden="true">
-          <Image src={COVERAGE_IMAGE} alt="" fill sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/70 to-white/95"></div>
-        </div>
-        <div className="relative mx-auto max-w-6xl px-4 md:px-6 text-center">
-          <Reveal>
-            <div className="mx-auto max-w-2xl rounded-3xl border border-neutral-200 bg-white/90 p-8 shadow-lg shadow-neutral-900/5 backdrop-blur-sm md:p-10">
-              <div className="inline-flex items-center gap-2 justify-center">
-                <span className="h-px w-5 bg-electric-500"></span>
-                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
+      <section id="cobertura" className="bg-carbon py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <div className="grid gap-10 md:grid-cols-2 md:items-center">
+            <Reveal>
+              <div className="inline-flex items-center gap-2">
+                <span className="h-px w-5 bg-electric-400"></span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
                   Cobertura
                 </span>
-                <span className="h-px w-5 bg-electric-500"></span>
               </div>
-              <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
+              <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-offwhite">
                 Zonas donde damos servicio
               </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-neutral-600">
-                Con base en Barakaldo, trabajamos en <strong className="text-neutral-900">toda Euskadi</strong>:
-                Bizkaia, Gipuzkoa y Araba al completo, también en los barrios y municipios que no
-                aparecen en esta lista.
+              <p className="mt-3 max-w-md text-white/60">
+                Con base en Barakaldo, trabajamos en <strong className="text-offwhite">toda Euskadi</strong>:
+                Bizkaia, Gipuzkoa y Araba al completo, también en los barrios y municipios que no aparecen
+                en esta lista.
               </p>
-              <div className="mt-8 grid grid-cols-1 gap-4 text-left sm:grid-cols-3">
+              <div className="mt-8 text-electric-400/70">
+                <CoverageMap />
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {Object.entries(localitiesByProvince).map(([province, items]) => {
                   const shown = items.slice(0, HOME_ZONE_LIMIT);
                   const rest = items.length - shown.length;
                   return (
-                    <div key={province} className="rounded-2xl border border-neutral-200 bg-white/80 p-5">
-                      <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-electric-600">
-                        <i className="ri-map-pin-2-fill" aria-hidden="true"></i>
+                    <div key={province} className="rounded-lg border border-white/10 bg-ink/60 p-5">
+                      <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-electric-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-electric-400"></span>
                         {province}
                       </p>
-                      <ul className="mt-3 flex flex-col divide-y divide-neutral-100">
+                      <ul className="mt-3 flex flex-col divide-y divide-white/5">
                         {shown.map((l) => (
                           <li key={l.slug}>
                             <Link
                               href={`/electricista-${l.slug}`}
-                              className="group flex items-center justify-between gap-2 py-2 text-sm font-semibold text-neutral-700 transition-colors duration-200 hover:text-electric-600"
+                              className="group flex items-center justify-between gap-2 py-2 text-sm font-semibold text-white/70 transition-colors duration-200 hover:text-electric-400"
                             >
                               {l.name}
                               <i
-                                className="ri-arrow-right-s-line text-neutral-300 transition-colors duration-200 group-hover:text-electric-500"
+                                className="ri-arrow-right-s-line text-white/25 transition-colors duration-200 group-hover:text-electric-400"
                                 aria-hidden="true"
                               ></i>
                             </Link>
                           </li>
                         ))}
                       </ul>
-                      <p className="mt-2 pt-2 text-xs text-neutral-400">
+                      <p className="mt-2 pt-2 text-xs text-white/35">
                         {rest > 0
                           ? `Y ${rest} localidad${rest === 1 ? "" : "es"} más en ${province}`
                           : `Y el resto de municipios de ${province}`}
@@ -294,15 +303,15 @@ export default function HomePage() {
                   );
                 })}
               </div>
-              <p className="mx-auto mt-6 max-w-xl text-sm text-neutral-500">
-                ¿Tu localidad no aparece?{" "}
-                <a href="#solicitud" className="font-semibold text-electric-600 hover:underline">
-                  Escríbenos
-                </a>{" "}
-                y confirmamos cobertura en minutos.
-              </p>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
+          <p className="mt-8 max-w-xl text-sm text-white/45">
+            ¿Tu localidad no aparece?{" "}
+            <a href="#solicitud" className="font-semibold text-electric-400 hover:underline">
+              Escríbenos
+            </a>{" "}
+            y confirmamos cobertura en minutos.
+          </p>
         </div>
       </section>
 
@@ -323,6 +332,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <AboutPro />
 
       <ContactHub />
 

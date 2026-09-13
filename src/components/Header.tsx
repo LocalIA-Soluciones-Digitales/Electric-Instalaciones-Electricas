@@ -35,12 +35,17 @@ export default function Header() {
     }
   }, [open]);
 
+  // Solo la home tiene un hero oscuro debajo: ahí el header nace transparente
+  // sobre el vídeo y se solidifica al hacer scroll. En el resto de páginas
+  // (fondo claro desde el primer píxel) va siempre sólido oscuro.
+  const floating = pathname === "/" && !scrolled && !open;
+
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled || open
-          ? "border-b border-neutral-200 bg-white/85 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] backdrop-blur-md"
-          : "bg-white/60 backdrop-blur-sm"
+        floating
+          ? "bg-transparent"
+          : "border-b border-white/10 bg-ink/95 shadow-[0_1px_0_0_rgba(0,0,0,0.2)] backdrop-blur-md"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
@@ -61,10 +66,10 @@ export default function Header() {
             className="h-9 w-9 md:h-10 md:w-10 shrink-0 group-hover:scale-105 transition-transform duration-200"
           />
           <div className="flex flex-col items-start">
-            <span className="font-display text-lg md:text-xl font-extrabold tracking-tight text-neutral-900">
+            <span className="font-display text-lg md:text-xl font-extrabold tracking-tight text-offwhite">
               {business.shortName.toUpperCase()}
             </span>
-            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.15em] text-neutral-400 leading-none mt-0.5 whitespace-nowrap">
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.15em] text-white/45 leading-none mt-0.5 whitespace-nowrap">
               Instalaciones Eléctricas
             </span>
           </div>
@@ -88,12 +93,12 @@ export default function Header() {
               onClick={() => setServicesOpen((v) => !v)}
               aria-expanded={servicesOpen}
               aria-haspopup="true"
-              className="text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors duration-200 cursor-pointer"
+              className="text-sm font-semibold text-white/70 hover:text-offwhite transition-colors duration-200 cursor-pointer"
             >
               Servicios
             </button>
             <div
-              className={`absolute left-0 top-full z-10 w-72 rounded-xl border border-neutral-200 bg-white p-2 shadow-xl shadow-neutral-900/[0.06] transition duration-200 ${
+              className={`absolute left-0 top-full z-10 w-72 rounded-lg border border-white/10 bg-carbon p-2 shadow-xl shadow-black/30 transition duration-200 ${
                 servicesOpen ? "visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-1"
               }`}
             >
@@ -101,9 +106,9 @@ export default function Header() {
                 <Link
                   key={s.slug}
                   href={`/servicios/${s.slug}`}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-neutral-700 hover:bg-electric-50 hover:text-electric-700"
+                  className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-electric-400"
                 >
-                  <i className={`${s.icon} text-electric-500`} aria-hidden="true"></i>
+                  <i className={`${s.icon} text-electric-400`} aria-hidden="true"></i>
                   {s.navLabel ?? s.name}
                 </Link>
               ))}
@@ -111,39 +116,31 @@ export default function Header() {
           </div>
           <Link
             href="/electricista-barakaldo"
-            className="text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors duration-200"
+            className="text-sm font-semibold text-white/70 hover:text-offwhite transition-colors duration-200"
           >
             Zonas
           </Link>
-          <Link href="/guias" className="text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors duration-200">
+          <Link href="/guias" className="text-sm font-semibold text-white/70 hover:text-offwhite transition-colors duration-200">
             Guías
           </Link>
           <Link
             href="/contacto"
-            className="text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors duration-200"
+            className="text-sm font-semibold text-white/70 hover:text-offwhite transition-colors duration-200"
           >
             Contacto
           </Link>
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-4">
+          <span className="flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold uppercase tracking-[0.1em] text-white/50">
+            <span className="h-1.5 w-1.5 rounded-full bg-electric-400"></span>
+            24 h · Estamos disponibles
+          </span>
           <a
-            href={waLink(WHATSAPP_GREETING_URGENT)}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackWhatsAppClick("header")}
-            className="flex items-center gap-2 whitespace-nowrap rounded-full border border-whatsapp/25 bg-whatsapp/10 px-4 py-2 text-sm font-bold text-whatsapp-600 transition-colors duration-200 hover:bg-whatsapp/15"
+            href="#solicitud"
+            className="whitespace-nowrap rounded-full bg-electric-400 px-4 py-2 text-sm font-bold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
           >
-            <i className="ri-whatsapp-line text-base" aria-hidden="true"></i>
-            WhatsApp
-          </a>
-          <a
-            href={telLink()}
-            onClick={() => trackCallClick("header")}
-            className="flex items-center gap-2 whitespace-nowrap rounded-full bg-electric-400 px-4 py-2 text-sm font-bold text-neutral-950 shadow-sm shadow-electric-400/30 hover:bg-electric-300 transition-colors duration-200"
-          >
-            <i className="ri-phone-line text-base" aria-hidden="true"></i>
-            {business.phoneDisplay}
+            Solicitar asistencia
           </a>
         </div>
 
@@ -158,7 +155,7 @@ export default function Header() {
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-neutral-700 hover:bg-neutral-100"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-white/80 hover:bg-white/10"
             aria-label="Menú"
             aria-expanded={open}
           >
@@ -174,7 +171,7 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden overflow-hidden border-t border-neutral-200 bg-white/95 backdrop-blur-md"
+            className="lg:hidden overflow-hidden border-t border-white/10 bg-ink/98 backdrop-blur-md"
           >
             <div className="px-4 py-5">
               <nav className="flex flex-col gap-4">
@@ -183,11 +180,11 @@ export default function Header() {
                     type="button"
                     onClick={() => setMobileServicesOpen((v) => !v)}
                     aria-expanded={mobileServicesOpen}
-                    className="flex w-full items-center justify-between text-sm font-semibold text-neutral-800"
+                    className="flex w-full items-center justify-between text-sm font-semibold text-offwhite"
                   >
                     Servicios
                     <i
-                      className={`ri-arrow-down-s-line text-lg text-neutral-400 transition-transform duration-200 ${
+                      className={`ri-arrow-down-s-line text-lg text-white/40 transition-transform duration-200 ${
                         mobileServicesOpen ? "rotate-180" : ""
                       }`}
                       aria-hidden="true"
@@ -208,9 +205,9 @@ export default function Header() {
                               key={s.slug}
                               href={`/servicios/${s.slug}`}
                               onClick={() => setOpen(false)}
-                              className="flex items-center gap-2.5 text-sm font-semibold text-neutral-700 hover:text-electric-600"
+                              className="flex items-center gap-2.5 text-sm font-semibold text-white/70 hover:text-electric-400"
                             >
-                              <i className={`${s.icon} text-electric-500`} aria-hidden="true"></i>
+                              <i className={`${s.icon} text-electric-400`} aria-hidden="true"></i>
                               {s.navLabel ?? s.name}
                             </Link>
                           ))}
@@ -219,24 +216,31 @@ export default function Header() {
                     )}
                   </AnimatePresence>
                 </div>
-                <div className="border-t border-neutral-200 pt-4 flex flex-col gap-4">
-                  <Link href="/electricista-barakaldo" onClick={() => setOpen(false)} className="text-sm font-semibold text-neutral-800">
+                <div className="border-t border-white/10 pt-4 flex flex-col gap-4">
+                  <Link href="/electricista-barakaldo" onClick={() => setOpen(false)} className="text-sm font-semibold text-offwhite">
                     Zonas donde trabajamos
                   </Link>
-                  <Link href="/guias" onClick={() => setOpen(false)} className="text-sm font-semibold text-neutral-800">
+                  <Link href="/guias" onClick={() => setOpen(false)} className="text-sm font-semibold text-offwhite">
                     Guías
                   </Link>
-                  <Link href="/contacto" onClick={() => setOpen(false)} className="text-sm font-semibold text-neutral-800">
+                  <Link href="/contacto" onClick={() => setOpen(false)} className="text-sm font-semibold text-offwhite">
                     Contacto
                   </Link>
                 </div>
-                <div className="border-t border-neutral-200 pt-4 flex flex-col gap-3">
+                <div className="border-t border-white/10 pt-4 flex flex-col gap-3">
+                  <a
+                    href="#solicitud"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-center gap-2 rounded-full bg-electric-400 px-4 py-3 text-sm font-bold text-neutral-950"
+                  >
+                    Solicitar asistencia
+                  </a>
                   <a
                     href={waLink(WHATSAPP_GREETING_URGENT)}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackWhatsAppClick("header_mobile_menu")}
-                    className="flex items-center gap-2 text-sm font-semibold text-whatsapp-600"
+                    className="flex items-center justify-center gap-2 text-sm font-semibold text-whatsapp-300"
                   >
                     <i className="ri-whatsapp-line" aria-hidden="true"></i>
                     WhatsApp
@@ -244,7 +248,7 @@ export default function Header() {
                   <a
                     href={telLink()}
                     onClick={() => trackCallClick("header_mobile_menu")}
-                    className="flex items-center gap-2 text-sm font-bold text-neutral-900"
+                    className="flex items-center justify-center gap-2 text-sm font-bold text-offwhite"
                   >
                     <i className="ri-phone-line" aria-hidden="true"></i>
                     {business.phoneDisplay}
