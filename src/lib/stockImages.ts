@@ -10,6 +10,13 @@ export const PANEL_LUXURY_IMAGE =
 /** Fondo del hero: el mismo cuadro premium, con leve desenfoque y oscurecido en el propio hero. */
 export const HERO_IMAGE = PANEL_LUXURY_IMAGE;
 
+/**
+ * Vídeo de fondo del hero (sin audio, se reproduce una vez y se queda fijo en
+ * el último fotograma). `HERO_IMAGE` se usa como `poster` (primer fotograma)
+ * y como respaldo para "reducir movimiento" o si el vídeo no llega a cargar.
+ */
+export const HERO_VIDEO = "/videos/hero.mp4";
+
 // Se mantienen ambos nombres (mismo archivo) para no romper los sitios que ya
 // importaban una imagen de escritorio y otra de móvil: el recorte se resuelve con
 // `object-position` en cada uso, no con dos archivos distintos.
