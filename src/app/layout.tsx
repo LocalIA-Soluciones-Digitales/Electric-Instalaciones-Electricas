@@ -52,6 +52,11 @@ export const metadata: Metadata = {
     description:
       "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Presupuesto sin compromiso.",
   },
+  appleWebApp: {
+    capable: true,
+    title: business.shortName,
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
