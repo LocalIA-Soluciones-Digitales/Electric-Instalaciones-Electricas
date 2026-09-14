@@ -90,6 +90,18 @@ body {
   animation: diag-enter 0.35s ease-out forwards;
 }
 
+/* Respiración lenta de zoom in/out para el vídeo de fondo del hero: un
+   único ciclo continuo (ease-in-out, ida y vuelta) que no depende del punto
+   de corte del vídeo, así que disimula el salto entre su último y primer
+   fotograma en vez de intentar sincronizarse con él. */
+@keyframes hero-zoom {
+  0%, 100% { transform: scale(1.06); }
+  50% { transform: scale(1.18); }
+}
+.hero-zoom {
+  animation: hero-zoom 16s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .diag-enter {

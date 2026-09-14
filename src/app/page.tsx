@@ -12,6 +12,7 @@ import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
 import ParallaxBanner from "@/components/ParallaxBanner";
 import ContactHub from "@/components/lead/ContactHub";
+import HeroVideo from "@/components/HeroVideo";
 
 export const metadata: Metadata = {
   title: "Electricista en Barakaldo y Euskadi 24 Horas",
@@ -64,18 +65,11 @@ export default function HomePage() {
       {/* Hero */}
       <section id="hero" className="relative flex min-h-[92vh] items-end overflow-hidden bg-neutral-950 text-white">
         <div className="absolute inset-0" aria-hidden="true">
-          <video
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
+          <HeroVideo
+            src={HERO_VIDEO}
             poster={HERO_IMAGE}
-            disablePictureInPicture
-            disableRemotePlayback
-            className="absolute inset-0 h-full w-full scale-110 object-cover object-center blur-[2px] brightness-[0.85] saturate-[1.1] motion-reduce:hidden md:scale-105 md:blur-[1px]"
-          >
-            <source src={HERO_VIDEO} type="video/mp4" />
-          </video>
+            className="absolute inset-0 h-full w-full hero-zoom object-cover object-center blur-[2px] brightness-[0.85] saturate-[1.1] motion-reduce:hidden md:blur-[1px]"
+          />
           <Image
             src={HERO_IMAGE}
             alt=""

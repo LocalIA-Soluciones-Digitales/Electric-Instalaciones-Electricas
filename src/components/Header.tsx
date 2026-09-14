@@ -35,12 +35,17 @@ export default function Header() {
     }
   }, [open]);
 
+  const isHome = pathname === "/";
+  const heroDark = isHome && !scrolled && !open;
+
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled || open
-          ? "border-b border-neutral-200 bg-white/85 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] backdrop-blur-md"
-          : "bg-white/60 backdrop-blur-sm"
+        heroDark
+          ? "bg-neutral-950"
+          : scrolled || open
+            ? "border-b border-neutral-200 bg-white/85 shadow-[0_1px_0_0_rgba(0,0,0,0.04)] backdrop-blur-md"
+            : "bg-white/60 backdrop-blur-sm"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
@@ -61,10 +66,18 @@ export default function Header() {
             className="h-9 w-9 md:h-10 md:w-10 shrink-0 group-hover:scale-105 transition-transform duration-200"
           />
           <div className="flex flex-col items-start">
-            <span className="font-display text-lg md:text-xl font-extrabold tracking-tight text-neutral-900">
+            <span
+              className={`font-display text-lg md:text-xl font-extrabold tracking-tight transition-colors duration-300 ${
+                heroDark ? "text-white" : "text-neutral-900"
+              }`}
+            >
               {business.shortName.toUpperCase()}
             </span>
-            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.15em] text-neutral-400 leading-none mt-0.5 whitespace-nowrap">
+            <span
+              className={`text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.15em] leading-none mt-0.5 whitespace-nowrap transition-colors duration-300 ${
+                heroDark ? "text-white/50" : "text-neutral-400"
+              }`}
+            >
               Instalaciones Eléctricas
             </span>
           </div>
@@ -88,7 +101,9 @@ export default function Header() {
               onClick={() => setServicesOpen((v) => !v)}
               aria-expanded={servicesOpen}
               aria-haspopup="true"
-              className="text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors duration-200 cursor-pointer"
+              className={`text-sm font-semibold transition-colors duration-200 cursor-pointer ${
+                heroDark ? "text-white/80 hover:text-white" : "text-neutral-600 hover:text-neutral-900"
+              }`}
             >
               Servicios
             </button>
@@ -111,16 +126,25 @@ export default function Header() {
           </div>
           <Link
             href="/electricista-barakaldo"
-            className="text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors duration-200"
+            className={`text-sm font-semibold transition-colors duration-200 ${
+              heroDark ? "text-white/80 hover:text-white" : "text-neutral-600 hover:text-neutral-900"
+            }`}
           >
             Zonas
           </Link>
-          <Link href="/guias" className="text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors duration-200">
+          <Link
+            href="/guias"
+            className={`text-sm font-semibold transition-colors duration-200 ${
+              heroDark ? "text-white/80 hover:text-white" : "text-neutral-600 hover:text-neutral-900"
+            }`}
+          >
             Guías
           </Link>
           <Link
             href="/contacto"
-            className="text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors duration-200"
+            className={`text-sm font-semibold transition-colors duration-200 ${
+              heroDark ? "text-white/80 hover:text-white" : "text-neutral-600 hover:text-neutral-900"
+            }`}
           >
             Contacto
           </Link>
@@ -158,7 +182,9 @@ export default function Header() {
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-neutral-700 hover:bg-neutral-100"
+            className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-200 ${
+              heroDark ? "text-white hover:bg-white/10" : "text-neutral-700 hover:bg-neutral-100"
+            }`}
             aria-label="Menú"
             aria-expanded={open}
           >
