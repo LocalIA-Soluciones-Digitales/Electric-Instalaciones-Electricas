@@ -24,20 +24,21 @@ export default function ContactoPage() {
         contentWidth="6xl"
       />
 
-      <section className="relative overflow-hidden py-14 md:py-20">
+      <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0" aria-hidden="true">
           <Image
             src={PANEL_LUXURY_IMAGE}
             alt=""
             fill
+            priority
             sizes="100vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-neutral-950/55"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/70 to-white/95"></div>
         </div>
 
         <div className="relative mx-auto max-w-2xl px-4 md:px-6">
-          <div className="rounded-2xl border border-white/10 bg-white/95 p-6 shadow-xl backdrop-blur-sm md:p-8">
+          <div className="rounded-2xl border border-neutral-200 bg-white/90 p-6 shadow-lg shadow-neutral-900/5 backdrop-blur-sm md:p-8">
             <h2 className="font-display text-lg font-bold text-neutral-900">Datos de contacto</h2>
             <ul className="mt-4 space-y-3 text-neutral-700">
               <li className="flex items-center gap-3">
