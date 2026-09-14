@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { services } from "@/lib/services";
 import { localities } from "@/lib/localities";
-import { business } from "@/lib/business";
+import { business, telLink } from "@/lib/business";
 import { COVERAGE_IMAGE, HERO_IMAGE, HERO_VIDEO, LIGHTING_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
 import TrustBadges from "@/components/TrustBadges";
 import AboutPro from "@/components/AboutPro";
@@ -128,6 +128,15 @@ export default function HomePage() {
                 Pedir presupuesto
               </a>
             </div>
+          </Reveal>
+
+          <Reveal delay={0.28}>
+            <p className="mt-4 text-sm text-white/60">
+              ¿Prefieres llamar directamente?{" "}
+              <a href={telLink()} className="font-bold text-electric-400 hover:text-electric-300">
+                {business.phoneDisplay}
+              </a>
+            </p>
           </Reveal>
 
           <Reveal delay={0.32}>

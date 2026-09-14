@@ -16,6 +16,7 @@ import { enviarAvisoEmail } from "@/lib/sendLead";
 import { business, telLink, waLink } from "@/lib/business";
 import { trackFormSubmit, trackWhatsAppClick } from "@/lib/tracking";
 import TurnstileWidget from "@/components/lead/TurnstileWidget";
+import PhotoUpload from "@/components/lead/PhotoUpload";
 
 const inputCls =
   "w-full rounded-md border border-neutral-300 bg-white px-4 py-3 md:py-3.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
@@ -78,6 +79,7 @@ export default function PresupuestoForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [photo, setPhoto] = useState("");
 
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
@@ -99,6 +101,7 @@ export default function PresupuestoForm() {
     setError("");
     setDone(null);
     setHp("");
+    setPhoto("");
   };
 
   const submit = async () => {
@@ -122,7 +125,7 @@ export default function PresupuestoForm() {
     };
 
     const refId = generarIdAviso("BUD");
-    const text = buildBudgetWhatsAppMessage(data, refId, formatFechaHora());
+    const text = buildBudgetWhatsAppMessage(data, refId, formatFechaHora(), !!photo);
 
     setSending(true);
     trackFormSubmit("presupuesto_form");
@@ -136,6 +139,7 @@ export default function PresupuestoForm() {
       kind: "presupuesto",
       avisoId: refId,
       data,
+      photo: photo || undefined,
       hp,
       turnstileToken: turnstileToken || undefined,
     });
@@ -250,6 +254,12 @@ export default function PresupuestoForm() {
                     ></textarea>
                     <p className="mt-1 text-right text-xs text-neutral-400">{description.length}/500</p>
                   </Field>
+                  <PhotoUpload
+                    id="bud-foto"
+                    value={photo}
+                    onChange={setPhoto}
+                    hint="Una foto de la instalación actual nos ayuda a ajustar mejor el presupuesto."
+                  />
                 </div>
 
                 <div className="flex flex-col gap-5 md:gap-6">

@@ -9,11 +9,19 @@ export type Guide = {
   relatedServiceSlug: string;
   sections: GuideSection[];
   faqs?: { q: string; a: string }[];
+  /** Fechas ISO reales (historial de git de este archivo), usadas en el schema Article. */
+  publishedAt: string;
+  updatedAt: string;
 };
+
+const PUBLISHED_AT = "2026-09-06";
+const UPDATED_AT = "2026-09-11";
 
 export const guides: Guide[] = [
   {
     slug: "por-que-salta-el-diferencial",
+    publishedAt: PUBLISHED_AT,
+    updatedAt: UPDATED_AT,
     title: "Por qué salta el diferencial y qué hacer",
     metaTitle: "Por Qué Salta el Diferencial: Causas y Soluciones",
     metaDescription:
@@ -66,6 +74,8 @@ export const guides: Guide[] = [
   },
   {
     slug: "cuanto-cuesta-un-boletin-electrico",
+    publishedAt: PUBLISHED_AT,
+    updatedAt: UPDATED_AT,
     title: "Cuánto cuesta un boletín eléctrico",
     metaTitle: "Cuánto Cuesta un Boletín Eléctrico en Euskadi",
     metaDescription:
@@ -105,6 +115,8 @@ export const guides: Guide[] = [
   },
   {
     slug: "diferencia-entre-averia-y-cortocircuito",
+    publishedAt: PUBLISHED_AT,
+    updatedAt: UPDATED_AT,
     title: "Diferencia entre avería eléctrica y cortocircuito",
     metaTitle: "Avería Eléctrica vs Cortocircuito: Diferencias",
     metaDescription:
@@ -136,6 +148,8 @@ export const guides: Guide[] = [
   },
   {
     slug: "certificado-electrico-vs-boletin-electrico",
+    publishedAt: PUBLISHED_AT,
+    updatedAt: UPDATED_AT,
     title: "Certificado eléctrico y boletín eléctrico: ¿es lo mismo?",
     metaTitle: "Certificado Eléctrico vs Boletín Eléctrico",
     metaDescription:
@@ -166,6 +180,8 @@ export const guides: Guide[] = [
   },
   {
     slug: "cada-cuanto-revisar-el-cuadro-electrico",
+    publishedAt: PUBLISHED_AT,
+    updatedAt: UPDATED_AT,
     title: "Cada cuánto revisar el cuadro eléctrico",
     metaTitle: "Cada Cuánto Revisar el Cuadro Eléctrico",
     metaDescription:

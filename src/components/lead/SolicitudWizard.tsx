@@ -18,6 +18,7 @@ import {
 } from "@/lib/leadConfig";
 import ResumenEnvio from "./ResumenEnvio";
 import GuidedQuestions from "./GuidedQuestions";
+import PhotoUpload from "./PhotoUpload";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { business, telLink } from "@/lib/business";
 import { trackCallClick } from "@/lib/tracking";
@@ -354,6 +355,7 @@ export default function SolicitudWizard() {
   const [step, setStep] = useState<AvisoStep>(1);
   const [data, setData] = useState<AvisoData>(initialData());
   const [guideValues, setGuideValues] = useState<Record<string, string>>({});
+  const [photo, setPhoto] = useState("");
 
   const [touchError, setTouchError] = useState("");
   const [atSummary, setAtSummary] = useState(false);
@@ -449,6 +451,7 @@ export default function SolicitudWizard() {
     setHp("");
     setGuideValues({});
     setTouchError("");
+    setPhoto("");
     setData(initialData());
   };
 
@@ -511,6 +514,7 @@ export default function SolicitudWizard() {
             data={data}
             incidence={incidence}
             showUrgent={danger}
+            photo={photo}
             hp={hp}
             onHpChange={setHp}
             onEdit={(s) => go(s)}
@@ -625,6 +629,14 @@ export default function SolicitudWizard() {
                   className="w-full resize-none rounded-md border border-neutral-300 bg-white px-4 py-4 text-base text-neutral-900 placeholder-neutral-400 transition-colors focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400"
                 ></textarea>
                 <p className="mt-2 text-right text-xs text-neutral-400">{data.description.length}/500</p>
+                <div className="mt-5">
+                  <PhotoUpload
+                    id="aviso-foto"
+                    value={photo}
+                    onChange={setPhoto}
+                    hint="Una foto del cuadro eléctrico o de la avería nos ayuda a llegar mejor preparados."
+                  />
+                </div>
                 <ContinueBar onContinue={nextStep} />
               </StepLayout>
             )}

@@ -90,6 +90,66 @@ export const localities: Locality[] = [
     landmarks: ["Casco histórico de Durango"],
   },
   {
+    slug: "sestao",
+    name: "Sestao",
+    province: "Bizkaia",
+    isHome: false,
+    distanceNote: "Municipio contiguo a Barakaldo, a pocos minutos de nuestro local",
+    intro:
+      "Sestao linda directamente con Barakaldo, así que llegamos en muy poco tiempo. Damos servicio de electricista en viviendas, comunidades y locales de todo el municipio, incluida la zona de los antiguos Altos Hornos y La Iberia.",
+    landmarks: ["Astilleros de Sestao", "La Iberia"],
+  },
+  {
+    slug: "trapagaran",
+    name: "Trapagaran",
+    province: "Bizkaia",
+    isHome: false,
+    distanceNote: "A pocos minutos de Barakaldo, en el Valle de Trápaga",
+    intro:
+      "En Trapagaran (Valle de Trápaga) atendemos viviendas y locales tanto en la zona de La Reineta como en el resto del valle, con desplazamiento rápido desde nuestra base en Barakaldo.",
+    landmarks: ["Valle de Trápaga", "La Reineta"],
+  },
+  {
+    slug: "ortuella",
+    name: "Ortuella",
+    province: "Bizkaia",
+    isHome: false,
+    distanceNote: "A unos 15 minutos desde Barakaldo",
+    intro:
+      "Damos servicio de electricista en Ortuella, incluido el barrio de Gallarta, para averías, instalaciones y reparaciones en viviendas y locales comerciales.",
+    landmarks: ["Gallarta", "Parque de Peñas Negras"],
+  },
+  {
+    slug: "erandio",
+    name: "Erandio",
+    province: "Bizkaia",
+    isHome: false,
+    distanceNote: "A unos 15-20 minutos desde Barakaldo",
+    intro:
+      "En Erandio atendemos tanto la zona residencial como la industrial, incluida Astrabudua, con servicio de electricista para viviendas, comunidades y naves o locales comerciales.",
+    landmarks: ["Puente de Rontegi", "Astrabudua"],
+  },
+  {
+    slug: "leioa",
+    name: "Leioa",
+    province: "Bizkaia",
+    isHome: false,
+    distanceNote: "A unos 20-25 minutos desde Barakaldo",
+    intro:
+      "Ofrecemos servicio de electricista en Leioa para viviendas, comunidades y locales, incluida la zona del campus universitario y el Parque Tecnológico de Bizkaia.",
+    landmarks: ["Campus de la UPV/EHU", "Parque Tecnológico de Bizkaia"],
+  },
+  {
+    slug: "muskiz",
+    name: "Muskiz",
+    province: "Bizkaia",
+    isHome: false,
+    distanceNote: "A unos 25-30 minutos desde Barakaldo",
+    intro:
+      "Damos cobertura de electricista en Muskiz y su entorno, tanto para viviendas cercanas a la costa como para el resto del municipio, coordinando contigo el horario de la visita.",
+    landmarks: ["Playa de La Arena"],
+  },
+  {
     slug: "donostia",
     name: "Donostia - San Sebastián",
     province: "Gipuzkoa",

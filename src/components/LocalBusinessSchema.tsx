@@ -1,5 +1,6 @@
 import { business } from "@/lib/business";
 import { services } from "@/lib/services";
+import { localities } from "@/lib/localities";
 import { safeJsonLd } from "@/lib/jsonld";
 
 export default function LocalBusinessSchema() {
@@ -44,17 +45,10 @@ export default function LocalBusinessSchema() {
         closes: "23:59",
       },
     ],
-    areaServed: [
-      "Barakaldo",
-      "Bilbao",
-      "Getxo",
-      "Portugalete",
-      "Santurtzi",
-      "Basauri",
-      "Durango",
-      "Bizkaia",
-      "Euskadi",
-    ],
+    // Derivado de localities.ts (fuente única de verdad de las zonas con
+    // página propia): evita que este listado quede desincronizado cada vez
+    // que se añade o se quita un municipio.
+    areaServed: [...localities.map((l) => l.name), "Bizkaia", "Euskadi"],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Servicios eléctricos",

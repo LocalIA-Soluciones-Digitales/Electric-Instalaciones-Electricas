@@ -24,16 +24,27 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (open) {
-      const original = document.documentElement.style.overflow;
-      document.documentElement.style.overflow = "hidden";
-      return () => {
-        document.documentElement.style.overflow = original;
-      };
-    } else {
-      setMobileServicesOpen(false);
-    }
+    if (!open) return;
+    const original = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = original;
+    };
   }, [open]);
+
+  // El submenú de servicios se colapsa al cerrar el menú móvil desde estos dos
+  // puntos (no en un efecto: evita el cascading render de llamar a setState
+  // síncronamente dentro de un useEffect).
+  const closeMenu = () => {
+    setOpen(false);
+    setMobileServicesOpen(false);
+  };
+  const toggleMenu = () => {
+    setOpen((v) => {
+      if (v) setMobileServicesOpen(false);
+      return !v;
+    });
+  };
 
   const isHome = pathname === "/";
   const heroDark = isHome && !scrolled && !open;
@@ -53,7 +64,7 @@ export default function Header() {
           href="/"
           className="flex items-center gap-2.5 leading-none group"
           onClick={() => {
-            setOpen(false);
+            closeMenu();
             if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         >
@@ -181,7 +192,7 @@ export default function Header() {
             <i className="ri-phone-line text-base" aria-hidden="true"></i>
           </a>
           <button
-            onClick={() => setOpen((v) => !v)}
+            onClick={toggleMenu}
             className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-200 ${
               heroDark ? "text-white hover:bg-white/10" : "text-neutral-700 hover:bg-neutral-100"
             }`}
@@ -233,7 +244,7 @@ export default function Header() {
                             <Link
                               key={s.slug}
                               href={`/servicios/${s.slug}`}
-                              onClick={() => setOpen(false)}
+                              onClick={closeMenu}
                               className="flex items-center gap-2.5 text-sm font-semibold text-neutral-700 hover:text-electric-600"
                             >
                               <i className={`${s.icon} text-electric-500`} aria-hidden="true"></i>
@@ -246,13 +257,13 @@ export default function Header() {
                   </AnimatePresence>
                 </div>
                 <div className="border-t border-neutral-200 pt-4 flex flex-col gap-4">
-                  <Link href="/electricista-barakaldo" onClick={() => setOpen(false)} className="text-sm font-semibold text-neutral-800">
+                  <Link href="/electricista-barakaldo" onClick={closeMenu} className="text-sm font-semibold text-neutral-800">
                     Zonas donde trabajamos
                   </Link>
-                  <Link href="/guias" onClick={() => setOpen(false)} className="text-sm font-semibold text-neutral-800">
+                  <Link href="/guias" onClick={closeMenu} className="text-sm font-semibold text-neutral-800">
                     Guías
                   </Link>
-                  <Link href="/contacto" onClick={() => setOpen(false)} className="text-sm font-semibold text-neutral-800">
+                  <Link href="/contacto" onClick={closeMenu} className="text-sm font-semibold text-neutral-800">
                     Contacto
                   </Link>
                 </div>

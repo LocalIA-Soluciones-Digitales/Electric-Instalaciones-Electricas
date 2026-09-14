@@ -7,6 +7,7 @@ import CTASection from "@/components/CTASection";
 import Faq, { FaqJsonLd } from "@/components/Faq";
 import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
@@ -48,6 +49,13 @@ export default async function GuiaPage({
           { name: "Guías", path: "/guias" },
           { name: guide.title, path: `/guias/${guide.slug}` },
         ]}
+      />
+      <ArticleJsonLd
+        title={guide.title}
+        description={guide.metaDescription}
+        path={`/guias/${guide.slug}`}
+        datePublished={guide.publishedAt}
+        dateModified={guide.updatedAt}
       />
 
       <PageHero

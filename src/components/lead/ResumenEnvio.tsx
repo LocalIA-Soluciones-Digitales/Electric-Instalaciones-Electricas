@@ -25,6 +25,7 @@ interface ResumenEnvioProps {
   data: AvisoData;
   incidence?: AvisoIncidence;
   showUrgent: boolean;
+  photo: string;
   hp: string;
   onHpChange: (value: string) => void;
   onEdit: (step: AvisoStep) => void;
@@ -76,6 +77,7 @@ export default function ResumenEnvio({
   data,
   incidence,
   showUrgent,
+  photo,
   hp,
   onHpChange,
   onEdit,
@@ -106,7 +108,7 @@ export default function ResumenEnvio({
     const avisoId = generarIdAviso(data.service.code);
     const timestamp = formatFechaHora();
 
-    const msg = buildWhatsAppMessage(data, avisoId, timestamp);
+    const msg = buildWhatsAppMessage(data, avisoId, timestamp, !!photo);
 
     try {
       const log = JSON.parse(localStorage.getItem("electric_aviso_log") || "[]");
@@ -124,6 +126,7 @@ export default function ResumenEnvio({
       kind: "aviso",
       avisoId,
       data,
+      photo: photo || undefined,
       hp,
       turnstileToken: turnstileToken || undefined,
     });
@@ -208,6 +211,7 @@ export default function ResumenEnvio({
             </button>
           </div>
           <EditRow label="Cuándo lo necesitas" value={availability} onEdit={() => onEdit(5)} />
+          <EditRow label="Foto" value={photo ? "Adjunta" : ""} onEdit={() => onEdit(3)} />
           <Row label="Nombre" value={data.name} />
           <Row label="Teléfono" value={data.phone} />
           <Row label="Email" value={data.email} />
