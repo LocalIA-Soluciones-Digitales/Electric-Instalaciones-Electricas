@@ -13,9 +13,17 @@ import type { NextConfig } from "next";
 // nonce por petición vía middleware, lo que a su vez obliga a renderizado
 // dinámico en todas las páginas (hoy estáticas). Se prioriza que el sitio
 // funcione.
+// En `next dev` el bundle de cliente usa eval() para los source maps rápidos
+// (devtool eval-source-map de webpack); sin 'unsafe-eval' el navegador bloquea
+// esa ejecución y la hidratación de React no llega a completarse en ninguna
+// página (mismo síntoma que describe el comentario de más abajo: todos los
+// componentes interactivos quedan inertes). `next build`/`next start` no usan
+// eval(), así que esto se limita a desarrollo y no afecta a producción.
+const scriptSrcDev = process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'";
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://challenges.cloudflare.com",
+  `script-src 'self' 'unsafe-inline'${scriptSrcDev} https://www.googletagmanager.com https://connect.facebook.net https://challenges.cloudflare.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self'",

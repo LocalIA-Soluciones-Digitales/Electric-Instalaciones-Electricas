@@ -93,6 +93,11 @@ export default function Footer() {
         <div>
           <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Zonas de servicio</h3>
           <ul className="space-y-2.5 text-sm">
+            <li>
+              <Link href="/zonas-de-servicio" className="font-semibold text-electric-400 hover:text-electric-300 transition-colors duration-200">
+                Ver mapa de cobertura
+              </Link>
+            </li>
             {localities.map((l) => (
               <li key={l.slug}>
                 <Link href={`/electricista-${l.slug}`} className="hover:text-electric-400 transition-colors duration-200">

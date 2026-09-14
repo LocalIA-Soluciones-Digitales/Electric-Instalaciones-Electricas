@@ -102,6 +102,16 @@ body {
   animation: hero-zoom 16s ease-in-out infinite;
 }
 
+/* Líneas de conexión del mapa de cobertura (EuskadiCoverageMap.tsx): efecto de
+   flujo de datos hacia cada municipio, como una red logística en movimiento. */
+@keyframes dash-flow {
+  to { stroke-dashoffset: -6; }
+}
+.coverage-line {
+  stroke-dasharray: 3 3;
+  animation: dash-flow 1.4s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .diag-enter {

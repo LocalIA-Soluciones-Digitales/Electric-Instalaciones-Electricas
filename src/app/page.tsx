@@ -309,7 +309,17 @@ export default function HomePage() {
                   );
                 })}
               </div>
-              <p className="mx-auto mt-6 max-w-xl text-sm text-neutral-500">
+              <div className="mt-8 flex justify-center">
+                <Link
+                  href="/zonas-de-servicio"
+                  className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-bold text-electric-400 hover:bg-neutral-800"
+                >
+                  <i className="ri-map-2-line" aria-hidden="true"></i>
+                  Ver mapa de cobertura interactivo
+                </Link>
+              </div>
+
+              <p className="mx-auto mt-4 max-w-xl text-sm text-neutral-500">
                 ¿Tu localidad no aparece?{" "}
                 <a href="#solicitud" className="font-semibold text-electric-600 hover:underline">
                   Escríbenos

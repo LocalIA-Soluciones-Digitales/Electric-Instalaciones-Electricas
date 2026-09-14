@@ -188,6 +188,15 @@ export default async function LocalityPage({
           <h2 className="font-display text-center text-xl font-extrabold text-neutral-900">
             Otras zonas donde trabajamos
           </h2>
+          <div className="mt-5 flex justify-center">
+            <Link
+              href="/zonas-de-servicio"
+              className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-bold text-electric-400 hover:bg-neutral-800"
+            >
+              <i className="ri-map-2-line" aria-hidden="true"></i>
+              Ver mapa de cobertura completo
+            </Link>
+          </div>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             {otherLocalities.map((l) => (
               <Link

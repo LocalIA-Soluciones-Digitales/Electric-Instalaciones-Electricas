@@ -136,12 +136,12 @@ export default function Header() {
             </div>
           </div>
           <Link
-            href="/electricista-barakaldo"
+            href="/zonas-de-servicio"
             className={`text-sm font-semibold transition-colors duration-200 ${
               heroDark ? "text-white/80 hover:text-white" : "text-neutral-600 hover:text-neutral-900"
             }`}
           >
-            Zonas
+            Zonas de Servicio
           </Link>
           <Link
             href="/guias"
@@ -257,8 +257,8 @@ export default function Header() {
                   </AnimatePresence>
                 </div>
                 <div className="border-t border-neutral-200 pt-4 flex flex-col gap-4">
-                  <Link href="/electricista-barakaldo" onClick={closeMenu} className="text-sm font-semibold text-neutral-800">
-                    Zonas donde trabajamos
+                  <Link href="/zonas-de-servicio" onClick={closeMenu} className="text-sm font-semibold text-neutral-800">
+                    Zonas de Servicio
                   </Link>
                   <Link href="/guias" onClick={closeMenu} className="text-sm font-semibold text-neutral-800">
                     Guías
