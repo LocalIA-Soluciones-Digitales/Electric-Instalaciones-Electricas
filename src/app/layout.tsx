@@ -25,8 +25,8 @@ const sora = Sora({
 export const metadata: Metadata = {
   metadataBase: new URL(business.domain),
   title: {
-    default: `Electricista en Barakaldo y Euskadi 24 Horas | ${business.shortName}`,
-    template: `%s | ${business.shortName}`,
+    default: `${business.name} | Electricista en Barakaldo y Euskadi 24h`,
+    template: `%s | ${business.name}`,
   },
   description:
     "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Presupuesto sin compromiso. Llama al 677 24 63 74.",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     locale: "es_ES",
     url: business.domain,
     siteName: business.name,
-    title: "Electricista en Barakaldo y Euskadi 24h | Electric",
+    title: `Electricista en Barakaldo y Euskadi 24h | ${business.name}`,
     description:
       "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Presupuesto sin compromiso.",
   },

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getService, services } from "@/lib/services";
 import { localities } from "@/lib/localities";
+import { guides } from "@/lib/guides";
 import CTASection from "@/components/CTASection";
 import Faq, { FaqJsonLd } from "@/components/Faq";
 import PageHero from "@/components/PageHero";
@@ -38,6 +39,8 @@ export default async function ServicePage({
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();
+
+  const relatedGuides = guides.filter((g) => g.relatedServiceSlug === service.slug);
 
   return (
     <div>
@@ -82,6 +85,25 @@ export default async function ServicePage({
               <Faq items={service.faqs} />
             </div>
             <FaqJsonLd items={service.faqs} />
+
+            {relatedGuides.length > 0 && (
+              <>
+                <h2 className="font-display mt-12 text-2xl font-extrabold text-neutral-900">
+                  Guías relacionadas
+                </h2>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {relatedGuides.map((g) => (
+                    <Link
+                      key={g.slug}
+                      href={`/guias/${g.slug}`}
+                      className="rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-sm text-neutral-600 hover:border-electric-500/50 hover:text-electric-600"
+                    >
+                      {g.title}
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
 
             <h2 className="font-display mt-12 text-2xl font-extrabold text-neutral-900">
               {service.name} en tu zona

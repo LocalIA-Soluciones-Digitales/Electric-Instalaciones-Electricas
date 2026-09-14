@@ -7,7 +7,9 @@ export default function LocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "Electrician",
     name: business.name,
+    alternateName: [business.shortName, `${business.shortName} Barakaldo`],
     image: `${business.domain}/opengraph-image`,
+    logo: `${business.domain}/images/logo-mark.png`,
     "@id": business.domain,
     url: business.domain,
     telephone: `+${business.whatsapp}`,
@@ -61,7 +63,12 @@ export default function LocalBusinessSchema() {
         itemOffered: { "@type": "Service", name: s.name },
       })),
     },
-    sameAs: [] as string[],
+    // Enlaza la entidad con perfil de Google Business y redes sociales en cuanto
+    // se rellenen en business.ts: sin este puente, Google no tiene forma
+    // estructurada de asociar este dominio con el perfil de empresa.
+    sameAs: [business.reviews.googleUrl, business.socials.instagram, business.socials.facebook].filter(
+      (url): url is string => Boolean(url)
+    ),
     ...(business.reviews.rating && business.reviews.count
       ? {
           aggregateRating: {

@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { services } from "@/lib/services";
 import { localities } from "@/lib/localities";
+import { business } from "@/lib/business";
 import { COVERAGE_IMAGE, HERO_IMAGE, HERO_VIDEO, LIGHTING_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
 import TrustBadges from "@/components/TrustBadges";
 import AboutPro from "@/components/AboutPro";
@@ -15,7 +16,11 @@ import ContactHub from "@/components/lead/ContactHub";
 import HeroVideo from "@/components/HeroVideo";
 
 export const metadata: Metadata = {
-  title: "Electricista en Barakaldo y Euskadi 24 Horas",
+  // El title.template del layout raíz NO se aplica aquí: page.tsx comparte el
+  // mismo segmento de ruta ("/") que el layout.tsx que lo define, así que hay
+  // que escribir el nombre comercial completo explícitamente para que la home
+  // -la página que más autoridad recibe- refuerce la marca en el <title>.
+  title: `Electricista en Barakaldo y Euskadi 24 Horas | ${business.name}`,
   description:
     "Electricista urgente en Barakaldo, Bilbao, Cruces y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Servicio 24h. Llama al 677 24 63 74.",
   alternates: { canonical: "/" },
@@ -88,7 +93,7 @@ export default function HomePage() {
             <div className="mb-6 inline-flex items-center gap-2">
               <span className="h-px w-5 bg-electric-400"></span>
               <span className="text-[11px] md:text-xs font-bold uppercase tracking-[0.18em] text-electric-400">
-                Servicio 24 horas · Barakaldo y toda Euskadi
+                Electric Instalaciones Eléctricas · Servicio 24 horas
               </span>
             </div>
           </Reveal>
