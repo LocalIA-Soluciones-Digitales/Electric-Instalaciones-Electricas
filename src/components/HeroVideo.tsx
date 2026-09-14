@@ -10,7 +10,7 @@ import { useEffect, useRef } from "react";
 // que empieza: bucle continuo sin corte visible. El zoom in/out (clase
 // `.hero-zoom`, globals.css) es una animación CSS aparte que añade
 // movimiento constante encima.
-const PLAYBACK_RATE = 0.7;
+const PLAYBACK_RATE = 0.8;
 
 export default function HeroVideo({
   src,
