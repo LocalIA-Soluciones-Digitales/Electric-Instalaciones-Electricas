@@ -74,8 +74,8 @@ export default function Header() {
               {business.shortName.toUpperCase()}
             </span>
             <span
-              className={`text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.15em] leading-none mt-0.5 whitespace-nowrap transition-colors duration-300 ${
-                heroDark ? "text-white/50" : "text-neutral-400"
+              className={`text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.15em] leading-none mt-0.5 whitespace-nowrap transition-colors duration-300 ${
+                heroDark ? "text-white/65" : "text-neutral-500"
               }`}
             >
               Instalaciones Eléctricas

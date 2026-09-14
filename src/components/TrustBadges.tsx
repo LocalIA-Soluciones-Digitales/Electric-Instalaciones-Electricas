@@ -1,13 +1,20 @@
+import { business } from "@/lib/business";
+
+// "Instalador autorizado" sin el nº de licencia detrás era una afirmación no
+// verificable en la página; solo se muestra en cuanto business.credentials.license
+// tenga el dato real (mismo criterio que los pills de AboutPro.tsx).
 const badges = [
-  { icon: "ri-shield-check-line", label: "Instalador autorizado" },
+  business.credentials.license
+    ? { icon: "ri-shield-check-line", label: `Instalador autorizado ${business.credentials.license}` }
+    : null,
   { icon: "ri-timer-flash-line", label: "Respuesta en menos de 1 hora" },
   { icon: "ri-price-tag-3-line", label: "Presupuesto sin compromiso" },
   { icon: "ri-moon-clear-line", label: "Disponible 24h, 365 días" },
-];
+].filter((b): b is { icon: string; label: string } => b !== null);
 
 export default function TrustBadges() {
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    <div className={`grid grid-cols-2 gap-4 ${badges.length >= 4 ? "sm:grid-cols-4" : "sm:grid-cols-3"}`}>
       {badges.map((b) => (
         <div
           key={b.label}

@@ -18,9 +18,14 @@ export default function Footer() {
               height={32}
               className="h-8 w-8 shrink-0"
             />
-            <span className="font-display text-base font-extrabold tracking-tight text-white">
-              {business.shortName.toUpperCase()}
-            </span>
+            <div className="flex flex-col items-start">
+              <span className="font-display text-base font-extrabold tracking-tight text-white">
+                {business.shortName.toUpperCase()}
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.15em] leading-none mt-1 text-white/45">
+                Instalaciones Eléctricas
+              </span>
+            </div>
           </div>
           <p className="mt-4 text-sm leading-relaxed">
             Electricista de confianza en Barakaldo y en toda Euskadi, disponible las 24 horas.
