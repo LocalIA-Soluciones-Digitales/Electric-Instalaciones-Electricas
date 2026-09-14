@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  AVERIA_AVAILABILITY,
   AVERIA_OPTIONS,
   FOLLOW_UP,
   buildAveriaAvisoData,
   priorityMeta,
+  type AvailabilityOption,
   type AveriaOption,
   type FollowUpOption,
   type Priority,
@@ -17,7 +19,11 @@ import { business, telLink, waLink } from "@/lib/business";
 import { trackCallClick, trackFormSubmit, trackWhatsAppClick } from "@/lib/tracking";
 import TurnstileWidget from "./TurnstileWidget";
 
-type Stage = "q1" | "q2" | "danger" | "result";
+type Stage = "q1" | "q2" | "danger" | "detalles" | "result";
+
+const inputCls =
+  "w-full rounded-md border border-neutral-300 bg-white px-4 py-3.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
+const labelCls = "mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-neutral-500";
 
 const stepVariants = {
   enter: { opacity: 0, x: 16 },
@@ -174,6 +180,9 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
   const [stage, setStage] = useState<Stage>("q1");
   const [option, setOption] = useState<AveriaOption | null>(null);
   const [answer, setAnswer] = useState<FollowUpOption | null>(null);
+  const [address, setAddress] = useState("");
+  const [availability, setAvailability] = useState<AvailabilityOption | null>(null);
+  const [detallesError, setDetallesError] = useState("");
   const [phone, setPhone] = useState("");
   const [hp, setHp] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -187,7 +196,14 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
 
   const chooseAnswer = (opt: FollowUpOption) => {
     setAnswer(opt);
-    setTimeout(() => setStage("result"), 180);
+    setTimeout(() => setStage("detalles"), 180);
+  };
+
+  const confirmDetalles = () => {
+    if (!address.trim()) return setDetallesError("Indica la dirección donde necesitas el servicio.");
+    if (!availability) return setDetallesError("Indica cuándo te viene bien.");
+    setDetallesError("");
+    setStage("result");
   };
 
   const priority: Priority = answer?.priority ?? "media";
@@ -215,6 +231,8 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
       question: followUp?.question,
       answer: answer?.label,
       phone: phone.trim(),
+      address,
+      availability: availability?.label,
     });
     const msg = buildWhatsAppMessage(data, avisoId, timestamp, false);
 
@@ -238,16 +256,21 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
     setStage("q1");
     setOption(null);
     setAnswer(null);
+    setAddress("");
+    setAvailability(null);
+    setDetallesError("");
     setPhone("");
     setHp("");
     setRegistered(false);
   };
 
+  const stepNumber = stage === "q1" ? 1 : stage === "q2" ? 2 : stage === "detalles" ? 3 : 4;
+
   return (
     <div>
       {stage !== "danger" && (
         <div className="mb-5">
-          <ProgressBar step={stage === "q1" ? 1 : stage === "q2" ? 2 : 3} total={3} />
+          <ProgressBar step={stepNumber} total={4} />
         </div>
       )}
 
@@ -365,6 +388,78 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
           </motion.div>
         )}
 
+        {stage === "detalles" && option && (
+          <motion.div key="detalles" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }}>
+            <BackLink onClick={() => setStage(followUp ? "q2" : "q1")} />
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">Paso 3</span>
+            <h3 className="font-display mt-2 text-2xl md:text-3xl font-extrabold tracking-tight text-neutral-900">
+              ¿Dónde y cuándo?
+            </h3>
+            <p className="mt-2 text-sm md:text-base text-neutral-600">
+              Para poder ayudarte, indícanos la dirección y cuándo te viene bien.
+            </p>
+
+            <div className="mt-6">
+              <label htmlFor="diag-direccion" className={labelCls}>
+                Dirección *
+              </label>
+              <input
+                id="diag-direccion"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Calle, número y localidad"
+                autoComplete="street-address"
+                className={inputCls}
+              />
+            </div>
+
+            <div className="mt-5">
+              <p className={labelCls}>¿Cuándo te viene bien? *</p>
+              <div className="grid grid-cols-1 gap-2.5">
+                {AVERIA_AVAILABILITY.map((opt) => {
+                  const active = availability?.id === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setAvailability(opt)}
+                      aria-pressed={active}
+                      className={`flex items-center gap-3 rounded-lg border px-4 py-3.5 text-left transition-all duration-200 cursor-pointer ${
+                        active
+                          ? "border-electric-500/60 bg-electric-400/10"
+                          : "border-neutral-200 bg-white hover:border-neutral-300"
+                      }`}
+                    >
+                      <span
+                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                          active ? "border-electric-400 bg-electric-400" : "border-neutral-300"
+                        }`}
+                      >
+                        {active && <i className="ri-check-line text-[11px] text-neutral-950" aria-hidden="true"></i>}
+                      </span>
+                      <span className="text-sm font-semibold text-neutral-900">{opt.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {detallesError && (
+              <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-red-600" role="alert">
+                <i className="ri-error-warning-line" aria-hidden="true"></i> {detallesError}
+              </p>
+            )}
+
+            <button
+              type="button"
+              onClick={confirmDetalles}
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-electric-400 px-7 py-4 text-base font-extrabold text-neutral-950 transition-all duration-200 hover:bg-electric-300 cursor-pointer"
+            >
+              Continuar <i className="ri-arrow-right-line text-lg" aria-hidden="true"></i>
+            </button>
+          </motion.div>
+        )}
+
         {stage === "result" && option && (
           <motion.div key="result" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }}>
             <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-md shadow-neutral-900/[0.04]">
@@ -403,6 +498,26 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
                     <i className="ri-checkbox-circle-fill" aria-hidden="true"></i> Disponible en tu zona
                   </p>
                 </div>
+              </div>
+
+              <div className="flex items-start justify-between gap-4 border-t border-neutral-100 px-6 py-4 md:px-8">
+                <div className="min-w-0 text-sm text-neutral-600">
+                  <p className="flex items-center gap-1.5 font-semibold text-neutral-900">
+                    <i className="ri-map-pin-2-line text-electric-600" aria-hidden="true"></i> {address || "—"}
+                  </p>
+                  <p className="mt-1 flex items-center gap-1.5">
+                    <i className="ri-calendar-line text-electric-600" aria-hidden="true"></i>{" "}
+                    {availability?.label || "—"}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setStage("detalles")}
+                  aria-label="Modificar dirección y disponibilidad"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-neutral-200 text-neutral-500 transition-colors duration-200 hover:border-electric-400/60 hover:text-electric-600 cursor-pointer"
+                >
+                  <i className="ri-edit-line text-sm" aria-hidden="true"></i>
+                </button>
               </div>
 
               <div className="border-t border-neutral-100 px-6 py-6 md:px-8">

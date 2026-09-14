@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { TRABAJO_CATEGORIES, type TrabajoCategory } from "@/lib/diagnostico";
+import { TRABAJO_AVAILABILITY, TRABAJO_CATEGORIES, type AvailabilityOption, type TrabajoCategory } from "@/lib/diagnostico";
 import {
   buildBudgetWhatsAppMessage,
   formatFechaHora,
@@ -16,13 +16,39 @@ import { business, telLink, waLink } from "@/lib/business";
 import { trackFormSubmit, trackWhatsAppClick } from "@/lib/tracking";
 import TurnstileWidget from "./TurnstileWidget";
 
-type Stage = "categorias" | "formulario" | "enviado";
+type Stage = "categorias" | "formulario" | "detalles" | "enviado";
 
 const stepVariants = {
   enter: { opacity: 0, x: 16 },
   center: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: -16 },
 };
+
+function ProgressBar({ step, total }: { step: number; total: number }) {
+  const pct = Math.round((step / total) * 100);
+  return (
+    <div className="mb-5 flex items-center gap-4">
+      <div
+        className="h-[3px] flex-1 overflow-hidden rounded-full bg-neutral-200"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={pct}
+        aria-label="Progreso de la solicitud"
+      >
+        <motion.div
+          className="h-full rounded-full bg-electric-400"
+          initial={false}
+          animate={{ width: `${pct}%` }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </div>
+      <span className="whitespace-nowrap text-xs font-bold uppercase tracking-wider text-neutral-400">
+        Paso {step} de {total}
+      </span>
+    </div>
+  );
+}
 
 const inputCls =
   "w-full rounded-md border border-neutral-300 bg-white px-4 py-3.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-electric-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-electric-400 transition-colors duration-200";
@@ -46,6 +72,9 @@ export default function TrabajoElectrico({ onExit }: { onExit: () => void }) {
   const [municipio, setMunicipio] = useState("");
   const [phone, setPhone] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [address, setAddress] = useState("");
+  const [availability, setAvailability] = useState<AvailabilityOption | null>(null);
+  const [detallesError, setDetallesError] = useState("");
   const [hp, setHp] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
   const [sending, setSending] = useState(false);
@@ -58,19 +87,26 @@ export default function TrabajoElectrico({ onExit }: { onExit: () => void }) {
     setTimeout(() => setStage("formulario"), 150);
   };
 
-  const submit = async () => {
+  const continueToDetalles = () => {
     if (!municipio.trim()) return setError("Indica tu municipio.");
     if (!isValidPhone(phone)) return setError("Revisa el teléfono (9 dígitos, p. ej. 600 00 00 00).");
     setError("");
+    setStage("detalles");
+  };
+
+  const submit = async () => {
+    if (!address.trim()) return setDetallesError("Indica la dirección donde necesitas el servicio.");
+    if (!availability) return setDetallesError("Indica cuándo te viene bien.");
+    setDetallesError("");
 
     const data: BudgetData = {
       workType: category?.label ?? "Trabajo eléctrico",
       description: mensaje.trim(),
       propertyType: "",
-      address: "",
+      address: address.trim(),
       locality: municipio.trim(),
       postalCode: "",
-      whenApprox: "",
+      whenApprox: availability.label,
       name: "",
       phone: phone.trim(),
       email: "",
@@ -103,12 +139,18 @@ export default function TrabajoElectrico({ onExit }: { onExit: () => void }) {
     setMunicipio("");
     setPhone("");
     setMensaje("");
+    setAddress("");
+    setAvailability(null);
+    setDetallesError("");
     setError("");
     setRefId("");
   };
 
+  const stepNumber = stage === "formulario" ? 1 : stage === "detalles" ? 2 : 1;
+
   return (
     <div>
+      {(stage === "formulario" || stage === "detalles") && <ProgressBar step={stepNumber} total={2} />}
       <AnimatePresence mode="wait">
         {stage === "categorias" && (
           <motion.div
@@ -215,6 +257,79 @@ export default function TrabajoElectrico({ onExit }: { onExit: () => void }) {
               {error && (
                 <p className="flex items-center gap-2 text-sm font-semibold text-red-600" role="alert">
                   <i className="ri-error-warning-line" aria-hidden="true"></i> {error}
+                </p>
+              )}
+
+              <button
+                type="button"
+                onClick={continueToDetalles}
+                className="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-electric-400 px-7 py-4 text-base font-extrabold text-neutral-950 transition-all duration-200 hover:bg-electric-300 cursor-pointer"
+              >
+                Continuar <i className="ri-arrow-right-line text-lg" aria-hidden="true"></i>
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {stage === "detalles" && category && (
+          <motion.div
+            key="detalles"
+            variants={stepVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.25 }}
+          >
+            <BackLink onClick={() => setStage("formulario")} />
+            <h3 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight text-neutral-900">
+              ¿Dónde y cuándo?
+            </h3>
+            <p className="mt-2 text-sm md:text-base text-neutral-600">
+              El último paso: la dirección exacta y cuándo te viene bien.
+            </p>
+
+            <div className="mt-6 flex flex-col gap-5">
+              <div>
+                <label htmlFor="trabajo-direccion" className={labelCls}>
+                  📍 Dirección *
+                </label>
+                <input
+                  id="trabajo-direccion"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Calle y número"
+                  autoComplete="street-address"
+                  className={inputCls}
+                />
+              </div>
+
+              <div>
+                <p className={labelCls}>🗓️ ¿Cuándo te viene bien? *</p>
+                <div className="flex flex-wrap gap-2">
+                  {TRABAJO_AVAILABILITY.map((opt) => {
+                    const active = availability?.id === opt.id;
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => setAvailability(opt)}
+                        aria-pressed={active}
+                        className={`whitespace-nowrap rounded-md border px-3 py-2.5 text-sm font-bold transition-all duration-200 cursor-pointer ${
+                          active
+                            ? "border-electric-500/60 bg-electric-400 text-neutral-950"
+                            : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {detallesError && (
+                <p className="flex items-center gap-2 text-sm font-semibold text-red-600" role="alert">
+                  <i className="ri-error-warning-line" aria-hidden="true"></i> {detallesError}
                 </p>
               )}
 

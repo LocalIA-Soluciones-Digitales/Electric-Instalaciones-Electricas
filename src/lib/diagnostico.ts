@@ -99,6 +99,8 @@ export function buildAveriaAvisoData(params: {
   question?: string;
   answer?: string;
   phone: string;
+  address?: string;
+  availability?: string;
 }): AvisoData {
   const answers: DiagnosisAnswer[] = [];
   if (params.question && params.answer) answers.push({ q: params.question, a: params.answer });
@@ -113,15 +115,34 @@ export function buildAveriaAvisoData(params: {
     answers,
     description: "",
     propertyType: "",
-    address: "",
+    address: params.address?.trim() ?? "",
     locality: "",
     postalCode: "",
-    urgency: "asap",
+    urgency: params.availability ?? "asap",
     name: "",
     phone: params.phone,
     email: "",
   };
 }
+
+/* ---------- DIRECCIÓN Y DISPONIBILIDAD ---------- */
+export interface AvailabilityOption {
+  id: string;
+  label: string;
+}
+
+export const AVERIA_AVAILABILITY: AvailabilityOption[] = [
+  { id: "ahora", label: "Ahora mismo" },
+  { id: "hoy", label: "Hoy" },
+  { id: "otro", label: "Prefiero elegir día y franja" },
+];
+
+export const TRABAJO_AVAILABILITY: AvailabilityOption[] = [
+  { id: "dias", label: "En los próximos días" },
+  { id: "semana", label: "Esta semana" },
+  { id: "mes", label: "Este mes" },
+  { id: "sinfecha", label: "Aún sin fecha (solo quiero información)" },
+];
 
 /* ---------- TRABAJO ELÉCTRICO (no urgente) ---------- */
 export interface TrabajoCategory {
