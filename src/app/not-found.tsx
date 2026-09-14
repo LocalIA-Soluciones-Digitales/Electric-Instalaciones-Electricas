@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
-import { localities } from "@/lib/localities";
 
 export default function NotFound() {
   const topServices = services.slice(0, 4);
-  const topLocalities = localities.filter((l) => l.isHome || l.slug === "bilbao" || l.slug === "getxo");
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-20 text-center text-neutral-900 md:px-6">
@@ -53,15 +51,12 @@ export default function NotFound() {
 
         <h2 className="font-display mt-10 text-center text-lg font-bold text-neutral-900">Zonas donde trabajamos</h2>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
-          {topLocalities.map((l) => (
-            <Link
-              key={l.slug}
-              href={`/electricista-${l.slug}`}
-              className="rounded-full border border-neutral-200 bg-white px-5 py-2 text-sm font-semibold text-neutral-600 hover:border-electric-400/60 hover:text-electric-600"
-            >
-              Electricista en {l.name}
-            </Link>
-          ))}
+          <Link
+            href="/zonas-de-servicio"
+            className="rounded-full border border-neutral-200 bg-white px-5 py-2 text-sm font-semibold text-neutral-600 hover:border-electric-400/60 hover:text-electric-600"
+          >
+            Toda Euskadi
+          </Link>
           <Link
             href="/"
             className="rounded-full border border-electric-400/50 bg-electric-50 px-5 py-2 text-sm font-semibold text-electric-700 hover:bg-electric-100"

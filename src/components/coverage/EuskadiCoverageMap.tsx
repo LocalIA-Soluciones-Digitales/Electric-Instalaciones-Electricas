@@ -78,12 +78,9 @@ function popupHtml(locality: Locality, isBase: boolean) {
           <i class="ri-checkbox-circle-fill" aria-hidden="true"></i> Atención urgente disponible
         </p>
       </div>
-      <div class="flex flex-col gap-2 border-t border-neutral-100 px-4 py-3.5">
-        <div class="flex gap-2">
-          <a href="${telLink()}" class="flex-1 rounded-full bg-electric-400 px-3 py-2 text-center text-sm font-extrabold text-neutral-950 no-underline">Llamar</a>
-          <a href="https://wa.me/${business.whatsapp}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-full border border-whatsapp/30 bg-whatsapp/10 px-3 py-2 text-center text-sm font-bold text-whatsapp-600 no-underline">WhatsApp</a>
-        </div>
-        <a href="/electricista-${locality.slug}" class="rounded-full border border-neutral-200 px-3 py-2 text-center text-sm font-semibold text-neutral-700 no-underline">Ver información →</a>
+      <div class="flex gap-2 border-t border-neutral-100 px-4 py-3.5">
+        <a href="${telLink()}" class="flex-1 rounded-full bg-electric-400 px-3 py-2 text-center text-sm font-extrabold text-neutral-950 no-underline">Llamar</a>
+        <a href="https://wa.me/${business.whatsapp}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-full border border-whatsapp/30 bg-whatsapp/10 px-3 py-2 text-center text-sm font-bold text-whatsapp-600 no-underline">WhatsApp</a>
       </div>
     </div>
   `;
@@ -256,9 +253,12 @@ export default function EuskadiCoverageMap() {
         ))}
       </div>
 
+      {/* isolate: crea un nuevo contexto de apilamiento para que los z-index
+          internos de Leaflet (hasta 700 en el popup) no compitan nunca con el
+          header fijo (z-50) ni con los botones flotantes de la web. */}
       <div
         ref={mapContainerRef}
-        className="h-[420px] w-full overflow-hidden rounded-3xl border border-neutral-200 shadow-xl shadow-neutral-900/10 sm:h-[500px] lg:h-[600px]"
+        className="relative isolate h-[420px] w-full overflow-hidden rounded-3xl border border-neutral-200 shadow-xl shadow-neutral-900/10 sm:h-[500px] lg:h-[600px]"
       />
 
       <p className="mx-auto mt-4 max-w-md text-center text-xs text-neutral-500">

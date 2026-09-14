@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { business } from "@/lib/business";
 import { services } from "@/lib/services";
-import { localities } from "@/lib/localities";
 import { guides } from "@/lib/guides";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -21,22 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const localityRoutes = localities.map((l) => ({
-    url: `${business.domain}/electricista-${l.slug}`,
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: 0.9,
-  }));
-
-  const comboRoutes = localities.flatMap((l) =>
-    services.map((s) => ({
-      url: `${business.domain}/electricista-${l.slug}/${s.slug}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }))
-  );
-
   const guideRoutes = guides.map((g) => ({
     url: `${business.domain}/guias/${g.slug}`,
     lastModified,
@@ -44,5 +27,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...localityRoutes, ...comboRoutes, ...guideRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...guideRoutes];
 }

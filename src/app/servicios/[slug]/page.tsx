@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getService, services } from "@/lib/services";
-import { localities } from "@/lib/localities";
 import { guides } from "@/lib/guides";
 import CTASection from "@/components/CTASection";
 import Faq, { FaqJsonLd } from "@/components/Faq";
@@ -107,17 +106,16 @@ export default async function ServicePage({
             <h2 className="font-display mt-12 text-2xl font-extrabold text-neutral-900">
               {service.name} en tu zona
             </h2>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {localities.map((l) => (
-                <Link
-                  key={l.slug}
-                  href={`/electricista-${l.slug}/${service.slug}`}
-                  className="rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-sm text-neutral-600 hover:border-electric-500/50 hover:text-electric-600"
-                >
-                  {service.name} en {l.name}
-                </Link>
-              ))}
-            </div>
+            <p className="mt-4 text-neutral-600">
+              Ofrecemos {service.name.toLowerCase()} en toda Euskadi: Bizkaia, Gipuzkoa y Álava.
+            </p>
+            <Link
+              href="/zonas-de-servicio"
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-700 hover:border-electric-400/60 hover:text-electric-600"
+            >
+              Ver mapa de cobertura
+              <i className="ri-arrow-right-line" aria-hidden="true"></i>
+            </Link>
           </div>
 
           <div>

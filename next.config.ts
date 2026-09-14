@@ -53,6 +53,23 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Las páginas por municipio (/electricista-*) se han retirado en favor del
+  // hub único /zonas-de-servicio: se redirigen en vez de dar 404 para no
+  // romper enlaces ya indexados o compartidos.
+  async redirects() {
+    return [
+      {
+        source: "/electricista-:slug/:service",
+        destination: "/zonas-de-servicio",
+        permanent: true,
+      },
+      {
+        source: "/electricista-:slug",
+        destination: "/zonas-de-servicio",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
