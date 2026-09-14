@@ -118,8 +118,12 @@ export default function ZonasDeServicioPage() {
       </section>
 
       {/* Mapa interactivo */}
-      <section id="mapa-cobertura" className="bg-cloud py-14 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
+      <section id="mapa-cobertura" className="relative overflow-hidden py-14 md:py-20">
+        <div className="absolute inset-0" aria-hidden="true">
+          <Image src={COVERAGE_IMAGE} alt="" fill sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/80 to-cloud"></div>
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 md:px-6">
           <Reveal>
             <EuskadiCoverageMap />
           </Reveal>
