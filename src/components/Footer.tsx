@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { WHATSAPP_GREETING_GENERAL, business, telLink, waLink } from "@/lib/business";
 import { services } from "@/lib/services";
-import { localities } from "@/lib/localities";
 import { guides } from "@/lib/guides";
 
 export default function Footer() {
@@ -95,17 +94,13 @@ export default function Footer() {
           <ul className="space-y-2.5 text-sm">
             <li>
               <Link href="/zonas-de-servicio" className="font-semibold text-electric-400 hover:text-electric-300 transition-colors duration-200">
-                Ver mapa de cobertura
+                Toda Euskadi
               </Link>
             </li>
-            {localities.map((l) => (
-              <li key={l.slug}>
-                <Link href={`/electricista-${l.slug}`} className="hover:text-electric-400 transition-colors duration-200">
-                  Electricista en {l.name}
-                </Link>
-              </li>
-            ))}
           </ul>
+          <p className="mt-3 text-sm leading-relaxed">
+            Bizkaia, Gipuzkoa y Álava, con base en Barakaldo.
+          </p>
         </div>
 
         <div>

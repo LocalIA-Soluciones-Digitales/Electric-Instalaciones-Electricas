@@ -1,7 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
-import { localities } from "@/lib/localities";
 import { business, telLink, waLink, WHATSAPP_GREETING_URGENT } from "@/lib/business";
 import { COVERAGE_IMAGE } from "@/lib/stockImages";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -27,14 +25,6 @@ const trustIndicators = [
   { icon: "ri-map-pin-2-line", label: "Cobertura en Euskadi" },
   { icon: "ri-price-tag-3-line", label: "Presupuesto sin compromiso" },
 ];
-
-const ZONE_EXCLUDE = new Set(["cruces"]);
-const localitiesByProvince = localities
-  .filter((l) => !ZONE_EXCLUDE.has(l.slug) && l.slug !== "barakaldo")
-  .reduce<Record<string, typeof localities>>((acc, l) => {
-    (acc[l.province] ??= []).push(l);
-    return acc;
-  }, {});
 
 const faqs = [
   {
@@ -128,74 +118,11 @@ export default function ZonasDeServicioPage() {
       </section>
 
       {/* Mapa interactivo */}
-      <section id="mapa-cobertura" className="bg-neutral-950 pb-20 pt-4 md:pb-24">
+      <section id="mapa-cobertura" className="bg-cloud py-14 md:py-20">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <Reveal>
-            <p className="text-center text-sm text-white/50">
-              Pasa el cursor o toca cada municipio para ver distancia, tiempo estimado y contacto directo.
-            </p>
-          </Reveal>
-          <div className="mt-6">
             <EuskadiCoverageMap />
-          </div>
-        </div>
-      </section>
-
-      {/* Listado de municipios */}
-      <section className="bg-white py-16 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <Reveal className="text-center">
-            <h2 className="font-display text-2xl font-extrabold text-neutral-900 md:text-3xl">
-              Municipios donde trabajamos
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-neutral-600">
-              Selecciona tu localidad para ver información específica, o llámanos directamente si no encuentras
-              la tuya: cubrimos también los municipios cercanos que no aparecen en esta lista.
-            </p>
           </Reveal>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            {Object.entries(localitiesByProvince).map(([province, items], i) => (
-              <Reveal key={province} delay={i * 0.08}>
-                <div className="h-full rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-                  <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-electric-600">
-                    <i className="ri-map-pin-2-fill" aria-hidden="true"></i>
-                    {province}
-                  </p>
-                  <ul className="mt-4 flex flex-col divide-y divide-neutral-200">
-                    {province === "Bizkaia" && (
-                      <li>
-                        <Link
-                          href="/electricista-barakaldo"
-                          className="group flex items-center justify-between gap-2 py-2.5 text-sm font-bold text-neutral-900 transition-colors duration-200 hover:text-electric-600"
-                        >
-                          Barakaldo (base)
-                          <i
-                            className="ri-arrow-right-s-line text-neutral-300 transition-colors duration-200 group-hover:text-electric-500"
-                            aria-hidden="true"
-                          ></i>
-                        </Link>
-                      </li>
-                    )}
-                    {items.map((l) => (
-                      <li key={l.slug}>
-                        <Link
-                          href={`/electricista-${l.slug}`}
-                          className="group flex items-center justify-between gap-2 py-2.5 text-sm font-semibold text-neutral-700 transition-colors duration-200 hover:text-electric-600"
-                        >
-                          {l.name}
-                          <i
-                            className="ri-arrow-right-s-line text-neutral-300 transition-colors duration-200 group-hover:text-electric-500"
-                            aria-hidden="true"
-                          ></i>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 

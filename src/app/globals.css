@@ -102,14 +102,47 @@ body {
   animation: hero-zoom 16s ease-in-out infinite;
 }
 
-/* Líneas de conexión del mapa de cobertura (EuskadiCoverageMap.tsx): efecto de
-   flujo de datos hacia cada municipio, como una red logística en movimiento. */
-@keyframes dash-flow {
-  to { stroke-dashoffset: -6; }
+/* Mapa de cobertura (EuskadiCoverageMap.tsx, Leaflet): anillo de pulso del
+   marcador de Barakaldo y overrides del popup para que use el estilo de la
+   web en vez del look por defecto de Leaflet. */
+@keyframes coverage-pulse {
+  0% { transform: scale(1); opacity: 0.65; }
+  100% { transform: scale(2.6); opacity: 0; }
 }
-.coverage-line {
-  stroke-dasharray: 3 3;
-  animation: dash-flow 1.4s linear infinite;
+.coverage-pulse {
+  animation: coverage-pulse 2s ease-out infinite;
+}
+.coverage-marker:hover .coverage-dot {
+  transform: scale(1.25);
+}
+.coverage-dot {
+  transition: transform 0.15s ease-out;
+}
+
+.leaflet-container {
+  font-family: var(--font-sans), sans-serif;
+  background: var(--color-cloud);
+}
+.leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.25);
+}
+.leaflet-popup-content {
+  margin: 0;
+  width: auto !important;
+}
+.leaflet-popup-tip {
+  box-shadow: none;
+}
+.leaflet-popup-close-button {
+  color: rgba(0, 0, 0, 0.4) !important;
+  padding: 6px 8px 0 0 !important;
+}
+.leaflet-control-attribution {
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.75) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
