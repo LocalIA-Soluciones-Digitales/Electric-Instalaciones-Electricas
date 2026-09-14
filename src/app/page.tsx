@@ -13,6 +13,7 @@ import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
 import ParallaxBanner from "@/components/ParallaxBanner";
 import ContactHub from "@/components/lead/ContactHub";
+import CoverageMap from "@/components/CoverageMap";
 import HeroVideo from "@/components/HeroVideo";
 
 export const metadata: Metadata = {
@@ -268,6 +269,11 @@ export default function HomePage() {
                 Bizkaia, Gipuzkoa y Araba al completo, también en los barrios y municipios que no
                 aparecen en esta lista.
               </p>
+
+              <div className="mt-8">
+                <CoverageMap />
+              </div>
+
               <div className="mt-8 grid grid-cols-1 gap-4 text-left sm:grid-cols-3">
                 {Object.entries(localitiesByProvince).map(([province, items]) => {
                   const shown = items.slice(0, HOME_ZONE_LIMIT);
