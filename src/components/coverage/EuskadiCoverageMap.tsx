@@ -178,7 +178,7 @@ export default function EuskadiCoverageMap() {
           icon: leaflet.divIcon({ html: baseMarkerHtml(), className: "coverage-marker-base", iconSize: [0, 0] }),
           zIndexOffset: 1000,
         })
-        .bindPopup(popupHtml(base, true), { className: "coverage-popup", minWidth: 240, autoPan: false })
+        .bindPopup(popupHtml(base, true), { className: "coverage-popup", minWidth: 240, autoPanPadding: [24, 24] })
         .addTo(map);
 
       const groups: Record<Province, L.LayerGroup> = {
@@ -194,7 +194,7 @@ export default function EuskadiCoverageMap() {
           .marker([p.geo.lat, p.geo.lng], {
             icon: leaflet.divIcon({ html: markerHtml(color), className: "coverage-marker", iconSize: [16, 16] }),
           })
-          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240, autoPan: false });
+          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240, autoPanPadding: [24, 24] });
 
         marker.on("mouseover", () => marker.openPopup());
         groups[p.province].addLayer(marker);

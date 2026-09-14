@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { services } from "@/lib/services";
 import { business, telLink } from "@/lib/business";
-import { HERO_IMAGE, HERO_VIDEO, LIGHTING_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
+import { COVERAGE_IMAGE, HERO_IMAGE, HERO_VIDEO, LIGHTING_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
 import TrustBadges from "@/components/TrustBadges";
 import AboutPro from "@/components/AboutPro";
 import Testimonials from "@/components/Testimonials";
@@ -232,8 +232,12 @@ export default function HomePage() {
       </ParallaxBanner>
 
       {/* Cobertura */}
-      <section className="bg-cloud py-16 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-6 text-center">
+      <section className="relative overflow-hidden py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden="true">
+          <Image src={COVERAGE_IMAGE} alt="" fill sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/80 to-cloud"></div>
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 md:px-6 text-center">
           <Reveal>
             <div className="inline-flex items-center gap-2 justify-center">
               <span className="h-px w-5 bg-electric-500"></span>
