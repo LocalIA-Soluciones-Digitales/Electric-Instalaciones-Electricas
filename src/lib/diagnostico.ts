@@ -6,6 +6,11 @@
 
 import { SERVICE_ELECTRIC, type AvisoData, type DiagnosisAnswer } from "@/lib/leadConfig";
 
+// Sentinel usado también por leadConfig.ts (urgencyLabel/buildWhatsAppMessage):
+// cuando urgency === OTHER_AVAILABILITY_ID, el mensaje de WhatsApp y el email
+// interno muestran la fecha y franja elegidas en vez de una etiqueta fija.
+export const OTHER_AVAILABILITY_ID = "otro";
+
 /* ---------- PREGUNTA 1: ¿QUÉ TE OCURRE? ---------- */
 export interface AveriaOption {
   id: string;
@@ -100,10 +105,15 @@ export function buildAveriaAvisoData(params: {
   answer?: string;
   phone: string;
   address?: string;
-  availability?: string;
+  /** Id de AVERIA_AVAILABILITY ("ahora" | OTHER_AVAILABILITY_ID) */
+  availabilityId?: string;
+  availabilityLabel?: string;
+  otherDate?: string;
+  otherSlot?: string;
 }): AvisoData {
   const answers: DiagnosisAnswer[] = [];
   if (params.question && params.answer) answers.push({ q: params.question, a: params.answer });
+  const isOther = params.availabilityId === OTHER_AVAILABILITY_ID;
   return {
     service: SERVICE_ELECTRIC,
     incidence: {
@@ -118,7 +128,9 @@ export function buildAveriaAvisoData(params: {
     address: params.address?.trim() ?? "",
     locality: "",
     postalCode: "",
-    urgency: params.availability ?? "asap",
+    urgency: isOther ? OTHER_AVAILABILITY_ID : params.availabilityLabel ?? "asap",
+    otherDate: isOther ? params.otherDate ?? "" : "",
+    otherSlot: isOther ? params.otherSlot ?? "" : "",
     name: "",
     phone: params.phone,
     email: "",
@@ -133,8 +145,7 @@ export interface AvailabilityOption {
 
 export const AVERIA_AVAILABILITY: AvailabilityOption[] = [
   { id: "ahora", label: "Ahora mismo" },
-  { id: "hoy", label: "Hoy" },
-  { id: "otro", label: "Prefiero elegir día y franja" },
+  { id: OTHER_AVAILABILITY_ID, label: "Elegir día y horario" },
 ];
 
 export const TRABAJO_AVAILABILITY: AvailabilityOption[] = [

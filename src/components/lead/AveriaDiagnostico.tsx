@@ -6,6 +6,7 @@ import {
   AVERIA_AVAILABILITY,
   AVERIA_OPTIONS,
   FOLLOW_UP,
+  OTHER_AVAILABILITY_ID,
   buildAveriaAvisoData,
   priorityMeta,
   type AvailabilityOption,
@@ -13,7 +14,15 @@ import {
   type FollowUpOption,
   type Priority,
 } from "@/lib/diagnostico";
-import { formatFechaHora, generarIdAviso, isValidPhone, SERVICE_ELECTRIC, buildWhatsAppMessage } from "@/lib/leadConfig";
+import {
+  TIME_SLOTS,
+  formatFechaHora,
+  formatOtherDate,
+  generarIdAviso,
+  isValidPhone,
+  SERVICE_ELECTRIC,
+  buildWhatsAppMessage,
+} from "@/lib/leadConfig";
 import { enviarAvisoEmail } from "@/lib/sendLead";
 import { business, telLink, waLink } from "@/lib/business";
 import { trackCallClick, trackFormSubmit, trackWhatsAppClick } from "@/lib/tracking";
@@ -182,6 +191,8 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
   const [answer, setAnswer] = useState<FollowUpOption | null>(null);
   const [address, setAddress] = useState("");
   const [availability, setAvailability] = useState<AvailabilityOption | null>(null);
+  const [otherDate, setOtherDate] = useState("");
+  const [otherSlot, setOtherSlot] = useState("");
   const [detallesError, setDetallesError] = useState("");
   const [phone, setPhone] = useState("");
   const [hp, setHp] = useState("");
@@ -209,6 +220,10 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
   const priority: Priority = answer?.priority ?? "media";
   const meta = priorityMeta(priority);
   const followUp = option ? FOLLOW_UP[option.id] : undefined;
+  const availabilitySummary =
+    availability?.id === OTHER_AVAILABILITY_ID
+      ? [formatOtherDate(otherDate), otherSlot].filter(Boolean).join(" · ") || "Día y horario a elegir"
+      : availability?.label;
 
   const source = stage === "danger" ? "diagnostico_riesgo" : "diagnostico_averia";
 
@@ -232,7 +247,10 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
       answer: answer?.label,
       phone: phone.trim(),
       address,
-      availability: availability?.label,
+      availabilityId: availability?.id,
+      availabilityLabel: availability?.label,
+      otherDate,
+      otherSlot,
     });
     const msg = buildWhatsAppMessage(data, avisoId, timestamp, false);
 
@@ -258,6 +276,8 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
     setAnswer(null);
     setAddress("");
     setAvailability(null);
+    setOtherDate("");
+    setOtherSlot("");
     setDetallesError("");
     setPhone("");
     setHp("");
@@ -442,6 +462,47 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
                   );
                 })}
               </div>
+
+              {availability?.id === OTHER_AVAILABILITY_ID && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.25 }}
+                  className="mt-4 grid grid-cols-1 gap-4 overflow-hidden rounded-lg border border-neutral-200 bg-cloud p-4 sm:grid-cols-2"
+                >
+                  <div>
+                    <label htmlFor="diag-fecha" className={labelCls}>
+                      Día
+                    </label>
+                    <input
+                      id="diag-fecha"
+                      type="date"
+                      min={new Date().toISOString().slice(0, 10)}
+                      value={otherDate}
+                      onChange={(e) => setOtherDate(e.target.value)}
+                      className={inputCls}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="diag-franja" className={labelCls}>
+                      Franja horaria
+                    </label>
+                    <select
+                      id="diag-franja"
+                      value={otherSlot}
+                      onChange={(e) => setOtherSlot(e.target.value)}
+                      className={`${inputCls} appearance-none`}
+                    >
+                      <option value="">Indiferente</option>
+                      {TIME_SLOTS.map((s) => (
+                        <option key={s.id} value={s.label}>
+                          {s.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </motion.div>
+              )}
             </div>
 
             {detallesError && (
@@ -507,7 +568,7 @@ export default function AveriaDiagnostico({ onExit }: { onExit: () => void }) {
                   </p>
                   <p className="mt-1 flex items-center gap-1.5">
                     <i className="ri-calendar-line text-electric-600" aria-hidden="true"></i>{" "}
-                    {availability?.label || "—"}
+                    {availabilitySummary || "—"}
                   </p>
                 </div>
                 <button
