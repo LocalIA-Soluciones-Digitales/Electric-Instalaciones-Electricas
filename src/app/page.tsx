@@ -12,7 +12,7 @@ import Faq, { FaqJsonLd } from "@/components/Faq";
 import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
 import ParallaxBanner from "@/components/ParallaxBanner";
-import ContactHub from "@/components/lead/ContactHub";
+import DiagnosticoElectrico from "@/components/lead/DiagnosticoElectrico";
 import CoverageMap from "@/components/CoverageMap";
 import HeroVideo from "@/components/HeroVideo";
 
@@ -349,7 +349,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ContactHub />
+      <DiagnosticoElectrico />
 
       <section className="bg-white py-16">
         <div className="mx-auto max-w-3xl px-4 md:px-6">

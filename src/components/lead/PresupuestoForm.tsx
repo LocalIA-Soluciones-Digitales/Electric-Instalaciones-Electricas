@@ -130,9 +130,9 @@ export default function PresupuestoForm() {
     setSending(true);
     trackFormSubmit("presupuesto_form");
     trackWhatsAppClick("presupuesto_form");
-    // El lead siempre llega por WhatsApp, igual que en el asistente guiado
-    // (ver ResumenEnvio.tsx): el email interno es una notificación secundaria,
-    // nunca la única vía por la que puede llegar la solicitud.
+    // El lead siempre llega por WhatsApp: el email interno es una
+    // notificación secundaria, nunca la única vía por la que puede llegar
+    // la solicitud.
     window.open(waLink(text), "_blank", "noopener,noreferrer");
 
     const res = await enviarAvisoEmail({
