@@ -4,7 +4,6 @@ import { guides } from "@/lib/guides";
 import CTASection from "@/components/CTASection";
 import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import AveriasComparador from "@/components/AveriasComparador";
 
 export const metadata: Metadata = {
   title: "Guías de Electricidad",
@@ -23,21 +22,6 @@ export default function GuiasPage() {
         subtitle="Respuestas claras, sin tecnicismos, a las dudas que más nos preguntan por teléfono antes de pedir presupuesto."
         contentWidth="6xl"
       />
-
-      <section className="bg-white py-14">
-        <div className="mx-auto max-w-3xl px-4 md:px-6">
-          <h2 className="font-display text-center text-2xl font-extrabold text-neutral-900">
-            ¿Qué te está pasando?
-          </h2>
-          <p className="mx-auto mt-2 max-w-xl text-center text-sm text-neutral-500">
-            Compara las averías más habituales y qué suelen indicar, antes de decidir si es para hoy o puede
-            esperar.
-          </p>
-          <div className="mt-8">
-            <AveriasComparador />
-          </div>
-        </div>
-      </section>
 
       <section className="bg-neutral-50 py-14">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
