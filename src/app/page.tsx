@@ -86,6 +86,7 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/55 to-neutral-950/35"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/40 via-transparent to-neutral-950/40"></div>
+          <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-neutral-950/80 to-transparent"></div>
         </div>
 
         <div className="relative mx-auto w-full max-w-6xl px-4 pb-14 pt-32 text-center md:px-6 md:pb-20 md:pt-40">
