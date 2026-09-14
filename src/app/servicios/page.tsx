@@ -58,7 +58,7 @@ export default function ServiciosPage() {
                 </ul>
 
                 <Link
-                  href={`/servicios/${s.slug}#presupuesto`}
+                  href="/contacto#presupuesto"
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-electric-400 px-5 py-2.5 text-sm font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
                 >
                   Pedir presupuesto para {s.shortName.toLowerCase()}

@@ -33,7 +33,7 @@ export default function FloatingButtons() {
         <i className="ri-phone-line text-xl sm:text-2xl" aria-hidden="true"></i>
       </a>
       <Link
-        href="/#solicitud"
+        href="/contacto#solicitud"
         aria-label="Solicitar asistencia"
         className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-neutral-900 text-electric-400 shadow-lg shadow-black/30 transition hover:scale-105"
       >

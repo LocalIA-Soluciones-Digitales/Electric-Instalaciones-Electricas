@@ -76,10 +76,10 @@ Para añadir una localidad o servicio nuevo, basta con añadir una entrada en
 - **Eventos ya instrumentados** en `dataLayer` (`src/lib/tracking.ts`): `call_click`,
   `whatsapp_click`, `form_submit` — configura estos como conversiones en GTM/GA4 y como eventos
   personalizados en Meta Ads Manager.
-- **Captación de leads**: `src/components/lead/SolicitudWizard.tsx` (asistente guiado de 6 pasos en
-  el home, con diagnóstico por tipo de avería, foto adjunta y aviso de peligro) y
-  `src/components/lead/PresupuestoForm.tsx` (formulario de presupuesto sin compromiso, usado en el
-  home, páginas de servicio, localidad y contacto). Ambos abren WhatsApp con el mensaje completo
+- **Captación de leads**: `src/components/lead/DiagnosticoElectrico.tsx` (widget con las dos vías de
+  contacto — avería urgente vía `AveriaDiagnostico.tsx`, con diagnóstico guiado, foto adjunta y aviso
+  de peligro; o presupuesto sin compromiso vía `TrabajoElectrico.tsx` — usado en el home y en
+  `/contacto`, único destino al que enlazan el resto de páginas). Ambas vías abren WhatsApp con el mensaje completo
   (`src/lib/leadConfig.ts` construye el texto) y, si `RESEND_API_KEY` está configurada, además envían
   una notificación interna por email a `business.email` vía `src/app/api/lead/route.ts` (incluyendo la
   foto adjunta si el usuario la añadió). Sin esa variable, el aviso sigue llegando por WhatsApp con

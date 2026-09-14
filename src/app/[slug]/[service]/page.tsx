@@ -10,7 +10,6 @@ import Faq, { FaqJsonLd } from "@/components/Faq";
 import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ServiceJsonLd from "@/components/ServiceJsonLd";
-import PresupuestoForm from "@/components/lead/PresupuestoForm";
 
 export function generateStaticParams() {
   return localities.flatMap((l) =>
@@ -148,19 +147,17 @@ export default async function ServiceLocalityPage({
                 Presupuesto para {service.shortName.toLowerCase()} en {locality.name}
               </h3>
               <p className="mt-1 text-sm text-neutral-500">Sin compromiso. Te respondemos por teléfono o WhatsApp.</p>
-              <a
-                href="#presupuesto"
+              <Link
+                href="/contacto#presupuesto"
                 className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-electric-400 px-5 py-2.5 text-sm font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
               >
                 Pedir presupuesto
                 <i className="ri-arrow-right-line" aria-hidden="true"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </section>
-
-      <PresupuestoForm />
 
       <CTASection
         source={`combo_${locality.slug}_${service.slug}`}

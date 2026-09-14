@@ -10,7 +10,6 @@ import Testimonials from "@/components/Testimonials";
 import Faq, { FaqJsonLd } from "@/components/Faq";
 import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import PresupuestoForm from "@/components/lead/PresupuestoForm";
 import type { Locality } from "@/lib/localities";
 
 function localityFromSlug(slug: string) {
@@ -156,7 +155,21 @@ export default async function LocalityPage({
         </section>
       )}
 
-      <PresupuestoForm />
+      <section className="bg-neutral-50 py-10">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 px-4 text-center md:px-6">
+          <h2 className="font-display text-xl font-extrabold text-neutral-900 md:text-2xl">
+            Pide presupuesto para tu trabajo eléctrico en {locality.name}
+          </h2>
+          <p className="max-w-xl text-neutral-600">Sin compromiso. Te respondemos por teléfono o WhatsApp.</p>
+          <Link
+            href="/contacto#presupuesto"
+            className="inline-flex items-center gap-2 rounded-full bg-electric-400 px-6 py-3 text-sm font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
+          >
+            Pedir presupuesto
+            <i className="ri-arrow-right-line" aria-hidden="true"></i>
+          </Link>
+        </div>
+      </section>
 
       <CTASection source={`locality_${locality.slug}`} title={`Electricista urgente en ${locality.name}`} />
 
