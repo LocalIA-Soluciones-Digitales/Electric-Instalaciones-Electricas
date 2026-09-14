@@ -125,9 +125,10 @@ export default function EuskadiCoverageMap() {
       const euskadiLatLngs = EUSKADI_BOUNDARY.map(([lng, lat]) => [lat, lng] as [number, number]);
 
       const map = leaflet.map(mapContainerRef.current, {
-        scrollWheelZoom: false,
+        scrollWheelZoom: true,
         zoomControl: true,
         minZoom: 8,
+        maxZoom: 16,
         maxBoundsViscosity: 0.8,
       });
       mapRef.current = map;
@@ -143,12 +144,22 @@ export default function EuskadiCoverageMap() {
       map.fitBounds(bounds, { padding: [28, 28] });
       map.setMaxBounds(bounds.pad(0.6));
 
+      // Base cartográfica minimalista (gris claro, sin el aspecto "topográfico"
+      // recargado de un mapa de carreteras): deja que los marcadores de color y
+      // el contorno de Euskadi sean el centro visual del mapa.
       leaflet
-        .tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+        .tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
           attribution:
-            'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener noreferrer">Esri</a> — Esri, HERE, Garmin, FAO, NOAA, USGS',
-          maxZoom: 19,
+            'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener noreferrer">Esri</a>',
+          maxZoom: 16,
         })
+        .addTo(map);
+
+      leaflet
+        .tileLayer(
+          "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
+          { maxZoom: 16 }
+        )
         .addTo(map);
 
       // Contorno de Euskadi con efecto de "foco": el anillo exterior gigante
@@ -170,7 +181,7 @@ export default function EuskadiCoverageMap() {
           icon: leaflet.divIcon({ html: baseMarkerHtml(), className: "coverage-marker-base", iconSize: [0, 0] }),
           zIndexOffset: 1000,
         })
-        .bindPopup(popupHtml(base, true), { className: "coverage-popup", minWidth: 240 })
+        .bindPopup(popupHtml(base, true), { className: "coverage-popup", minWidth: 240, autoPan: false })
         .addTo(map);
 
       const groups: Record<Province, L.LayerGroup> = {
@@ -186,7 +197,7 @@ export default function EuskadiCoverageMap() {
           .marker([p.geo.lat, p.geo.lng], {
             icon: leaflet.divIcon({ html: markerHtml(color), className: "coverage-marker", iconSize: [16, 16] }),
           })
-          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240 });
+          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240, autoPan: false });
 
         marker.on("mouseover", () => marker.openPopup());
         groups[p.province].addLayer(marker);
