@@ -6,6 +6,17 @@ import "leaflet/dist/leaflet.css";
 import { localities, type Locality } from "@/lib/localities";
 import { business, telLink } from "@/lib/business";
 import { getResponseTier, RESPONSE_TIER_META, type ResponseTier } from "@/lib/coverage";
+import { EUSKADI_BOUNDARY } from "@/lib/euskadiBoundary";
+
+// Anillo enorme (todo el mundo visible en proyección Mercator) usado como
+// contorno exterior de la "máscara": junto con el contorno de Euskadi como
+// agujero, atenúa todo lo que queda fuera de la comunidad autónoma.
+const WORLD_RING: [number, number][] = [
+  [85, -200],
+  [85, 200],
+  [-85, 200],
+  [-85, -200],
+];
 
 const BASE_SLUG = "barakaldo";
 // Cruces se omite como punto propio: es un barrio de Barakaldo con coordenadas
@@ -111,10 +122,13 @@ export default function EuskadiCoverageMap() {
       const base = localities.find((l) => l.slug === BASE_SLUG);
       if (!base) return;
       const points = localities.filter((l) => !EXCLUDED_FROM_MAP.has(l.slug) && l.slug !== BASE_SLUG);
+      const euskadiLatLngs = EUSKADI_BOUNDARY.map(([lng, lat]) => [lat, lng] as [number, number]);
 
       const map = leaflet.map(mapContainerRef.current, {
         scrollWheelZoom: false,
         zoomControl: true,
+        minZoom: 8,
+        maxBoundsViscosity: 0.8,
       });
       mapRef.current = map;
 
@@ -124,14 +138,30 @@ export default function EuskadiCoverageMap() {
       const bounds = leaflet.latLngBounds([
         [base.geo.lat, base.geo.lng],
         ...points.map((p) => [p.geo.lat, p.geo.lng] as [number, number]),
+        ...euskadiLatLngs,
       ]);
-      map.fitBounds(bounds, { padding: [36, 36] });
+      map.fitBounds(bounds, { padding: [28, 28] });
+      map.setMaxBounds(bounds.pad(0.6));
 
       leaflet
         .tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
           attribution:
             'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener noreferrer">Esri</a> — Esri, HERE, Garmin, FAO, NOAA, USGS',
           maxZoom: 19,
+        })
+        .addTo(map);
+
+      // Contorno de Euskadi con efecto de "foco": el anillo exterior gigante
+      // atenúa todo lo que no sea la comunidad autónoma, y el borde del
+      // agujero (el propio contorno de Euskadi) queda resaltado.
+      leaflet
+        .polygon([WORLD_RING, euskadiLatLngs], {
+          color: "#111827",
+          weight: 3,
+          opacity: 0.85,
+          fillColor: "#0b1220",
+          fillOpacity: 0.42,
+          interactive: false,
         })
         .addTo(map);
 
