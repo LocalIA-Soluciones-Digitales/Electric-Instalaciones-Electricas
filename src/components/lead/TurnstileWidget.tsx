@@ -34,11 +34,12 @@ export default function TurnstileWidget({ onToken }: TurnstileWidgetProps) {
     <>
       <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" async defer />
       <div
-        className="cf-turnstile"
+        className="cf-turnstile mx-auto max-w-[300px]"
         data-sitekey={SITE_KEY}
         data-callback="onTurnstileToken"
         data-theme="dark"
         data-appearance="interaction-only"
+        data-size="normal"
       />
     </>
   );
