@@ -457,20 +457,20 @@ export default function SolicitudWizard() {
       id="solicitud"
       ref={ref}
       aria-label="Solicitar asistencia eléctrica"
-      className="bg-ink py-14 md:py-16"
+      className="bg-cloud py-14 md:py-16"
     >
       <div className="mx-auto max-w-2xl px-4 md:px-6">
         <div className={`reveal ${visible ? "visible" : ""}`}>
           <div className="inline-flex items-center gap-2">
-            <span className="h-px w-5 bg-electric-400"></span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+            <span className="h-px w-5 bg-electric-500"></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
               Solicitar asistencia
             </span>
           </div>
-          <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-offwhite">
+          <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
             Cuéntanos qué ocurre en pocos pasos
           </h2>
-          <p className="mt-3 max-w-xl text-base md:text-lg text-white/55 leading-relaxed">
+          <p className="mt-3 max-w-xl text-base md:text-lg text-neutral-600 leading-relaxed">
             No hace falta que sepas qué le pasa a la instalación: te hacemos unas preguntas muy
             sencillas y recibimos tu aviso para atenderte cuanto antes.
           </p>
@@ -483,7 +483,7 @@ export default function SolicitudWizard() {
           >
             <div className="flex items-center gap-4">
               <div
-                className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/10"
+                className="h-[3px] flex-1 overflow-hidden rounded-full bg-neutral-200"
                 role="progressbar"
                 aria-valuemin={0}
                 aria-valuemax={100}
@@ -495,7 +495,7 @@ export default function SolicitudWizard() {
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
-              <span className="whitespace-nowrap text-xs font-bold uppercase tracking-wider text-white/40">
+              <span className="whitespace-nowrap text-xs font-bold uppercase tracking-wider text-neutral-400">
                 {atSummary ? "Revisión" : `Paso ${step} de ${TOTAL_STEPS}`}
               </span>
             </div>

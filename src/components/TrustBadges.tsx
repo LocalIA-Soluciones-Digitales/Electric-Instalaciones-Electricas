@@ -7,16 +7,16 @@ const badges = [
 
 export default function TrustBadges() {
   return (
-    <div className="grid grid-cols-2 divide-x divide-y divide-white/10 border border-white/10 sm:grid-cols-4 sm:divide-y-0">
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
       {badges.map((b) => (
-        <div key={b.label} className="flex flex-col gap-3 p-5 md:p-6">
-          <span className="h-px w-6 bg-electric-400"></span>
-          <div className="flex items-center gap-2.5">
-            <i className={`${b.icon} text-base text-electric-400`} aria-hidden="true"></i>
-            <span className="text-xs font-bold uppercase tracking-[0.06em] text-white/70 md:text-sm">
-              {b.label}
-            </span>
-          </div>
+        <div
+          key={b.label}
+          className="flex flex-col items-center gap-3 rounded-2xl border border-neutral-200 bg-white p-5 text-center shadow-sm shadow-neutral-900/[0.03] transition-shadow duration-200 hover:shadow-md"
+        >
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-electric-100 text-electric-600">
+            <i className={`${b.icon} text-xl`} aria-hidden="true"></i>
+          </span>
+          <span className="text-sm font-semibold text-neutral-700">{b.label}</span>
         </div>
       ))}
     </div>

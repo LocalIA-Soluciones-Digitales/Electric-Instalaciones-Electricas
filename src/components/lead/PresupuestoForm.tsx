@@ -148,21 +148,21 @@ export default function PresupuestoForm() {
       id="presupuesto"
       ref={ref}
       aria-label="Pedir presupuesto sin compromiso"
-      className="bg-ink py-12 md:py-16"
+      className="bg-cloud py-12 md:py-16"
     >
       <div className="mx-auto max-w-2xl px-4 md:px-6">
         <div className={`reveal ${visible ? "visible" : ""} text-center`}>
           <div className="inline-flex items-center gap-2">
-            <span className="h-px w-5 bg-electric-400"></span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-400">
+            <span className="h-px w-5 bg-electric-500"></span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
               Presupuesto sin compromiso
             </span>
-            <span className="h-px w-5 bg-electric-400"></span>
+            <span className="h-px w-5 bg-electric-500"></span>
           </div>
-          <h2 className="font-display mt-4 text-2xl md:text-4xl font-extrabold tracking-tight text-offwhite">
+          <h2 className="font-display mt-4 text-2xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
             ¿Tienes un trabajo eléctrico en mente?
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm md:text-lg text-white/55 leading-relaxed">
+          <p className="mx-auto mt-3 max-w-xl text-sm md:text-lg text-neutral-600 leading-relaxed">
             Cuéntanos qué necesitas y te preparamos un presupuesto a medida, sin compromiso.
           </p>
         </div>
