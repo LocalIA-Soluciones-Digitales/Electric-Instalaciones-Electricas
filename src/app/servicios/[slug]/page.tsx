@@ -8,6 +8,7 @@ import Faq, { FaqJsonLd } from "@/components/Faq";
 import PageHero from "@/components/PageHero";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ServiceJsonLd from "@/components/ServiceJsonLd";
+import ServiceQuoteCard from "@/components/ServiceQuoteCard";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -118,20 +119,8 @@ export default async function ServicePage({
             </Link>
           </div>
 
-          <div>
-            <div className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
-              <h3 className="font-display text-lg font-bold text-neutral-900">
-                Pide presupuesto para {service.shortName.toLowerCase()}
-              </h3>
-              <p className="mt-1 text-sm text-neutral-500">Sin compromiso. Te respondemos por teléfono o WhatsApp.</p>
-              <Link
-                href="/contacto#presupuesto"
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-electric-400 px-5 py-2.5 text-sm font-extrabold text-neutral-950 transition-colors duration-200 hover:bg-electric-300"
-              >
-                Pedir presupuesto
-                <i className="ri-arrow-right-line" aria-hidden="true"></i>
-              </Link>
-            </div>
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <ServiceQuoteCard shortName={service.shortName} source={`service_${service.slug}_sidebar`} />
           </div>
         </div>
       </section>
