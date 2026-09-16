@@ -41,13 +41,20 @@ const AVG_ETA_MINUTES = Math.round(
   NON_HOME_POINTS.reduce((sum, p) => sum + p.etaMinutes, 0) / NON_HOME_POINTS.length
 );
 
+const HUD_STATS = [
+  { icon: "ri-map-pin-2-fill", value: `${TOTAL_MUNICIPIOS}`, label: "Municipios cubiertos" },
+  { icon: "ri-flashlight-fill", value: `~${AVG_ETA_MINUTES} min`, label: "Respuesta media" },
+  { icon: "ri-shield-check-fill", value: "100%", label: "Cobertura en Euskadi" },
+  { icon: "ri-moon-clear-fill", value: "24/7", label: "Guardia activa" },
+] as const;
+
 function popupHtml(locality: Locality, isBase: boolean) {
   if (isBase) {
     return `
-      <div class="w-64">
+      <div class="w-56">
         <div class="border-b border-neutral-100 bg-neutral-50 px-4 py-3">
-          <p class="text-[10px] font-bold uppercase tracking-wider text-electric-600">${locality.province}</p>
-          <h3 class="font-display text-base font-extrabold text-neutral-900">${locality.name} · base</h3>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-electric-600">Nuestra base</p>
+          <h3 class="font-display text-base font-extrabold text-neutral-900">${locality.name}</h3>
         </div>
         <div class="px-4 py-3.5 text-sm text-neutral-600">
           Aquí está nuestro local, en ${business.address.street}. Salimos desde aquí a todo Euskadi, 24 horas al día.
@@ -63,27 +70,20 @@ function popupHtml(locality: Locality, isBase: boolean) {
   const color = TIER_HEX[tier];
   const waMsg = encodeURIComponent(`Hola, necesito un electricista en ${locality.name}. ¿Podéis ayudarme?`);
 
+  // Contenido reducido a lo que cambia por municipio (frase de tiempo +
+  // distancia); "24h" y "urgencias" se dicen una sola vez, no en dos líneas
+  // repetidas en cada ficha.
   return `
-    <div class="w-64">
+    <div class="w-56">
       <div class="border-b border-neutral-100 bg-neutral-50 px-4 py-3">
         <p class="text-[10px] font-bold uppercase tracking-wider text-electric-600">${locality.province}</p>
         <h3 class="font-display text-base font-extrabold text-neutral-900">${locality.name}</h3>
       </div>
-      <div class="space-y-2 px-4 py-3 text-sm">
-        <div class="flex items-center justify-between">
-          <span class="text-neutral-500">Distancia desde Barakaldo</span>
-          <span class="font-bold text-neutral-900">${locality.distanceKm} km</span>
-        </div>
-        <p class="flex items-center gap-1.5 font-bold" style="color:${color}">
-          <i class="ri-flashlight-fill" aria-hidden="true"></i> ${tierCommercialCopy(tier, locality.etaMinutes)}
+      <div class="space-y-1.5 px-4 py-3.5 text-sm">
+        <p class="flex items-start gap-1.5 font-bold leading-snug" style="color:${color}">
+          <i class="ri-flashlight-fill mt-0.5 flex-none" aria-hidden="true"></i> ${tierCommercialCopy(tier, locality.etaMinutes)}
         </p>
-        <div class="flex items-center justify-between">
-          <span class="text-neutral-500">Disponibilidad</span>
-          <span class="font-bold text-neutral-900">24 horas</span>
-        </div>
-        <p class="flex items-center gap-1.5 pt-1 text-xs font-semibold text-emerald-600">
-          <i class="ri-checkbox-circle-fill" aria-hidden="true"></i> Atención urgente disponible
-        </p>
+        <p class="pl-[22px] text-xs text-neutral-500">${locality.distanceKm} km desde Barakaldo · urgencias 24h</p>
       </div>
       <div class="flex gap-2 border-t border-neutral-100 px-4 py-3.5">
         <a href="${telLink()}" class="flex-1 rounded-full bg-electric-400 px-3 py-2 text-center text-sm font-extrabold text-neutral-950 no-underline">Llamar</a>
@@ -93,28 +93,45 @@ function popupHtml(locality: Locality, isBase: boolean) {
   `;
 }
 
+// Tooltip de hover: deliberadamente mínimo (nombre + icono "más info"), sin
+// autoPan ni frases largas — la ficha completa con Llamar/WhatsApp se
+// reserva para el toque/clic explícito sobre el marcador.
 function tooltipHtml(locality: Locality) {
   const tier = getResponseTier(locality.etaMinutes);
   const color = TIER_HEX[tier];
   return `
-    <div class="min-w-[170px] max-w-[200px]">
-      <p class="font-display text-sm font-extrabold text-neutral-900">${locality.name}</p>
-      <p class="mt-0.5 text-xs font-bold leading-snug" style="color:${color}">${tierCommercialCopy(tier, locality.etaMinutes)}</p>
+    <div class="flex items-center gap-1.5">
+      <span class="h-1.5 w-1.5 flex-none rounded-full" style="background:${color}"></span>
+      <span class="font-display text-[13px] font-bold text-neutral-900">${locality.name}</span>
+      <i class="ri-information-fill text-[13px] text-neutral-300" aria-hidden="true"></i>
     </div>
   `;
 }
 
+function baseTooltipHtml() {
+  return `
+    <div class="flex items-center gap-1.5">
+      <span class="font-display text-[13px] font-bold text-neutral-900">Barakaldo</span>
+      <span class="text-[11px] font-semibold text-electric-600">· nuestra base</span>
+    </div>
+  `;
+}
+
+// Beacon del HQ: sin etiqueta de texto permanente (para no tapar los
+// marcadores cercanos del área metropolitana); un icono de casa dentro de un
+// círculo dorado con anillos de radar lo distingue del resto sin necesidad
+// de texto siempre visible. El nombre aparece igual que en el resto, con el
+// tooltip al pasar el cursor.
 function baseMarkerHtml() {
   return `
-    <div class="flex flex-col items-center gap-1.5">
-      <span class="relative flex h-5 w-5 items-center justify-center">
-        <span class="coverage-pulse absolute h-full w-full rounded-full bg-electric-400/60"></span>
-        <span class="coverage-pulse coverage-pulse-delay-1 absolute h-full w-full rounded-full bg-electric-400/50"></span>
-        <span class="coverage-pulse coverage-pulse-delay-2 absolute h-full w-full rounded-full bg-electric-400/40"></span>
-        <span class="relative h-4 w-4 rounded-full border-2 border-white bg-electric-400 shadow"></span>
+    <span class="relative flex h-6 w-6 items-center justify-center">
+      <span class="coverage-pulse absolute h-full w-full rounded-full bg-electric-400/60"></span>
+      <span class="coverage-pulse coverage-pulse-delay-1 absolute h-full w-full rounded-full bg-electric-400/50"></span>
+      <span class="coverage-pulse coverage-pulse-delay-2 absolute h-full w-full rounded-full bg-electric-400/40"></span>
+      <span class="relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-electric-400 text-[11px] text-neutral-950 shadow">
+        <i class="ri-home-4-fill" aria-hidden="true"></i>
       </span>
-      <span class="whitespace-nowrap rounded-full bg-neutral-950/85 px-2.5 py-1 text-[11px] font-extrabold text-white ring-1 ring-white/15">Barakaldo · base</span>
-    </div>
+    </span>
   `;
 }
 
@@ -188,10 +205,11 @@ export default function EuskadiCoverageMap() {
 
       leaflet
         .marker([base.geo.lat, base.geo.lng], {
-          icon: leaflet.divIcon({ html: baseMarkerHtml(), className: "coverage-marker-base", iconSize: [0, 0] }),
+          icon: leaflet.divIcon({ html: baseMarkerHtml(), className: "coverage-marker-base", iconSize: [24, 24] }),
           zIndexOffset: 1000,
         })
-        .bindPopup(popupHtml(base, true), { className: "coverage-popup", minWidth: 240, autoPanPadding: [24, 24] })
+        .bindTooltip(baseTooltipHtml(), { direction: "top", offset: [0, -14], className: "coverage-tooltip" })
+        .bindPopup(popupHtml(base, true), { className: "coverage-popup", minWidth: 220, autoPanPadding: [24, 24] })
         .addTo(map);
 
       const groups: Record<Province, L.LayerGroup> = {
@@ -242,7 +260,7 @@ export default function EuskadiCoverageMap() {
             offset: [0, -10],
             className: "coverage-tooltip",
           })
-          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240, autoPanPadding: [24, 24] });
+          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 220, autoPanPadding: [24, 24] });
 
         marker.on("mouseover", showRoute);
         marker.on("mouseout", hideRoute);
@@ -288,25 +306,21 @@ export default function EuskadiCoverageMap() {
 
   return (
     <div>
-      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-200 sm:grid-cols-4">
-        <div className="flex flex-col gap-1 bg-white px-4 py-3.5">
-          <span className="font-display text-2xl font-extrabold text-neutral-900">{TOTAL_MUNICIPIOS}</span>
-          <span className="text-xs text-neutral-500">Municipios con cobertura confirmada</span>
-        </div>
-        <div className="flex flex-col gap-1 bg-white px-4 py-3.5">
-          <span className="font-display text-2xl font-extrabold text-neutral-900">
-            ~{AVG_ETA_MINUTES} <small className="text-sm font-semibold text-neutral-400">min</small>
-          </span>
-          <span className="text-xs text-neutral-500">Respuesta media fuera del área metropolitana</span>
-        </div>
-        <div className="flex flex-col gap-1 bg-white px-4 py-3.5">
-          <span className="font-display text-2xl font-extrabold text-neutral-900">100%</span>
-          <span className="text-xs text-neutral-500">Euskadi cubierta, sin zonas muertas</span>
-        </div>
-        <div className="flex flex-col gap-1 bg-white px-4 py-3.5">
-          <span className="font-display text-2xl font-extrabold text-neutral-900">24/7</span>
-          <span className="text-xs text-neutral-500">Guardia activa, también de madrugada</span>
-        </div>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {HUD_STATS.map((stat) => (
+          <div
+            key={stat.label}
+            className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3.5 py-3.5"
+          >
+            <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-electric-50 text-electric-600">
+              <i className={`${stat.icon} text-base`} aria-hidden="true"></i>
+            </span>
+            <div className="min-w-0">
+              <p className="font-display text-lg font-extrabold leading-tight text-neutral-900">{stat.value}</p>
+              <p className="truncate text-[11px] text-neutral-500">{stat.label}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="mb-5 mt-5 flex flex-wrap items-center justify-center gap-2">
