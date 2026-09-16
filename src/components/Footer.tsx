@@ -5,7 +5,7 @@ import { WHATSAPP_GREETING_GENERAL, business, telLink, waLink } from "@/lib/busi
 export default function Footer() {
   return (
     <footer className="bg-carbon text-white/60">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:px-6 md:py-16 sm:grid-cols-3">
+      <div className="mx-auto grid max-w-5xl gap-10 px-4 py-14 md:px-6 md:py-16 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr]">
         <div className="sm:col-span-3 lg:col-span-1">
           <div className="flex items-center gap-2.5">
             <Image
