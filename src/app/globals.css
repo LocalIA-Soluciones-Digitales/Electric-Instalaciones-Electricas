@@ -112,11 +112,24 @@ body {
 .coverage-pulse {
   animation: coverage-pulse 2s ease-out infinite;
 }
+.coverage-pulse-delay-1 {
+  animation-delay: 0.65s;
+}
+.coverage-pulse-delay-2 {
+  animation-delay: 1.3s;
+}
 .coverage-marker:hover .coverage-dot {
   transform: scale(1.25);
 }
 .coverage-dot {
   transition: transform 0.15s ease-out;
+}
+/* Línea de ruta HQ -> municipio (EuskadiCoverageMap.tsx): se dibuja en
+   opacidad 0 y solo se revela al pasar el ratón por su marcador, controlado
+   desde JS con polyline.setStyle(). La transición vive aquí para que el
+   cambio de opacidad se anime en vez de aparecer de golpe. */
+.coverage-route {
+  transition: stroke-opacity 0.35s ease, opacity 0.35s ease;
 }
 
 .leaflet-container {

@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import type L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { localities, type Locality } from "@/lib/localities";
-import { business, telLink } from "@/lib/business";
-import { getResponseTier, RESPONSE_TIER_META, type ResponseTier } from "@/lib/coverage";
+import { business, telLink, waLink, WHATSAPP_GREETING_URGENT } from "@/lib/business";
+import { getResponseTier, RESPONSE_TIER_META, tierCommercialCopy, type ResponseTier } from "@/lib/coverage";
 import { EUSKADI_BOUNDARY } from "@/lib/euskadiBoundary";
 
 // Anillo enorme (todo el mundo visible en proyección Mercator) usado como
@@ -26,12 +26,20 @@ const EXCLUDED_FROM_MAP = new Set(["cruces"]);
 type Province = "Bizkaia" | "Gipuzkoa" | "Araba";
 const PROVINCES: Province[] = ["Bizkaia", "Gipuzkoa", "Araba"];
 
+// Mismos tonos que las clases de Tailwind usadas en la leyenda
+// (RESPONSE_TIER_META), para que el color del marcador y el de su etiqueta
+// coincidan exactamente.
 const TIER_HEX: Record<ResponseTier, string> = {
   fast: "#10b981",
   medium: "#fbbf24",
   slow: "#f97316",
-  verySlow: "#ef4444",
 };
+
+const TOTAL_MUNICIPIOS = localities.filter((l) => !EXCLUDED_FROM_MAP.has(l.slug)).length;
+const NON_HOME_POINTS = localities.filter((l) => !EXCLUDED_FROM_MAP.has(l.slug) && l.slug !== BASE_SLUG);
+const AVG_ETA_MINUTES = Math.round(
+  NON_HOME_POINTS.reduce((sum, p) => sum + p.etaMinutes, 0) / NON_HOME_POINTS.length
+);
 
 function popupHtml(locality: Locality, isBase: boolean) {
   if (isBase) {
@@ -42,7 +50,7 @@ function popupHtml(locality: Locality, isBase: boolean) {
           <h3 class="font-display text-base font-extrabold text-neutral-900">${locality.name} · base</h3>
         </div>
         <div class="px-4 py-3.5 text-sm text-neutral-600">
-          Aquí está nuestro local, en ${business.address.street}. Salimos desde aquí a todo Euskadi.
+          Aquí está nuestro local, en ${business.address.street}. Salimos desde aquí a todo Euskadi, 24 horas al día.
         </div>
         <div class="flex gap-2 border-t border-neutral-100 px-4 py-3.5">
           <a href="${telLink()}" class="flex-1 rounded-full bg-electric-400 px-3 py-2 text-center text-sm font-extrabold text-neutral-950 no-underline">Llamar</a>
@@ -63,13 +71,12 @@ function popupHtml(locality: Locality, isBase: boolean) {
       </div>
       <div class="space-y-2 px-4 py-3 text-sm">
         <div class="flex items-center justify-between">
-          <span class="text-neutral-500">Distancia</span>
+          <span class="text-neutral-500">Distancia desde Barakaldo</span>
           <span class="font-bold text-neutral-900">${locality.distanceKm} km</span>
         </div>
-        <div class="flex items-center justify-between">
-          <span class="text-neutral-500">Tiempo estimado</span>
-          <span class="font-bold" style="color:${color}">~ ${locality.etaMinutes} min</span>
-        </div>
+        <p class="flex items-center gap-1.5 font-bold" style="color:${color}">
+          <i class="ri-flashlight-fill" aria-hidden="true"></i> ${tierCommercialCopy(tier, locality.etaMinutes)}
+        </p>
         <div class="flex items-center justify-between">
           <span class="text-neutral-500">Disponibilidad</span>
           <span class="font-bold text-neutral-900">24 horas</span>
@@ -91,6 +98,8 @@ function baseMarkerHtml() {
     <div class="flex flex-col items-center gap-1.5">
       <span class="relative flex h-5 w-5 items-center justify-center">
         <span class="coverage-pulse absolute h-full w-full rounded-full bg-electric-400/60"></span>
+        <span class="coverage-pulse coverage-pulse-delay-1 absolute h-full w-full rounded-full bg-electric-400/50"></span>
+        <span class="coverage-pulse coverage-pulse-delay-2 absolute h-full w-full rounded-full bg-electric-400/40"></span>
         <span class="relative h-4 w-4 rounded-full border-2 border-white bg-electric-400 shadow"></span>
       </span>
       <span class="whitespace-nowrap rounded-full bg-neutral-950/85 px-2.5 py-1 text-[11px] font-extrabold text-white ring-1 ring-white/15">Barakaldo · base</span>
@@ -141,34 +150,27 @@ export default function EuskadiCoverageMap() {
       map.fitBounds(bounds, { padding: [28, 28] });
       map.setMaxBounds(bounds.pad(0.6));
 
-      // Base cartográfica minimalista (gris claro, sin el aspecto "topográfico"
-      // recargado de un mapa de carreteras): deja que los marcadores de color y
-      // el contorno de Euskadi sean el centro visual del mapa.
+      // Mapa real (relieve, carreteras, núcleos de población, agua) en vez de
+      // un fondo técnico plano: Esri World Topo Map, gratuito y sin necesidad
+      // de token (mismo proveedor que ya se usaba para el gris claro).
       leaflet
-        .tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+        .tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
           attribution:
-            'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener noreferrer">Esri</a>',
-          maxZoom: 16,
+            'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener noreferrer">Esri</a> — Esri, HERE, Garmin, FAO, NOAA, USGS, &copy; OpenStreetMap contributors',
+          maxZoom: 18,
         })
         .addTo(map);
 
-      leaflet
-        .tileLayer(
-          "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
-          { maxZoom: 16 }
-        )
-        .addTo(map);
-
-      // Contorno de Euskadi con efecto de "foco": el anillo exterior gigante
-      // atenúa todo lo que no sea la comunidad autónoma, y el borde del
-      // agujero (el propio contorno de Euskadi) queda resaltado.
+      // Contorno de Euskadi con trazo grueso y oscuro para que se lea con
+      // claridad sobre un mapa real y con color; el anillo exterior gigante
+      // atenúa todo lo que no sea la comunidad autónoma, a modo de "foco".
       leaflet
         .polygon([WORLD_RING, euskadiLatLngs], {
           color: "#111827",
-          weight: 3,
-          opacity: 0.85,
+          weight: 4,
+          opacity: 1,
           fillColor: "#0b1220",
-          fillOpacity: 0.42,
+          fillOpacity: 0.4,
           interactive: false,
         })
         .addTo(map);
@@ -190,13 +192,40 @@ export default function EuskadiCoverageMap() {
       points.forEach((p) => {
         const tier = getResponseTier(p.etaMinutes);
         const color = TIER_HEX[tier];
+
+        // Línea de ruta HQ -> municipio: oculta por defecto (opacity 0), se
+        // revela al pasar el ratón por el marcador para visualizar en el
+        // propio mapa real el desplazamiento desde la base.
+        const route = leaflet
+          .polyline(
+            [
+              [base.geo.lat, base.geo.lng],
+              [p.geo.lat, p.geo.lng],
+            ],
+            {
+              color,
+              weight: 2,
+              dashArray: "6 8",
+              opacity: 0,
+              interactive: false,
+              className: "coverage-route",
+            }
+          )
+          .addTo(map);
+
         const marker = leaflet
           .marker([p.geo.lat, p.geo.lng], {
             icon: leaflet.divIcon({ html: markerHtml(color), className: "coverage-marker", iconSize: [16, 16] }),
           })
           .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240, autoPanPadding: [24, 24] });
 
-        marker.on("mouseover", () => marker.openPopup());
+        marker.on("mouseover", () => {
+          marker.openPopup();
+          route.setStyle({ opacity: 0.85 });
+        });
+        marker.on("mouseout", () => route.setStyle({ opacity: 0 }));
+        marker.on("popupclose", () => route.setStyle({ opacity: 0 }));
+
         groups[p.province].addLayer(marker);
       });
 
@@ -236,7 +265,28 @@ export default function EuskadiCoverageMap() {
 
   return (
     <div>
-      <div className="mb-5 flex flex-wrap items-center justify-center gap-2">
+      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-200 sm:grid-cols-4">
+        <div className="flex flex-col gap-1 bg-white px-4 py-3.5">
+          <span className="font-display text-2xl font-extrabold text-neutral-900">{TOTAL_MUNICIPIOS}</span>
+          <span className="text-xs text-neutral-500">Municipios con cobertura confirmada</span>
+        </div>
+        <div className="flex flex-col gap-1 bg-white px-4 py-3.5">
+          <span className="font-display text-2xl font-extrabold text-neutral-900">
+            ~{AVG_ETA_MINUTES} <small className="text-sm font-semibold text-neutral-400">min</small>
+          </span>
+          <span className="text-xs text-neutral-500">Respuesta media fuera del área metropolitana</span>
+        </div>
+        <div className="flex flex-col gap-1 bg-white px-4 py-3.5">
+          <span className="font-display text-2xl font-extrabold text-neutral-900">100%</span>
+          <span className="text-xs text-neutral-500">Euskadi cubierta, sin zonas muertas</span>
+        </div>
+        <div className="flex flex-col gap-1 bg-white px-4 py-3.5">
+          <span className="font-display text-2xl font-extrabold text-neutral-900">24/7</span>
+          <span className="text-xs text-neutral-500">Guardia activa, también de madrugada</span>
+        </div>
+      </div>
+
+      <div className="mb-5 mt-5 flex flex-wrap items-center justify-center gap-2">
         {(["Todas", ...PROVINCES] as const).map((p) => (
           <button
             key={p}
@@ -260,6 +310,23 @@ export default function EuskadiCoverageMap() {
         ref={mapContainerRef}
         className="relative isolate h-[420px] w-full overflow-hidden rounded-3xl border border-neutral-200 shadow-xl shadow-neutral-900/10 sm:h-[500px] lg:h-[600px]"
       />
+
+      <div className="mt-4 flex gap-2 sm:hidden">
+        <a
+          href={telLink()}
+          className="flex-1 rounded-full bg-electric-400 px-4 py-3 text-center text-sm font-extrabold text-neutral-950"
+        >
+          Llamar ahora
+        </a>
+        <a
+          href={waLink(WHATSAPP_GREETING_URGENT)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 rounded-full border border-whatsapp/30 bg-whatsapp/10 px-4 py-3 text-center text-sm font-bold text-whatsapp-600"
+        >
+          WhatsApp
+        </a>
+      </div>
 
       <p className="mx-auto mt-4 max-w-md text-center text-xs text-neutral-500">
         Pasa el cursor o toca cada municipio para ver distancia, tiempo estimado y contacto directo.
