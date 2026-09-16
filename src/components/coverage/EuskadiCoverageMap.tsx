@@ -118,10 +118,13 @@ function tooltipHtml(locality: Locality) {
   const tier = getResponseTier(locality.etaMinutes);
   const color = TIER_HEX[tier];
   return `
-    <div class="flex items-center gap-1.5">
-      <span class="h-1.5 w-1.5 flex-none rounded-full" style="background:${color}"></span>
-      <span class="font-display text-[13px] font-bold text-neutral-900">${locality.name}</span>
-      <i class="ri-information-fill text-[13px] text-neutral-300" aria-hidden="true"></i>
+    <div>
+      <div class="flex items-center gap-1.5">
+        <span class="h-1.5 w-1.5 flex-none rounded-full" style="background:${color}"></span>
+        <span class="font-display text-[13px] font-bold text-neutral-900">${locality.name}</span>
+        <i class="ri-information-fill text-[13px] text-neutral-300" aria-hidden="true"></i>
+      </div>
+      <p class="mt-0.5 pl-3 text-[11px] font-semibold whitespace-nowrap" style="color:${color}">${locality.distanceKm} km · ~${locality.etaMinutes} min</p>
     </div>
   `;
 }
