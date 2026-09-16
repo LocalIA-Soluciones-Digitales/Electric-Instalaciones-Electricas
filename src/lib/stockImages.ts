@@ -11,9 +11,10 @@ export const PANEL_LUXURY_IMAGE =
 export const HERO_IMAGE = PANEL_LUXURY_IMAGE;
 
 /**
- * Vídeo de fondo del hero (sin audio, se reproduce una vez y se queda fijo en
- * el último fotograma). `HERO_IMAGE` se usa como `poster` (primer fotograma)
- * y como respaldo para "reducir movimiento" o si el vídeo no llega a cargar.
+ * Vídeo de fondo del hero: archivo "boomerang" (ida + vuelta ya renderizadas
+ * en el propio mp4) que se reproduce en bucle nativo sin salto visible.
+ * `HERO_IMAGE` se usa como `poster` (primer fotograma) y como respaldo para
+ * "reducir movimiento" o si el vídeo no llega a cargar.
  */
 export const HERO_VIDEO = "/videos/hero.mp4";
 

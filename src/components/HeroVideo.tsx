@@ -2,14 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
-// El vídeo no tiene un fotograma final que enlace bien con el primero: en
-// vez de un `loop` nativo (salto brusco de imagen), se reproduce hacia
-// adelante y, al llegar al final, se "rebobina" fotograma a fotograma con
-// requestAnimationFrame hasta el principio, donde vuelve a reproducirse
-// hacia adelante. Así el vídeo siempre acaba en el mismo fotograma en el
-// que empieza: bucle continuo sin corte visible. El zoom in/out (clase
-// `.hero-zoom`, globals.css) es una animación CSS aparte que añade
-// movimiento constante encima.
+// El propio archivo de vídeo es un "boomerang" (ida + vuelta ya renderizadas,
+// ver public/videos/hero.mp4 y el script de generación) para que el punto de
+// bucle sea el mismo fotograma en ambos extremos: con `loop` nativo el salto
+// es imperceptible. Antes se simulaba la marcha atrás en el cliente moviendo
+// `currentTime` fotograma a fotograma con requestAnimationFrame, pero cada
+// ajuste de `currentTime` obliga al navegador a decodificar desde el último
+// keyframe (aquí cada ~1s), lo que producía tirones constantes.
 const PLAYBACK_RATE = 0.8;
 
 export default function HeroVideo({
@@ -37,35 +36,9 @@ export default function HeroVideo({
     video.addEventListener("loadedmetadata", applyRate);
     video.addEventListener("play", applyRate);
 
-    let rafId = 0;
-    let lastTs: number | null = null;
-
-    const stepReverse = (ts: number) => {
-      if (lastTs === null) lastTs = ts;
-      const dt = (ts - lastTs) / 1000;
-      lastTs = ts;
-      const next = video.currentTime - dt * PLAYBACK_RATE;
-      if (next <= 0.02) {
-        video.currentTime = 0;
-        video.play().catch(() => {});
-        return;
-      }
-      video.currentTime = next;
-      rafId = requestAnimationFrame(stepReverse);
-    };
-
-    const onEnded = () => {
-      lastTs = null;
-      video.pause();
-      rafId = requestAnimationFrame(stepReverse);
-    };
-
-    video.addEventListener("ended", onEnded);
     return () => {
       video.removeEventListener("loadedmetadata", applyRate);
       video.removeEventListener("play", applyRate);
-      video.removeEventListener("ended", onEnded);
-      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -74,6 +47,7 @@ export default function HeroVideo({
       ref={videoRef}
       autoPlay
       muted
+      loop
       playsInline
       preload="auto"
       poster={poster}
