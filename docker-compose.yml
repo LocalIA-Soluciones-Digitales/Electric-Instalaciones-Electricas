@@ -1,0 +1,7 @@
+services:
+  electric-euskadi:
+    build: .
+    container_name: electric-euskadi
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
