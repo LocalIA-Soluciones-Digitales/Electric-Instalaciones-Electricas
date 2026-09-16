@@ -5,7 +5,7 @@ import type L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { localities, type Locality } from "@/lib/localities";
 import { business, telLink, waLink, WHATSAPP_GREETING_URGENT } from "@/lib/business";
-import { getResponseTier, RESPONSE_TIER_META, tierCommercialCopy, type ResponseTier } from "@/lib/coverage";
+import { getResponseTier, RESPONSE_TIER_META, type ResponseTier } from "@/lib/coverage";
 import { EUSKADI_BOUNDARY } from "@/lib/euskadiBoundary";
 
 // Anillo enorme (todo el mundo visible en proyección Mercator) usado como
@@ -71,41 +71,30 @@ function popupHtml(locality: Locality, isBase: boolean) {
   const badge = RESPONSE_TIER_META[tier].shortLabel;
   const waMsg = encodeURIComponent(`Hola, necesito un electricista en ${locality.name}. ¿Podéis ayudarme?`);
 
-  // Ficha en formato "tarjeta de datos": distancia y tiempo van cada uno en
-  // su propio bloque visual (no en una frase corrida), con una franja de
-  // color y una etiqueta de tramo para leerla de un vistazo. El resto
-  // (24h/urgencias) se dice una sola vez, no repetido en cada municipio.
+  // Ficha compacta: los dos datos van en chips de una sola línea (icono +
+  // valor, sin etiqueta encima) y se retira la frase de apoyo — la franja de
+  // color y el badge de tramo ya comunican de un vistazo si es rápido o no.
   return `
-    <div class="w-60 overflow-hidden">
+    <div class="w-48 overflow-hidden">
       <div class="h-1" style="background:${color}"></div>
-      <div class="px-4 pt-3 pb-2.5">
+      <div class="px-3.5 pt-2.5 pb-2">
         <div class="flex items-center justify-between gap-2">
-          <p class="text-[10px] font-bold uppercase tracking-wider text-electric-600">${locality.province}</p>
-          <span class="rounded-full px-2 py-0.5 text-[10px] font-bold" style="background:${color}1a;color:${color}">${badge}</span>
+          <p class="text-[9px] font-bold uppercase tracking-wider text-electric-600">${locality.province}</p>
+          <span class="rounded-full px-1.5 py-0.5 text-[9px] font-bold" style="background:${color}1a;color:${color}">${badge}</span>
         </div>
-        <h3 class="font-display mt-0.5 text-base font-extrabold text-neutral-900">${locality.name}</h3>
+        <h3 class="font-display text-sm font-extrabold text-neutral-900">${locality.name}</h3>
       </div>
-      <div class="grid grid-cols-2 gap-2 px-4 pb-1">
-        <div class="rounded-xl bg-neutral-50 px-2.5 py-2">
-          <p class="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-neutral-400">
-            <i class="ri-route-line" aria-hidden="true"></i> Distancia
-          </p>
-          <p class="mt-0.5 font-display text-sm font-extrabold text-neutral-900">${locality.distanceKm} km</p>
-        </div>
-        <div class="rounded-xl bg-neutral-50 px-2.5 py-2">
-          <p class="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-neutral-400">
-            <i class="ri-timer-flash-line" aria-hidden="true"></i> Respuesta
-          </p>
-          <p class="mt-0.5 font-display text-sm font-extrabold" style="color:${color}">~${locality.etaMinutes} min</p>
-        </div>
+      <div class="flex gap-1.5 px-3.5 pb-2.5">
+        <span class="flex flex-1 items-center justify-center gap-1 rounded-lg bg-neutral-50 py-1.5 text-xs font-extrabold text-neutral-900">
+          <i class="ri-route-line text-[11px] text-neutral-400" aria-hidden="true"></i> ${locality.distanceKm} km
+        </span>
+        <span class="flex flex-1 items-center justify-center gap-1 rounded-lg bg-neutral-50 py-1.5 text-xs font-extrabold" style="color:${color}">
+          <i class="ri-timer-flash-line text-[11px]" aria-hidden="true"></i> ~${locality.etaMinutes} min
+        </span>
       </div>
-      <p class="px-4 pb-1 pt-2 text-xs text-neutral-500">${tierCommercialCopy(tier)}</p>
-      <p class="flex items-center gap-1.5 px-4 pb-3 text-xs font-semibold text-emerald-600">
-        <i class="ri-shield-check-fill" aria-hidden="true"></i> Urgencias 24h todo el año
-      </p>
-      <div class="flex gap-2 border-t border-neutral-100 px-4 py-3.5">
-        <a href="${telLink()}" class="flex-1 rounded-full bg-electric-400 px-3 py-2 text-center text-sm font-extrabold text-neutral-950 no-underline">Llamar</a>
-        <a href="https://wa.me/${business.whatsapp}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-full border border-whatsapp/30 bg-whatsapp/10 px-3 py-2 text-center text-sm font-bold text-whatsapp-600 no-underline">WhatsApp</a>
+      <div class="flex gap-1.5 border-t border-neutral-100 px-3.5 py-2.5">
+        <a href="${telLink()}" class="flex-1 rounded-full bg-electric-400 py-2 text-center text-xs font-extrabold text-neutral-950 no-underline">Llamar</a>
+        <a href="https://wa.me/${business.whatsapp}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-full border border-whatsapp/30 bg-whatsapp/10 py-2 text-center text-xs font-bold text-whatsapp-600 no-underline">WhatsApp</a>
       </div>
     </div>
   `;
@@ -281,7 +270,7 @@ export default function EuskadiCoverageMap() {
             offset: [0, -10],
             className: "coverage-tooltip",
           })
-          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240, autoPanPadding: [24, 24] });
+          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 192, autoPanPadding: [24, 24] });
 
         marker.on("mouseover", showRoute);
         marker.on("mouseout", hideRoute);
