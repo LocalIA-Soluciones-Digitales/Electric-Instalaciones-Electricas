@@ -13,10 +13,19 @@ export const HERO_IMAGE = PANEL_LUXURY_IMAGE;
 /**
  * Vídeo de fondo del hero: archivo "boomerang" (ida + vuelta ya renderizadas
  * en el propio mp4) que se reproduce en bucle nativo sin salto visible.
- * `HERO_IMAGE` se usa como `poster` (primer fotograma) y como respaldo para
- * "reducir movimiento" o si el vídeo no llega a cargar.
+ * `HERO_IMAGE` se usa como respaldo para "reducir movimiento" o si el vídeo
+ * no llega a cargar.
  */
 export const HERO_VIDEO = "/videos/hero.mp4";
+
+/**
+ * Poster del vídeo del hero: fotograma exacto extraído del propio hero.mp4
+ * (no la foto de `HERO_IMAGE`, que es una composición distinta). Al recargar
+ * la página el navegador pinta primero este `poster` mientras el vídeo carga;
+ * si no coincide con el primer fotograma real del vídeo, se ve un parpadeo
+ * con "otra imagen" detrás del hero justo antes de que arranque la reproducción.
+ */
+export const HERO_POSTER_IMAGE = "/images/hero-poster.jpg";
 
 // Se mantienen ambos nombres (mismo archivo) para no romper los sitios que ya
 // importaban una imagen de escritorio y otra de móvil: el recorte se resuelve con

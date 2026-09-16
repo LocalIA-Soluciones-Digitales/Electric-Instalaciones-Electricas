@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { services } from "@/lib/services";
 import { business, telLink } from "@/lib/business";
-import { COVERAGE_IMAGE, HERO_IMAGE, HERO_VIDEO, LIGHTING_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
+import { COVERAGE_IMAGE, HERO_IMAGE, HERO_POSTER_IMAGE, HERO_VIDEO, LIGHTING_IMAGE, SERVICE_CARD_IMAGE } from "@/lib/stockImages";
 import TrustBadges from "@/components/TrustBadges";
 import AboutPro from "@/components/AboutPro";
 import Testimonials from "@/components/Testimonials";
@@ -59,7 +59,7 @@ export default function HomePage() {
         <div className="absolute inset-0" aria-hidden="true">
           <HeroVideo
             src={HERO_VIDEO}
-            poster={HERO_IMAGE}
+            poster={HERO_POSTER_IMAGE}
             className="absolute inset-0 h-full w-full hero-zoom object-cover object-center blur-[2px] brightness-[0.85] saturate-[1.1] motion-reduce:hidden md:blur-[1px]"
           />
           <Image
