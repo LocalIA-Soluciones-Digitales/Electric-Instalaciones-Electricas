@@ -239,12 +239,10 @@ export default function HomePage() {
         </div>
         <div className="relative mx-auto max-w-6xl px-4 md:px-6 text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-2 justify-center">
-              <span className="h-px w-5 bg-electric-500"></span>
+            <div className="inline-flex items-center gap-2 justify-center rounded-full bg-white/90 px-4 py-1.5 shadow-sm ring-1 ring-black/5 backdrop-blur-sm">
               <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-electric-600">
                 Cobertura
               </span>
-              <span className="h-px w-5 bg-electric-500"></span>
             </div>
             <h2 className="font-display mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-900">
               Zonas donde damos servicio

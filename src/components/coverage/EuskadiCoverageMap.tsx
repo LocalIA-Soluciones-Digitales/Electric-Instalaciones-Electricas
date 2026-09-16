@@ -327,16 +327,22 @@ export default function EuskadiCoverageMap() {
 
   return (
     <div>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {HUD_STATS.map((stat) => (
-          <div key={stat.label} className="rounded-2xl border border-neutral-200 bg-white p-4">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-electric-50 text-electric-600">
-              <i className={`${stat.icon} text-base`} aria-hidden="true"></i>
-            </span>
-            <p className="font-display mt-3 text-xl font-extrabold leading-none text-neutral-900">{stat.value}</p>
-            <p className="mt-1 text-[11px] leading-snug text-neutral-500">{stat.label}</p>
-          </div>
-        ))}
+      {/* Un único panel encuadra las 4 cifras (en vez de tarjetas sueltas):
+          los separadores internos vienen de divide-x/border-t, así que las
+          celdas quedan perfectamente alineadas entre sí en vez de depender de
+          que cada tarjeta suelta tenga el mismo tamaño por casualidad. */}
+      <div className="rounded-3xl border border-neutral-200 bg-white shadow-sm shadow-neutral-900/5">
+        <div className="grid grid-cols-2 sm:grid-cols-4 sm:divide-x sm:divide-neutral-100 [&>*:nth-child(n+3)]:border-t [&>*:nth-child(n+3)]:border-neutral-100 sm:[&>*:nth-child(n+3)]:border-t-0">
+          {HUD_STATS.map((stat) => (
+            <div key={stat.label} className="p-4 sm:p-5">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-electric-50 text-electric-600">
+                <i className={`${stat.icon} text-base`} aria-hidden="true"></i>
+              </span>
+              <p className="font-display mt-3 text-xl font-extrabold leading-none text-neutral-900">{stat.value}</p>
+              <p className="mt-1 text-[11px] leading-snug text-neutral-500">{stat.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="mb-5 mt-5 flex flex-wrap items-center justify-center gap-2">
