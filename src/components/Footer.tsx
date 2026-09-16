@@ -1,14 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { WHATSAPP_GREETING_GENERAL, business, telLink, waLink } from "@/lib/business";
-import { services } from "@/lib/services";
-import { guides } from "@/lib/guides";
 
 export default function Footer() {
   return (
     <footer className="bg-carbon text-white/60">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:px-6 md:py-16 sm:grid-cols-2 lg:grid-cols-5">
-        <div className="sm:col-span-2 lg:col-span-1">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:px-6 md:py-16 sm:grid-cols-3">
+        <div className="sm:col-span-3 lg:col-span-1">
           <div className="flex items-center gap-2.5">
             <Image
               src="/images/logo-mark.png"
@@ -28,11 +26,6 @@ export default function Footer() {
           </div>
           <p className="mt-4 text-sm leading-relaxed">
             Electricista de confianza en Barakaldo y en toda Euskadi, disponible las 24 horas.
-          </p>
-          <p className="mt-4 text-sm">
-            {business.address.street}
-            <br />
-            {business.address.postalCode} {business.address.city}, {business.address.region}
           </p>
           <div className="mt-5 flex items-center gap-3">
             <a
@@ -77,49 +70,24 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Servicios</h3>
-          <ul className="space-y-2.5 text-sm">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link href={`/servicios/${s.slug}`} className="hover:text-electric-400 transition-colors duration-200">
-                  {s.navLabel ?? s.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Zonas de servicio</h3>
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Enlaces</h3>
           <ul className="space-y-2.5 text-sm">
             <li>
-              <Link href="/zonas-de-servicio" className="font-semibold text-electric-400 hover:text-electric-300 transition-colors duration-200">
-                Toda Euskadi
+              <Link href="/servicios" className="hover:text-electric-400 transition-colors duration-200">
+                Servicios
               </Link>
             </li>
-          </ul>
-          <p className="mt-3 text-sm leading-relaxed">
-            Bizkaia, Gipuzkoa y Álava, con base en Barakaldo.
-          </p>
-        </div>
-
-        <div>
-          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Guías</h3>
-          <ul className="space-y-2.5 text-sm">
-            {guides.map((g) => (
-              <li key={g.slug}>
-                <Link href={`/guias/${g.slug}`} className="hover:text-electric-400 transition-colors duration-200">
-                  {g.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Contacto y legal</h3>
-          <ul className="space-y-2.5 text-sm">
             <li>
+              <Link href="/zonas-de-servicio" className="hover:text-electric-400 transition-colors duration-200">
+                Zonas de servicio
+              </Link>
+            </li>
+            <li>
+              <Link href="/guias" className="hover:text-electric-400 transition-colors duration-200">
+                Guías
+              </Link>
+            </li>
+            <li className="pt-2">
               <a href={telLink()} className="font-semibold text-white hover:text-electric-400">
                 {business.phoneDisplay}
               </a>
@@ -129,7 +97,13 @@ export default function Footer() {
                 {business.email}
               </a>
             </li>
-            <li className="pt-2">
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Legal</h3>
+          <ul className="space-y-2.5 text-sm">
+            <li>
               <Link href="/aviso-legal" className="hover:text-electric-400 transition-colors duration-200">
                 Aviso legal
               </Link>
