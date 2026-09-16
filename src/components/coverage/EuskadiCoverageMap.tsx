@@ -68,23 +68,41 @@ function popupHtml(locality: Locality, isBase: boolean) {
 
   const tier = getResponseTier(locality.etaMinutes);
   const color = TIER_HEX[tier];
+  const badge = RESPONSE_TIER_META[tier].shortLabel;
   const waMsg = encodeURIComponent(`Hola, necesito un electricista en ${locality.name}. ¿Podéis ayudarme?`);
 
-  // Contenido reducido a lo que cambia por municipio (frase de tiempo +
-  // distancia); "24h" y "urgencias" se dicen una sola vez, no en dos líneas
-  // repetidas en cada ficha.
+  // Ficha en formato "tarjeta de datos": distancia y tiempo van cada uno en
+  // su propio bloque visual (no en una frase corrida), con una franja de
+  // color y una etiqueta de tramo para leerla de un vistazo. El resto
+  // (24h/urgencias) se dice una sola vez, no repetido en cada municipio.
   return `
-    <div class="w-56">
-      <div class="border-b border-neutral-100 bg-neutral-50 px-4 py-3">
-        <p class="text-[10px] font-bold uppercase tracking-wider text-electric-600">${locality.province}</p>
-        <h3 class="font-display text-base font-extrabold text-neutral-900">${locality.name}</h3>
+    <div class="w-60 overflow-hidden">
+      <div class="h-1" style="background:${color}"></div>
+      <div class="px-4 pt-3 pb-2.5">
+        <div class="flex items-center justify-between gap-2">
+          <p class="text-[10px] font-bold uppercase tracking-wider text-electric-600">${locality.province}</p>
+          <span class="rounded-full px-2 py-0.5 text-[10px] font-bold" style="background:${color}1a;color:${color}">${badge}</span>
+        </div>
+        <h3 class="font-display mt-0.5 text-base font-extrabold text-neutral-900">${locality.name}</h3>
       </div>
-      <div class="space-y-1.5 px-4 py-3.5 text-sm">
-        <p class="flex items-start gap-1.5 font-bold leading-snug" style="color:${color}">
-          <i class="ri-flashlight-fill mt-0.5 flex-none" aria-hidden="true"></i> ${tierCommercialCopy(tier, locality.etaMinutes)}
-        </p>
-        <p class="pl-[22px] text-xs text-neutral-500">${locality.distanceKm} km desde Barakaldo · urgencias 24h</p>
+      <div class="grid grid-cols-2 gap-2 px-4 pb-1">
+        <div class="rounded-xl bg-neutral-50 px-2.5 py-2">
+          <p class="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-neutral-400">
+            <i class="ri-route-line" aria-hidden="true"></i> Distancia
+          </p>
+          <p class="mt-0.5 font-display text-sm font-extrabold text-neutral-900">${locality.distanceKm} km</p>
+        </div>
+        <div class="rounded-xl bg-neutral-50 px-2.5 py-2">
+          <p class="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-neutral-400">
+            <i class="ri-timer-flash-line" aria-hidden="true"></i> Respuesta
+          </p>
+          <p class="mt-0.5 font-display text-sm font-extrabold" style="color:${color}">~${locality.etaMinutes} min</p>
+        </div>
       </div>
+      <p class="px-4 pb-1 pt-2 text-xs text-neutral-500">${tierCommercialCopy(tier)}</p>
+      <p class="flex items-center gap-1.5 px-4 pb-3 text-xs font-semibold text-emerald-600">
+        <i class="ri-shield-check-fill" aria-hidden="true"></i> Urgencias 24h todo el año
+      </p>
       <div class="flex gap-2 border-t border-neutral-100 px-4 py-3.5">
         <a href="${telLink()}" class="flex-1 rounded-full bg-electric-400 px-3 py-2 text-center text-sm font-extrabold text-neutral-950 no-underline">Llamar</a>
         <a href="https://wa.me/${business.whatsapp}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="flex-1 rounded-full border border-whatsapp/30 bg-whatsapp/10 px-3 py-2 text-center text-sm font-bold text-whatsapp-600 no-underline">WhatsApp</a>
@@ -260,7 +278,7 @@ export default function EuskadiCoverageMap() {
             offset: [0, -10],
             className: "coverage-tooltip",
           })
-          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 220, autoPanPadding: [24, 24] });
+          .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240, autoPanPadding: [24, 24] });
 
         marker.on("mouseover", showRoute);
         marker.on("mouseout", hideRoute);
@@ -308,17 +326,12 @@ export default function EuskadiCoverageMap() {
     <div>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {HUD_STATS.map((stat) => (
-          <div
-            key={stat.label}
-            className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3.5 py-3.5"
-          >
-            <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-electric-50 text-electric-600">
+          <div key={stat.label} className="rounded-2xl border border-neutral-200 bg-white p-4">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-electric-50 text-electric-600">
               <i className={`${stat.icon} text-base`} aria-hidden="true"></i>
             </span>
-            <div className="min-w-0">
-              <p className="font-display text-lg font-extrabold leading-tight text-neutral-900">{stat.value}</p>
-              <p className="truncate text-[11px] text-neutral-500">{stat.label}</p>
-            </div>
+            <p className="font-display mt-3 text-xl font-extrabold leading-none text-neutral-900">{stat.value}</p>
+            <p className="mt-1 text-[11px] leading-snug text-neutral-500">{stat.label}</p>
           </div>
         ))}
       </div>

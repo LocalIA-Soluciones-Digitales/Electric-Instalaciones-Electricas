@@ -9,22 +9,25 @@ export function getResponseTier(etaMinutes: number): ResponseTier {
 
 export const RESPONSE_TIER_META: Record<
   ResponseTier,
-  { label: string; dot: string; ring: string; text: string }
+  { label: string; shortLabel: string; dot: string; ring: string; text: string }
 > = {
   fast: {
     label: "Respuesta inmediata · menos de 15 min",
+    shortLabel: "Inmediata",
     dot: "bg-emerald-500",
     ring: "ring-emerald-500/30",
     text: "text-emerald-600",
   },
   medium: {
     label: "Respuesta rápida · 15-35 min",
+    shortLabel: "Rápida",
     dot: "bg-amber-400",
     ring: "ring-amber-400/30",
     text: "text-amber-600",
   },
   slow: {
     label: "Visita programada · 35 min o más",
+    shortLabel: "Programada",
     dot: "bg-orange-500",
     ring: "ring-orange-500/30",
     text: "text-orange-600",
@@ -32,12 +35,12 @@ export const RESPONSE_TIER_META: Record<
 };
 
 /**
- * Frase comercial para la ficha de cada municipio: en vez de un dato en frío
- * ("Tiempo estimado: 55 min"), se enuncia como una promesa de servicio. Nunca
- * se usa un tono de alarma, ni siquiera en los municipios más alejados.
+ * Frase de apoyo, corta a propósito, para la ficha de cada municipio: la
+ * cifra exacta ya se ve en su propia tarjeta de datos (distancia/minutos), así
+ * que aquí solo se añade el matiz de servicio, nunca repitiendo el número.
  */
-export function tierCommercialCopy(tier: ResponseTier, etaMinutes: number): string {
-  if (tier === "fast") return "Cobertura inmediata: llegamos en minutos";
-  if (tier === "medium") return `Técnico en camino en ~${etaMinutes} min`;
-  return `Técnico disponible en ~${etaMinutes} min · coordinamos el horario contigo`;
+export function tierCommercialCopy(tier: ResponseTier): string {
+  if (tier === "fast") return "Salimos ya, sin esperas";
+  if (tier === "medium") return "Técnico en camino en breve";
+  return "Coordinamos contigo el horario de la visita";
 }
