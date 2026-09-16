@@ -35,19 +35,6 @@ const TIER_HEX: Record<ResponseTier, string> = {
   slow: "#f97316",
 };
 
-const TOTAL_MUNICIPIOS = localities.filter((l) => !EXCLUDED_FROM_MAP.has(l.slug)).length;
-const NON_HOME_POINTS = localities.filter((l) => !EXCLUDED_FROM_MAP.has(l.slug) && l.slug !== BASE_SLUG);
-const AVG_ETA_MINUTES = Math.round(
-  NON_HOME_POINTS.reduce((sum, p) => sum + p.etaMinutes, 0) / NON_HOME_POINTS.length
-);
-
-const HUD_STATS = [
-  { icon: "ri-map-pin-2-fill", value: `${TOTAL_MUNICIPIOS}`, label: "Municipios cubiertos" },
-  { icon: "ri-flashlight-fill", value: `~${AVG_ETA_MINUTES} min`, label: "Respuesta media" },
-  { icon: "ri-shield-check-fill", value: "100%", label: "Cobertura en Euskadi" },
-  { icon: "ri-moon-clear-fill", value: "24/7", label: "Guardia activa" },
-] as const;
-
 function popupHtml(locality: Locality, isBase: boolean) {
   if (isBase) {
     return `
@@ -316,25 +303,7 @@ export default function EuskadiCoverageMap() {
 
   return (
     <div>
-      {/* Un único panel encuadra las 4 cifras (en vez de tarjetas sueltas):
-          los separadores internos vienen de divide-x/border-t, así que las
-          celdas quedan perfectamente alineadas entre sí en vez de depender de
-          que cada tarjeta suelta tenga el mismo tamaño por casualidad. */}
-      <div className="rounded-3xl border border-neutral-200 bg-white shadow-sm shadow-neutral-900/5">
-        <div className="grid grid-cols-2 sm:grid-cols-4 sm:divide-x sm:divide-neutral-100 [&>*:nth-child(n+3)]:border-t [&>*:nth-child(n+3)]:border-neutral-100 sm:[&>*:nth-child(n+3)]:border-t-0">
-          {HUD_STATS.map((stat) => (
-            <div key={stat.label} className="p-4 sm:p-5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-electric-50 text-electric-600">
-                <i className={`${stat.icon} text-base`} aria-hidden="true"></i>
-              </span>
-              <p className="font-display mt-3 text-xl font-extrabold leading-none text-neutral-900">{stat.value}</p>
-              <p className="mt-1 text-[11px] leading-snug text-neutral-500">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mb-5 mt-5 flex flex-wrap items-center justify-center gap-2">
+      <div className="mb-5 flex flex-wrap items-center justify-center gap-2">
         {(["Todas", ...PROVINCES] as const).map((p) => (
           <button
             key={p}
