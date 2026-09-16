@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { business, telLink, waLink, WHATSAPP_GREETING_URGENT } from "@/lib/business";
 import { COVERAGE_IMAGE } from "@/lib/stockImages";
@@ -151,9 +152,12 @@ export default function ZonasDeServicioPage() {
                 siempre disponible para averías, cortocircuitos y cortes de luz que no pueden esperar.
               </p>
               <p>
-                Nuestra cobertura como electricista en Bizkaia incluye Barakaldo, Bilbao, Getxo, Portugalete,
-                Santurtzi, Sestao, Basauri, Durango y el resto de la provincia, con tiempos de respuesta muy
-                ajustados por la cercanía a nuestra base. También damos servicio de electricista en Gipuzkoa
+                Nuestra cobertura como electricista en Bizkaia incluye{" "}
+                <Link href="/zonas-de-servicio/barakaldo" className="font-semibold text-electric-600 hover:underline">
+                  Barakaldo
+                </Link>
+                , Bilbao, Getxo, Portugalete, Santurtzi, Sestao, Basauri, Durango y el resto de la provincia, con
+                tiempos de respuesta muy ajustados por la cercanía a nuestra base. También damos servicio de electricista en Gipuzkoa
                 (Donostia, Eibar, Irun y alrededores) y electricista en Álava (Vitoria-Gasteiz, Llodio, Amurrio),
                 coordinando contigo el horario de la visita cuando la distancia lo requiere.
               </p>

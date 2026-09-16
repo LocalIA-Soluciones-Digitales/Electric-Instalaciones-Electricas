@@ -6,11 +6,18 @@ import { guides } from "@/lib/guides";
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  const staticRoutes = ["", "/servicios", "/contacto", "/guias", "/zonas-de-servicio"].map((path) => ({
+  const staticRoutes = [
+    "",
+    "/servicios",
+    "/contacto",
+    "/guias",
+    "/zonas-de-servicio",
+    "/zonas-de-servicio/barakaldo",
+  ].map((path) => ({
     url: `${business.domain}${path}`,
     lastModified,
     changeFrequency: "weekly" as const,
-    priority: path === "" ? 1 : path === "/zonas-de-servicio" ? 0.9 : 0.8,
+    priority: path === "" ? 1 : path === "/zonas-de-servicio" || path === "/zonas-de-servicio/barakaldo" ? 0.9 : 0.8,
   }));
 
   const serviceRoutes = services.map((s) => ({

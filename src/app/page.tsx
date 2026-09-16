@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   // mismo segmento de ruta ("/") que el layout.tsx que lo define, así que hay
   // que escribir el nombre comercial completo explícitamente para que la home
   // -la página que más autoridad recibe- refuerce la marca en el <title>.
-  title: `Electricista en Barakaldo y Euskadi 24 Horas | ${business.name}`,
+  title: `Electricista Urgente en Barakaldo y Euskadi 24 Horas | ${business.name}`,
   description:
     "Electricista urgente en Barakaldo, Bilbao, Cruces y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Servicio 24h. Llama al 677 24 63 74.",
   alternates: { canonical: "/" },
@@ -87,7 +87,7 @@ export default function HomePage() {
 
           <Reveal delay={0.08}>
             <h1 className="font-display mx-auto max-w-2xl text-[2.4rem] leading-[1.12] sm:text-5xl md:text-6xl font-extrabold tracking-tight">
-              Electricista de confianza en Barakaldo y toda Euskadi
+              Electricista urgente 24h en Barakaldo y toda Euskadi
             </h1>
           </Reveal>
 
