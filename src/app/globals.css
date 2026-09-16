@@ -132,6 +132,23 @@ body {
   transition: stroke-opacity 0.35s ease, opacity 0.35s ease;
 }
 
+/* Tooltip ligero de cada municipio (EuskadiCoverageMap.tsx): reemplaza el
+   popup en el hover para no forzar un autoPan del mapa por cada punto que se
+   roza con el cursor; el popup completo con Llamar/WhatsApp sigue abriéndose
+   solo con el toque/clic explícito. */
+.leaflet-tooltip.coverage-tooltip {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.28);
+  padding: 0.5rem 0.7rem;
+  white-space: normal;
+  font-family: var(--font-sans), sans-serif;
+}
+.leaflet-tooltip.coverage-tooltip::before {
+  border-top-color: #ffffff;
+}
+
 .leaflet-container {
   font-family: var(--font-sans), sans-serif;
   background: var(--color-cloud);

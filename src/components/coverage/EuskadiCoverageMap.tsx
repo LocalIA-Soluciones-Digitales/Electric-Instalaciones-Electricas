@@ -93,6 +93,17 @@ function popupHtml(locality: Locality, isBase: boolean) {
   `;
 }
 
+function tooltipHtml(locality: Locality) {
+  const tier = getResponseTier(locality.etaMinutes);
+  const color = TIER_HEX[tier];
+  return `
+    <div class="min-w-[170px] max-w-[200px]">
+      <p class="font-display text-sm font-extrabold text-neutral-900">${locality.name}</p>
+      <p class="mt-0.5 text-xs font-bold leading-snug" style="color:${color}">${tierCommercialCopy(tier, locality.etaMinutes)}</p>
+    </div>
+  `;
+}
+
 function baseMarkerHtml() {
   return `
     <div class="flex flex-col items-center gap-1.5">
@@ -204,8 +215,8 @@ export default function EuskadiCoverageMap() {
             ],
             {
               color,
-              weight: 2,
-              dashArray: "6 8",
+              weight: 3,
+              dashArray: "8 8",
               opacity: 0,
               interactive: false,
               className: "coverage-route",
@@ -213,18 +224,30 @@ export default function EuskadiCoverageMap() {
           )
           .addTo(map);
 
+        const showRoute = () => {
+          route.setStyle({ opacity: 1 });
+          route.bringToFront();
+        };
+        const hideRoute = () => route.setStyle({ opacity: 0 });
+
         const marker = leaflet
           .marker([p.geo.lat, p.geo.lng], {
             icon: leaflet.divIcon({ html: markerHtml(color), className: "coverage-marker", iconSize: [16, 16] }),
           })
+          // Hover: solo un tooltip ligero, sin autoPan, para no mover el mapa
+          // por cada municipio que se roza con el cursor. La ficha completa
+          // (con Llamar / WhatsApp) se reserva para el toque/clic explícito.
+          .bindTooltip(tooltipHtml(p), {
+            direction: "top",
+            offset: [0, -10],
+            className: "coverage-tooltip",
+          })
           .bindPopup(popupHtml(p, false), { className: "coverage-popup", minWidth: 240, autoPanPadding: [24, 24] });
 
-        marker.on("mouseover", () => {
-          marker.openPopup();
-          route.setStyle({ opacity: 0.85 });
-        });
-        marker.on("mouseout", () => route.setStyle({ opacity: 0 }));
-        marker.on("popupclose", () => route.setStyle({ opacity: 0 }));
+        marker.on("mouseover", showRoute);
+        marker.on("mouseout", hideRoute);
+        marker.on("popupopen", showRoute);
+        marker.on("popupclose", hideRoute);
 
         groups[p.province].addLayer(marker);
       });
