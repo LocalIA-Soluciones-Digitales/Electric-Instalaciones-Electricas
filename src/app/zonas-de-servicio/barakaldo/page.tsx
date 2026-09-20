@@ -42,6 +42,10 @@ const faqs = [
     q: "¿El presupuesto tiene algún coste?",
     a: "No. Te damos el presupuesto por teléfono o WhatsApp antes de desplazarnos, sin compromiso.",
   },
+  {
+    q: "¿Qué hago si hay un apagón en mi zona de Barakaldo?",
+    a: "Si el apagón afecta a todo tu portal o calle, suele ser un corte de suministro de Iberdrola, no una avería en tu instalación. Pero si la luz se ha ido solo en tu vivienda o local, es probable que sea un problema en tu cuadro eléctrico: llámanos y acudimos de urgencia a cualquier barrio de Barakaldo.",
+  },
 ];
 
 // Servicios con página propia que más se solicitan como urgencia en Barakaldo:
