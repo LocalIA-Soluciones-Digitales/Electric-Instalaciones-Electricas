@@ -83,6 +83,14 @@ export default function Footer() {
               </Link>
             </li>
             <li>
+              <Link
+                href="/zonas-de-servicio/barakaldo"
+                className="hover:text-electric-400 transition-colors duration-200"
+              >
+                Electricista en Barakaldo
+              </Link>
+            </li>
+            <li>
               <Link href="/guias" className="hover:text-electric-400 transition-colors duration-200">
                 Guías
               </Link>
