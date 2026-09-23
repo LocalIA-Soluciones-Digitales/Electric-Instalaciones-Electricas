@@ -137,6 +137,18 @@ export default function HomePage() {
             </div>
           </Reveal>
         </div>
+
+        {/* Designer credit */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-5 mx-auto flex max-w-6xl justify-start px-4 md:justify-end md:px-6">
+          <div className="text-left md:text-right">
+            <span className="block text-[10px] font-light tracking-wide text-white">
+              Designed &amp; Developed by
+            </span>
+            <span className="mt-1 block text-[11px] font-medium tracking-wide text-white">
+              Local<span className="font-bold text-electric-400">IA</span>.
+            </span>
+          </div>
+        </div>
       </section>
 
       {/* Confianza */}
