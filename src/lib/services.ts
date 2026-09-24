@@ -197,6 +197,44 @@ export const services: Service[] = [
     ],
   },
   {
+    slug: "boletin-electrico",
+    name: "Boletín Eléctrico",
+    shortName: "Boletín eléctrico",
+    icon: "ri-file-list-3-line",
+    metaTitle: "Boletín Eléctrico en Barakaldo, Bilbao y Bizkaia",
+    metaDescription:
+      "Tramitamos el boletín eléctrico (Certificado de Instalación Eléctrica) para alta de luz, aumento de potencia, reformas y locales en Barakaldo, Bilbao y toda Euskadi. Presupuesto cerrado.",
+    h1: "Boletín Eléctrico y Certificado de Instalación",
+    intro:
+      "¿Necesitas el boletín eléctrico para dar de alta la luz, subir la potencia o abrir un local? En Electric revisamos tu instalación, la adaptamos a normativa si hace falta y tramitamos el Certificado de Instalación Eléctrica (CIE) como instaladores autorizados en Barakaldo, Bilbao, Portugalete, Getxo y toda Euskadi.",
+    bullets: [
+      "Boletín para alta de suministro en vivienda nueva o sin luz",
+      "Boletín para aumento de potencia contratada",
+      "Certificado tras reforma eléctrica o cambio de cuadro",
+      "Boletín para locales comerciales y apertura de actividad",
+      "Revisión previa y presupuesto cerrado antes de tramitar",
+    ],
+    keywords: ["boletín eléctrico", "certificado de instalación eléctrica", "CIE", "boletín de luz", "aumento de potencia"],
+    faqs: [
+      {
+        q: "¿Qué es el boletín eléctrico?",
+        a: "Es el nombre que se usa normalmente para el Certificado de Instalación Eléctrica (CIE): el documento que firma un instalador autorizado para certificar que la instalación cumple el Reglamento Electrotécnico de Baja Tensión. La distribuidora lo pide para dar de alta la luz o subir la potencia.",
+      },
+      {
+        q: "¿Cuándo necesito un boletín eléctrico?",
+        a: "Para dar de alta la luz en una vivienda o local, para aumentar la potencia contratada cuando la instalación no la tiene certificada, tras una reforma eléctrica importante y para abrir un local comercial.",
+      },
+      {
+        q: "¿Cuánto tarda en tramitarse?",
+        a: "Si la instalación ya cumple la normativa, la revisión y la emisión del certificado se hacen en pocos días. Si hay que adaptar antes el cuadro o parte del cableado, te lo indicamos en el presupuesto junto con el plazo.",
+      },
+      {
+        q: "¿Tramitáis el boletín en toda Euskadi?",
+        a: "Sí. Tenemos la base en Barakaldo y lo tramitamos en Bilbao, Portugalete, Getxo, Santurtzi y el resto de Bizkaia, y también en Gipuzkoa y Álava.",
+      },
+    ],
+  },
+  {
     slug: "electricista-urgente-24h",
     name: "Electricista Urgente 24 Horas",
     shortName: "Urgencias 24h",

@@ -19,9 +19,66 @@ const UPDATED_AT = "2026-09-11";
 
 export const guides: Guide[] = [
   {
+    slug: "corte-de-luz-en-casa-que-hacer",
+    publishedAt: "2026-09-24",
+    updatedAt: "2026-09-24",
+    title: "Corte de luz en casa: ¿avería tuya o de la distribuidora?",
+    metaTitle: "Corte de Luz o Apagón en Casa: Qué Hacer",
+    metaDescription:
+      "¿Te has quedado sin luz? Cómo saber si el apagón es de tu instalación o de la red, a quién avisar en cada caso y cuándo llamar a un electricista en Barakaldo, Bilbao y toda Euskadi.",
+    excerpt:
+      "Ante un apagón, lo primero es saber si el problema está en tu casa o en la calle. De eso depende a quién tienes que llamar: a la distribuidora o a un electricista.",
+    relatedServiceSlug: "averias-electricas",
+    sections: [
+      {
+        heading: "Primer paso: ¿se ha ido la luz solo en tu casa?",
+        paragraphs: [
+          "Mira por la ventana y fíjate en el portal: las farolas, los escaparates, la luz de la escalera y las ventanas de los vecinos. Si también están a oscuras, lo más probable es un corte de suministro en la red y no una avería de tu instalación.",
+          "Si los vecinos tienen luz y tú no, el problema está casi seguro dentro de tu vivienda o local, en tu cuadro eléctrico o en la línea que va del contador a tu casa.",
+        ],
+      },
+      {
+        heading: "Si el corte es general: avisa a la distribuidora",
+        paragraphs: [
+          "Los cortes de luz en la calle o en el barrio los resuelve la empresa distribuidora, que es la dueña de la red y no la compañía con la que tienes contratada la luz. En Barakaldo, Bilbao y la mayor parte de Bizkaia la distribuidora es i-DE, del grupo Iberdrola, aunque tengas la factura con otra comercializadora.",
+          "El teléfono de averías de la distribuidora aparece en tu factura de la luz. Llamar ahí es gratuito y sirve para avisar del corte o para confirmar si se trata de un corte programado por obras en la red. En estos casos un electricista no puede hacer nada, porque la avería está fuera de tu instalación.",
+        ],
+      },
+      {
+        heading: "Si el corte es solo tuyo: revisa el cuadro eléctrico",
+        paragraphs: [
+          "Abre el cuadro eléctrico de casa y comprueba si hay algún interruptor bajado: el interruptor general (IGA), el diferencial o alguno de los magnetotérmicos de cada circuito.",
+          "Si ha saltado el diferencial, desenchufa los aparatos que estaban funcionando y súbelo. Si ha saltado un magnetotérmico, puede ser una sobrecarga por tener demasiados aparatos a la vez en ese circuito.",
+          "Si todos los interruptores están arriba y sigues sin luz, el fallo puede estar antes del cuadro: en el ICP, en los fusibles de la centralización de contadores del portal o en la derivación individual. En ese caso hace falta un electricista.",
+        ],
+      },
+      {
+        heading: "Cuándo llamar a un electricista de urgencia",
+        paragraphs: [
+          "Llama a un electricista si el interruptor vuelve a saltar nada más subirlo, si has notado olor a quemado, chispas o un ruido seco en el cuadro, si solo te has quedado sin luz en una parte de la casa sin que haya saltado nada, o si los cortes se repiten varias veces a la semana.",
+          "En Electric atendemos cortes de luz y apagones las 24 horas en Barakaldo, Bilbao y toda Euskadi. Cuéntanos por teléfono o WhatsApp qué ha pasado y te decimos si merece la pena desplazarnos antes de ir.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Cómo sé si hay un corte de luz programado en mi calle?",
+        a: "Llama al teléfono de averías de la distribuidora que aparece en tu factura. En Bizkaia suele ser i-DE (Iberdrola). Te dirán si hay un corte programado o una incidencia en la red de tu zona.",
+      },
+      {
+        q: "¿A quién llamo si se va la luz en todo el edificio?",
+        a: "Si falta la luz en todas las viviendas y también en la escalera, suele ser un corte de la red y hay que avisar a la distribuidora. Si solo falla la luz de las zonas comunes, el problema está en la instalación de la comunidad, y eso sí lo repara un electricista.",
+      },
+      {
+        q: "¿Cuánto cuesta que venga un electricista por un corte de luz?",
+        a: "Depende de la causa y de la hora del aviso. En Electric te damos el precio por teléfono o WhatsApp antes de desplazarnos, así que no hay sorpresas en la factura.",
+      },
+    ],
+  },
+  {
     slug: "por-que-salta-el-diferencial",
     publishedAt: PUBLISHED_AT,
-    updatedAt: UPDATED_AT,
+    updatedAt: "2026-09-24",
     title: "Por qué salta el diferencial y qué hacer",
     metaTitle: "Por Qué Salta el Diferencial: Causas y Soluciones",
     metaDescription:
@@ -47,6 +104,15 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Cuando salta el diferencial al encender el termo eléctrico",
+        paragraphs: [
+          "Es uno de los casos más frecuentes: todo funciona hasta que el termo eléctrico empieza a calentar, y en ese momento salta el diferencial. Casi siempre la causa está en la resistencia del termo, que con los años y la cal acumulada se deteriora y deja escapar corriente hacia el agua o la carcasa.",
+          "Otras causas posibles son un termostato averiado, humedad o condensación en la tapa de conexiones del termo, o un cable de alimentación dañado entre el cuadro y el aparato.",
+          "Para comprobarlo, apaga el termo desde su interruptor o desenchúfalo y vuelve a subir el diferencial. Si ya no salta, el problema está en el termo o en su línea. No lo dejes conectado a la espera de que se arregle solo: una resistencia con fuga es un riesgo de descarga, porque el termo está en contacto con el agua de la ducha.",
+          "Un electricista puede medir el aislamiento de la resistencia y de la línea para confirmar dónde está la fuga. A partir de ahí decides con datos si sale más a cuenta cambiar la resistencia o el termo completo.",
+        ],
+      },
+      {
         heading: "Qué hacer mientras esperas al electricista",
         paragraphs: [
           "Desconecta los electrodomésticos que estuvieran en uso antes de que saltara, y evita subir el diferencial de forma repetida sin identificar la causa: cada disparo es una señal, no un fallo del propio diferencial.",
@@ -67,6 +133,10 @@ export const guides: Guide[] = [
         a: "No es recomendable. Cada disparo indica una fuga de corriente real; forzarlo repetidamente sin diagnóstico puede dejar la vivienda sin protección efectiva o dañar el propio diferencial.",
       },
       {
+        q: "¿Por qué salta el diferencial solo cuando se enciende el termo?",
+        a: "Normalmente porque la resistencia del termo tiene una fuga de corriente, muchas veces por la cal y los años de uso. Apaga el termo y comprueba si el diferencial deja de saltar. Si es así, necesitas que un electricista revise la resistencia o la línea del termo.",
+      },
+      {
         q: "¿Cuánto se tarda en diagnosticar la causa?",
         a: "En la mayoría de los casos, entre 30 y 60 minutos con el cuadro abierto y un comprobador de aislamiento, dependiendo de cuántos circuitos haya que revisar.",
       },
@@ -82,7 +152,7 @@ export const guides: Guide[] = [
       "Qué factores influyen en el precio de un boletín eléctrico (Certificado de Instalación Eléctrica) y cuándo es obligatorio tramitarlo. Electricista en Barakaldo y en toda Euskadi.",
     excerpt:
       "El precio de un boletín eléctrico varía según lo que haya que legalizar, no según una tarifa fija. Te contamos qué factores lo mueven y cuándo es obligatorio pedirlo.",
-    relatedServiceSlug: "cuadros-electricos",
+    relatedServiceSlug: "boletin-electrico",
     sections: [
       {
         heading: "Qué es exactamente el boletín eléctrico",
@@ -156,7 +226,7 @@ export const guides: Guide[] = [
       "Certificado eléctrico, boletín eléctrico y Certificado de Instalación Eléctrica (CIE): aclaramos si son el mismo documento y cuándo lo necesitas.",
     excerpt:
       "Certificado eléctrico, boletín eléctrico, CIE: tres nombres distintos para, en la mayoría de los casos, el mismo papel. Aclaramos la confusión.",
-    relatedServiceSlug: "cuadros-electricos",
+    relatedServiceSlug: "boletin-electrico",
     sections: [
       {
         heading: "Un documento, varios nombres",

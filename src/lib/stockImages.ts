@@ -69,4 +69,5 @@ export const SERVICE_CARD_IMAGE: Record<string, string | null> = {
   "instalaciones-electricas": SERVICE_PHOTO_INSTALACIONES,
   "reparaciones-electricas": SERVICE_PHOTO_REPARACIONES,
   "electricista-urgente-24h": SERVICE_PHOTO_URGENCIAS_24H,
+  "boletin-electrico": null,
 };
