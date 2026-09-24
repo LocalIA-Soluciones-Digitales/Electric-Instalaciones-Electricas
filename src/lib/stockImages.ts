@@ -55,6 +55,7 @@ export const SERVICE_PHOTO_ILUMINACION = "/images/servicio-iluminacion-led.jpg";
 export const SERVICE_PHOTO_INSTALACIONES = "/images/servicio-instalaciones-electricas.jpg";
 export const SERVICE_PHOTO_REPARACIONES = "/images/servicio-reparaciones-electricas.jpg";
 export const SERVICE_PHOTO_URGENCIAS_24H = "/images/servicio-urgencias-24h.jpg";
+export const SERVICE_PHOTO_BOLETIN = "/images/servicio-boletin-electrico.jpg";
 
 /**
  * Imagen destacada por servicio (tarjetas de la sección "Servicios"). `null` cuando no
@@ -69,5 +70,5 @@ export const SERVICE_CARD_IMAGE: Record<string, string | null> = {
   "instalaciones-electricas": SERVICE_PHOTO_INSTALACIONES,
   "reparaciones-electricas": SERVICE_PHOTO_REPARACIONES,
   "electricista-urgente-24h": SERVICE_PHOTO_URGENCIAS_24H,
-  "boletin-electrico": null,
+  "boletin-electrico": SERVICE_PHOTO_BOLETIN,
 };
