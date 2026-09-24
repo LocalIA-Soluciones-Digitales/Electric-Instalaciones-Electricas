@@ -156,7 +156,23 @@ export default function ZonasDeServicioPage() {
                 <Link href="/zonas-de-servicio/barakaldo" className="font-semibold text-electric-600 hover:underline">
                   Barakaldo
                 </Link>
-                , Bilbao, Getxo, Portugalete, Santurtzi, Sestao, Basauri, Durango y el resto de la provincia, con
+                ,{" "}
+                <Link href="/zonas-de-servicio/bilbao" className="font-semibold text-electric-600 hover:underline">
+                  Bilbao
+                </Link>
+                ,{" "}
+                <Link href="/zonas-de-servicio/getxo" className="font-semibold text-electric-600 hover:underline">
+                  Getxo
+                </Link>
+                ,{" "}
+                <Link href="/zonas-de-servicio/portugalete" className="font-semibold text-electric-600 hover:underline">
+                  Portugalete
+                </Link>
+                ,{" "}
+                <Link href="/zonas-de-servicio/santurtzi" className="font-semibold text-electric-600 hover:underline">
+                  Santurtzi
+                </Link>
+                , Sestao, Basauri, Durango y el resto de la provincia, con
                 tiempos de respuesta muy ajustados por la cercanía a nuestra base. También damos servicio de electricista en Gipuzkoa
                 (Donostia, Eibar, Irun y alrededores) y electricista en Álava (Vitoria-Gasteiz, Llodio, Amurrio),
                 coordinando contigo el horario de la visita cuando la distancia lo requiere.

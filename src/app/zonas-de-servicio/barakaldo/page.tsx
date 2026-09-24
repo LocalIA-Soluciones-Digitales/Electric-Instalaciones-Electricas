@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { business, telLink, waLink, WHATSAPP_GREETING_URGENT } from "@/lib/business";
 import { getService } from "@/lib/services";
+import { zonePages } from "@/lib/zonePages";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import PageHero from "@/components/PageHero";
 import CTASection from "@/components/CTASection";
@@ -136,9 +137,18 @@ export default function BarakaldoPage() {
           <FaqJsonLd items={faqs} />
 
           <p className="mt-12 text-neutral-600">
-            ¿Necesitas un electricista fuera de Barakaldo?{" "}
+            ¿Necesitas un electricista fuera de Barakaldo? También vamos a{" "}
+            {zonePages.map((z) => (
+              <span key={z.slug}>
+                <Link href={`/zonas-de-servicio/${z.slug}`} className="font-semibold text-electric-600 hover:underline">
+                  {z.name}
+                </Link>
+                ,{" "}
+              </span>
+            ))}
+            y puedes{" "}
             <Link href="/zonas-de-servicio" className="font-semibold text-electric-600 hover:underline">
-              Consulta el resto de nuestra cobertura en Euskadi
+              consultar el resto de nuestra cobertura en Euskadi
             </Link>
             .
           </p>

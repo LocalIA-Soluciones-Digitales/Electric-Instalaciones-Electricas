@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { zonePages } from "./src/lib/zonePages";
 
 // 'unsafe-inline' en script-src (no hashes): el App Router de Next.js emite
 // sus propios <script> inline sin `src` en cada respuesta para hidratar los
@@ -58,6 +59,11 @@ const nextConfig: NextConfig = {
   // romper enlaces ya indexados o compartidos.
   async redirects() {
     return [
+      // Los municipios que han recuperado página propia redirigen a ella, no al hub.
+      ...zonePages.flatMap((z) => [
+        { source: `/electricista-${z.slug}`, destination: `/zonas-de-servicio/${z.slug}`, permanent: true },
+        { source: `/electricista-${z.slug}/:service`, destination: `/zonas-de-servicio/${z.slug}`, permanent: true },
+      ]),
       {
         source: "/electricista-:slug/:service",
         destination: "/zonas-de-servicio",
