@@ -41,7 +41,7 @@ export const business = {
   // Reseñas verificables (perfil de Google Business). Vacío = no se muestra
   // ningún enlace ni valoración hasta que se indiquen datos reales.
   reviews: {
-    googleUrl: "https://share.google/4k2UfvoLQAo6gNTpD" as string,
+    googleUrl: "https://g.page/r/CSmmAWJwjfDoEBM/review" as string,
     // Perfil de Google Business muy reciente (pocas visualizaciones, sin
     // reseñas visibles todavía): rating/count se rellenan en cuanto haya
     // reseñas reales que mostrar. Con solo el enlace, Testimonials.tsx ya
