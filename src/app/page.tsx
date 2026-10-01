@@ -20,9 +20,10 @@ export const metadata: Metadata = {
   // mismo segmento de ruta ("/") que el layout.tsx que lo define, así que hay
   // que escribir el nombre comercial completo explícitamente para que la home
   // -la página que más autoridad recibe- refuerce la marca en el <title>.
-  title: `Electricista Urgente en Barakaldo y Euskadi 24 Horas | ${business.name}`,
+  // Lo importante va al principio: Google corta el <title> hacia los 60 caracteres.
+  title: `Electricista Urgente 24h en Barakaldo | ${business.name}`,
   description:
-    "Electricista urgente en Barakaldo, Bilbao, Cruces y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Servicio 24h. Llama al 677 24 63 74.",
+    "¿Sin luz o te salta el diferencial? Electricista urgente 24 h en Barakaldo, Bilbao y Bizkaia. Precio antes de ir. Llama al 677 24 63 74. English spoken.",
   alternates: { canonical: "/" },
 };
 
@@ -123,6 +124,9 @@ export default function HomePage() {
               <a href={telLink()} className="font-bold text-electric-400 hover:text-electric-300">
                 {business.phoneDisplay}
               </a>
+            </p>
+            <p lang="en" className="mt-1 text-sm text-white/60">
+              English spoken: call or WhatsApp us.
             </p>
           </Reveal>
 

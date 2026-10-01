@@ -49,6 +49,7 @@ export default function LocalBusinessSchema() {
     // página propia): evita que este listado quede desincronizado cada vez
     // que se añade o se quita un municipio.
     areaServed: [...localities.map((l) => l.name), "Bizkaia", "Euskadi"],
+    knowsLanguage: ["es", "en"],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Servicios eléctricos",
