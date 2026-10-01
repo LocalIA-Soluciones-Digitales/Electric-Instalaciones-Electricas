@@ -60,9 +60,14 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Los municipios que han recuperado página propia redirigen a ella, no al hub.
-      ...zonePages.flatMap((z) => [
-        { source: `/electricista-${z.slug}`, destination: `/zonas-de-servicio/${z.slug}`, permanent: true },
-        { source: `/electricista-${z.slug}/:service`, destination: `/zonas-de-servicio/${z.slug}`, permanent: true },
+      // Cruces es un barrio de Barakaldo, así que va a la página de Barakaldo.
+      ...[
+        ...zonePages.map((z) => ({ slug: z.slug, destination: `/zonas-de-servicio/${z.slug}` })),
+        { slug: "barakaldo", destination: "/zonas-de-servicio/barakaldo" },
+        { slug: "cruces", destination: "/zonas-de-servicio/barakaldo" },
+      ].flatMap(({ slug, destination }) => [
+        { source: `/electricista-${slug}`, destination, permanent: true },
+        { source: `/electricista-${slug}/:service`, destination, permanent: true },
       ]),
       {
         source: "/electricista-:slug/:service",
