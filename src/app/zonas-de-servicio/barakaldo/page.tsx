@@ -8,20 +8,23 @@ import PageHero from "@/components/PageHero";
 import CTASection from "@/components/CTASection";
 import Faq, { FaqJsonLd } from "@/components/Faq";
 
+// La home ya apunta a "electricista urgente en Barakaldo"; esta página se
+// centra en los barrios y en el local de Cruces para que Google no tenga dos
+// URLs compitiendo por la misma búsqueda (en Search Console rotaba entre 6).
 export const metadata: Metadata = {
-  title: `Electricista Urgente en Barakaldo 24 Horas | ${business.name}`,
+  title: "Electricista en Cruces, Retuerto y San Vicente (Barakaldo)",
   description:
-    "Electricista urgente en Barakaldo, con base en Calle Cruces 18. Averías, cortocircuitos y cuadros eléctricos, servicio 24 horas en Cruces, Retuerto, San Vicente, Rontegi, Lutxana y Gurutzeta. Llama al 677 24 63 74.",
+    "Electricista con local en Calle Cruces 18. Llegamos en minutos a Cruces, Retuerto, San Vicente, Rontegi, Lutxana, Beurko y el centro de Barakaldo. Urgencias 24 h. Llama al 677 24 63 74.",
   alternates: { canonical: "/zonas-de-servicio/barakaldo" },
   openGraph: {
-    title: `Electricista Urgente en Barakaldo 24 Horas | ${business.name}`,
+    title: `Electricista en Cruces, Retuerto y San Vicente (Barakaldo) | ${business.name}`,
     description: "Electricista urgente 24 horas en Barakaldo, con local propio en Calle Cruces 18.",
   },
 };
 
 const bullets = [
   "Local propio en Calle Cruces, 18 (Barakaldo): llegamos en minutos",
-  "Cobertura en todos los barrios: Cruces, Retuerto, San Vicente, Rontegi, Lutxana y Gurutzeta",
+  "Cobertura en todos los barrios: Cruces, Retuerto, San Vicente, Rontegi, Lutxana, Beurko y El Desierto",
   "Servicio de electricista urgente 24 horas, los 365 días del año",
   "Presupuesto claro antes de intervenir, sin sorpresas",
 ];
@@ -29,7 +32,7 @@ const bullets = [
 const faqs = [
   {
     q: "¿Cuánto tardáis en llegar a Barakaldo ante una avería urgente?",
-    a: "Al tener nuestro local en el propio Barakaldo (Calle Cruces, 18), solemos llegar en menos de 30 minutos a cualquier barrio: Cruces, Retuerto, San Vicente, Rontegi, Lutxana o Gurutzeta.",
+    a: "Al tener nuestro local en el propio Barakaldo (Calle Cruces, 18), solemos llegar en menos de 30 minutos a cualquier barrio: Cruces, Retuerto, San Vicente, Rontegi, Lutxana, Beurko o El Desierto.",
   },
   {
     q: "¿Atendéis avisos urgentes de noche o en fin de semana en Barakaldo?",
@@ -73,8 +76,8 @@ export default function BarakaldoPage() {
           { name: "Barakaldo" },
         ]}
         eyebrow="Electricista en Barakaldo"
-        title="Electricista Urgente en Barakaldo 24 Horas"
-        subtitle="Barakaldo es nuestra ciudad base: local propio en Calle Cruces, 18. Damos servicio en todos sus barrios con tiempos de respuesta muy rápidos ante averías urgentes."
+        title="Electricista en tu barrio de Barakaldo"
+        subtitle="Tenemos el local en Calle Cruces, 18, así que a Cruces, Retuerto, San Vicente, Rontegi, Lutxana o Beurko llegamos en minutos, también de noche y en festivos."
       >
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <a

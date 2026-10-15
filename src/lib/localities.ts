@@ -35,7 +35,7 @@ export const localities: Locality[] = [
     isHome: true,
     distanceNote: "Municipio donde tenemos nuestra base de operaciones",
     intro:
-      "Barakaldo es nuestra ciudad base. Damos servicio de electricista en todos sus barrios: Cruces, Retuerto, San Vicente, Rontegi, Lutxana, Gurutzeta y el casco urbano, con tiempos de respuesta muy rápidos ante averías urgentes.",
+      "Barakaldo es nuestra ciudad base. Damos servicio de electricista en todos sus barrios: Cruces, Retuerto, San Vicente, Rontegi, Lutxana, Beurko, El Desierto y el casco urbano, con tiempos de respuesta muy rápidos ante averías urgentes.",
     landmarks: ["BEC (Bilbao Exhibition Centre)", "Parque Munoa", "Casco Viejo de Barakaldo"],
     geo: { lat: 43.297, lng: -2.9899 },
     distanceKm: 0,

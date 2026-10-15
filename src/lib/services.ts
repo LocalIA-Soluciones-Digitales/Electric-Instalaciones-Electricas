@@ -175,24 +175,40 @@ export const services: Service[] = [
     name: "Reparaciones Eléctricas",
     shortName: "Reparaciones",
     icon: "ri-tools-line",
-    metaTitle: "Reparaciones Eléctricas a Domicilio en Euskadi",
+    // Enfocada en trabajos pequeños y planificados (no urgencias) para que no
+    // compita con /servicios/averias-electricas: Google la rastreó y no la
+    // indexó por parecerse demasiado a esa.
+    metaTitle: "Pequeñas Reparaciones Eléctricas en Casa | Barakaldo y Bizkaia",
     metaDescription:
-      "Reparación eléctrica a domicilio: enchufes, interruptores, cuadros, averías. Electricista de confianza en Barakaldo, Bilbao y toda Euskadi.",
-    h1: "Reparaciones Eléctricas a Domicilio",
+      "Enchufes que no funcionan, interruptores rotos, lámparas por colgar o un punto de luz nuevo: hacemos esas pequeñas reparaciones eléctricas en Barakaldo, Bilbao y Bizkaia. Precio antes de ir.",
+    h1: "Pequeñas Reparaciones Eléctricas en Casa",
     intro:
-      "Desde un enchufe que no funciona hasta una reforma parcial de la instalación: reparamos cualquier incidencia eléctrica en tu vivienda o local, en Barakaldo y toda Euskadi.",
+      "Ese enchufe que dejó de funcionar, el interruptor que hace falso contacto, la lámpara que lleva meses en la caja o el enchufe que te falta junto a la cama. Son trabajos pequeños que muchos electricistas no quieren coger, y nosotros sí. Juntamos varios arreglos en una misma visita para que te salga a cuenta, en Barakaldo, Bilbao y toda Bizkaia.",
     bullets: [
-      "Reparación de enchufes e interruptores",
-      "Sustitución de mecanismos y puntos de luz",
-      "Revisión y reparación de instalaciones antiguas",
-      "Mantenimiento eléctrico preventivo",
-      "Atención rápida y económica",
+      "Enchufes que no funcionan, flojos o quemados",
+      "Interruptores y conmutadores que fallan o hacen falso contacto",
+      "Colgar lámparas y plafones, y cambiar puntos de luz",
+      "Añadir enchufes nuevos o tomas para horno, vitro o lavadora",
+      "Cambio de mecanismos antiguos por modernos",
+      "Timbres que no suenan",
     ],
-    keywords: ["reparación eléctrica domicilio", "electricista económico"],
+    keywords: ["pequeñas reparaciones eléctricas", "reparación eléctrica domicilio", "cambiar enchufe", "instalar lámpara", "electricista para trabajos pequeños"],
     faqs: [
       {
-        q: "¿Hacéis reparaciones pequeñas o solo trabajos grandes?",
-        a: "Atendemos cualquier tipo de reparación, por pequeña que sea: un enchufe, un interruptor o un punto de luz.",
+        q: "¿Venís por un trabajo pequeño, como cambiar un enchufe?",
+        a: "Sí. Atendemos cualquier reparación por pequeña que sea. Si tienes varias cosas pendientes (un enchufe, una lámpara, un interruptor), dínoslo y lo hacemos todo en la misma visita para que te salga más a cuenta.",
+      },
+      {
+        q: "¿Cuánto cuesta cambiar un enchufe o colgar una lámpara?",
+        a: "Depende de cuántos trabajos sean y de si hay que pasar cable nuevo. Mándanos una foto por WhatsApp y te damos el precio cerrado antes de ir.",
+      },
+      {
+        q: "Un enchufe se ha quemado o huele a quemado, ¿es urgente?",
+        a: "Sí. Deja de usarlo, baja el magnetotérmico de ese circuito en el cuadro y llámanos. Un enchufe quemado suele ser una conexión floja que se calienta, y puede volver a pasar en otros puntos de la misma línea.",
+      },
+      {
+        q: "¿Puedo añadir un enchufe donde no lo hay?",
+        a: "Sí. Normalmente se saca de una línea cercana. Si es para un aparato potente (horno, vitrocerámica, aire acondicionado), lo hacemos con una línea propia desde el cuadro para que no salten las protecciones.",
       },
     ],
   },
