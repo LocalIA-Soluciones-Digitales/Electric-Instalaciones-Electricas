@@ -34,7 +34,7 @@ el aviso se sigue enviando por WhatsApp aunque no haya `RESEND_API_KEY`).
 ## Datos de negocio (editar en `src/lib/business.ts`)
 
 Extraídos de la tarjeta comercial: **Electric Instalaciones Eléctricas** (Eduardo Castellano),
-677 24 63 74, eduardocastellano16049806@gmail.com, Calle Cruces 18 Local 4, 48903 Barakaldo, Bizkaia.
+678 90 79 44, eduardocastellano16049806@gmail.com, Calle Cruces 18 Local 4, 48903 Barakaldo, Bizkaia.
 El **dominio en `business.domain`** es `electricbarakaldo.com` — actualízalo si se compra otro.
 
 **Enfoque de posicionamiento**: la web se centra 100% en "electricista" (avería, cuadro, instalación,

@@ -23,7 +23,7 @@ export const services: Service[] = [
     icon: "ri-alarm-warning-line",
     metaTitle: "Avería Eléctrica Urgente en Barakaldo y Euskadi",
     metaDescription:
-      "Electricista especializado en averías eléctricas a domicilio. Diagnóstico rápido, servicio 24 horas en Barakaldo, Bilbao y toda Euskadi. Llama al 677 24 63 74.",
+      "Electricista especializado en averías eléctricas a domicilio. Diagnóstico rápido, servicio 24 horas en Barakaldo, Bilbao y toda Euskadi. Llama al 678 90 79 44.",
     h1: "Reparación de Averías Eléctricas 24 Horas",
     intro:
       "¿Se ha quedado sin luz por un apagón o nota olor a quemado en el cuadro eléctrico? Una avería eléctrica no espera y puede ser peligrosa. En Electric acudimos de urgencia a domicilios y locales de Barakaldo, Bilbao y toda Euskadi para localizar y reparar la avería con garantía de seguridad.",
@@ -257,7 +257,7 @@ export const services: Service[] = [
     icon: "ri-24-hours-line",
     metaTitle: "Electricista Urgente 24 Horas en Euskadi",
     metaDescription:
-      "Electricista urgente disponible 24 horas, los 365 días del año, en Barakaldo, Bilbao y toda Euskadi. Llama ahora al 677 24 63 74.",
+      "Electricista urgente disponible 24 horas, los 365 días del año, en Barakaldo, Bilbao y toda Euskadi. Llama ahora al 678 90 79 44.",
     h1: "Electricista Urgente 24 Horas en Euskadi",
     intro:
       "Cortes de luz, cortocircuitos, olor a quemado o un diferencial que no deja de saltar: en Electric ofrecemos servicio de electricista urgente 24 horas en Barakaldo y toda Euskadi, también noches, fines de semana y festivos.",

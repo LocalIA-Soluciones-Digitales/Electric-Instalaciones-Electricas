@@ -12,7 +12,7 @@ import EuskadiCoverageMap from "@/components/coverage/EuskadiCoverageMap";
 export const metadata: Metadata = {
   title: "Zonas de Servicio | Electricista 24h en Euskadi",
   description:
-    "Electricista urgente 24 horas en toda Euskadi: Bizkaia, Gipuzkoa y Álava. Consulta el mapa de cobertura desde nuestra base en Barakaldo y llama al 677 24 63 74.",
+    "Electricista urgente 24 horas en toda Euskadi: Bizkaia, Gipuzkoa y Álava. Consulta el mapa de cobertura desde nuestra base en Barakaldo y llama al 678 90 79 44.",
   alternates: { canonical: "/zonas-de-servicio" },
   openGraph: {
     title: "Zonas de Servicio | Electricista 24h en Euskadi",

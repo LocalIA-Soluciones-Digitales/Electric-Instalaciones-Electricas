@@ -14,7 +14,7 @@ import Faq, { FaqJsonLd } from "@/components/Faq";
 export const metadata: Metadata = {
   title: "Electricista en Cruces, Retuerto y San Vicente (Barakaldo)",
   description:
-    "Electricista con local en Calle Cruces 18. Llegamos en minutos a Cruces, Retuerto, San Vicente, Rontegi, Lutxana, Beurko y el centro de Barakaldo. Urgencias 24 h. Llama al 677 24 63 74.",
+    "Electricista con local en Calle Cruces 18. Llegamos en minutos a Cruces, Retuerto, San Vicente, Rontegi, Lutxana, Beurko y el centro de Barakaldo. Urgencias 24 h. Llama al 678 90 79 44.",
   alternates: { canonical: "/zonas-de-servicio/barakaldo" },
   openGraph: {
     title: `Electricista en Cruces, Retuerto y San Vicente (Barakaldo) | ${business.name}`,

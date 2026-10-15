@@ -7,9 +7,9 @@ export const business = {
   // muestra la línea en /aviso-legal hasta rellenarlo con el dato real.
   nif: "" as string, // p.ej. "12345678A"
   slogan: "Electricista de confianza en Barakaldo y en toda Euskadi, disponible 24 horas",
-  phone: "677246374",
-  phoneDisplay: "677 24 63 74",
-  whatsapp: "34677246374",
+  phone: "678907944",
+  phoneDisplay: "678 90 79 44",
+  whatsapp: "34678907944",
   email: "eduardocastellano16049806@gmail.com",
   address: {
     street: "Calle Cruces, 18, Local 4",
