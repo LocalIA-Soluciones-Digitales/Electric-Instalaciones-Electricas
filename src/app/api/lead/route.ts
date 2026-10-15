@@ -139,6 +139,13 @@ export async function POST(req: Request) {
   const from = process.env.RESEND_FROM_EMAIL || `avisos@${new URL(business.domain).hostname.replace(/^www\./, "")}`;
 
   const payload: Record<string, unknown> = { from, to: [business.email], subject, html, text };
+  // Copia de cada aviso para quien gestiona los clientes (trabajo a comisión):
+  // así se entera de los leads del formulario aunque no se los reenvíen.
+  const cc = (process.env.LEAD_CC_EMAIL || "")
+    .split(",")
+    .map((e) => e.trim())
+    .filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+  if (cc.length) payload.cc = cc;
   if (photoBuffer) {
     const fileBase = avisoId.replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40) || `aviso_${Date.now()}`;
     payload.attachments = [{ filename: `foto_${fileBase}.jpg`, content: photoBuffer.toString("base64") }];

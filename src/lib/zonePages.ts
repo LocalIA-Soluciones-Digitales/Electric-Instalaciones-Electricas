@@ -171,6 +171,44 @@ export const zonePages: ZonePage[] = [
       },
     ],
   },
+  {
+    slug: "basauri",
+    name: "Basauri",
+    metaTitle: "Electricista en Basauri 24 Horas | Urgencias y Reparaciones",
+    metaDescription:
+      "Electricista en Basauri 24 horas: averías, cortes de luz, cuadros eléctricos y pequeñas reparaciones en San Miguel, Ariz, Basozelai, Kalero y Pozokoetxe. Llama al 678 90 79 44.",
+    title: "Electricista en Basauri 24 Horas",
+    subtitle:
+      "Llegamos a Basauri en unos 20 minutos desde Barakaldo. Atendemos urgencias y trabajos planificados en pisos, comunidades, locales y talleres de todo el municipio.",
+    intro:
+      "Damos servicio de electricista en todo Basauri: San Miguel, Ariz, Basozelai, Kalero, Pozokoetxe y el centro. Buena parte de los pisos de Basauri se construyeron entre los años 60 y 80, y muchos conservan cuadros y cableado de entonces, pensados para mucho menos consumo del que tiene hoy una casa. De ahí vienen muchos de los avisos que atendemos: diferenciales que saltan al encender el horno o la calefacción, enchufes que se calientan y cuadros que conviene renovar. También trabajamos en locales comerciales y talleres.",
+    bullets: [
+      "A unos 20 minutos desde Barakaldo",
+      "San Miguel, Ariz, Basozelai, Kalero y Pozokoetxe",
+      "Averías urgentes y cortes de luz 24 horas",
+      "Pequeñas reparaciones: enchufes, interruptores y lámparas",
+      "Renovación de cuadros en pisos antiguos",
+    ],
+    relatedServiceSlugs: ["electricista-urgente-24h", "averias-electricas", "reparaciones-electricas", "cuadros-electricos"],
+    faqs: [
+      {
+        q: "¿Cuánto tardáis en llegar a Basauri?",
+        a: "Unos 20 minutos desde nuestra base en Barakaldo, según el tráfico. En una urgencia te decimos por teléfono la hora aproximada de llegada.",
+      },
+      {
+        q: "En mi piso salta el diferencial cuando enciendo el horno y la calefacción a la vez, ¿qué hago?",
+        a: "Suele ser que la instalación o la potencia contratada se quedan cortas para el consumo actual, algo muy habitual en pisos de Basauri de hace varias décadas. Revisamos el cuadro y los circuitos y te decimos si basta con repartir las cargas o conviene renovar el cuadro o subir la potencia.",
+      },
+      {
+        q: "¿Hacéis trabajos pequeños en Basauri, como cambiar un enchufe?",
+        a: "Sí. Si tienes varias cosas pendientes, como un enchufe, una lámpara o un interruptor, las hacemos en la misma visita para que te salga más a cuenta.",
+      },
+      {
+        q: "¿Atendéis de noche y en festivos?",
+        a: "Sí, el servicio de electricista urgente en Basauri funciona las 24 horas, los 365 días del año.",
+      },
+    ],
+  },
 ];
 
 export function getZonePage(slug: string) {

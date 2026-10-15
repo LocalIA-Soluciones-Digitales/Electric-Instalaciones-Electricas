@@ -172,7 +172,11 @@ export default function ZonasDeServicioPage() {
                 <Link href="/zonas-de-servicio/santurtzi" className="font-semibold text-electric-600 hover:underline">
                   Santurtzi
                 </Link>
-                , Sestao, Basauri, Durango y el resto de la provincia, con
+                , Sestao,{" "}
+                <Link href="/zonas-de-servicio/basauri" className="font-semibold text-electric-600 hover:underline">
+                  Basauri
+                </Link>
+                , Durango y el resto de la provincia, con
                 tiempos de respuesta muy ajustados por la cercanía a nuestra base. También damos servicio de electricista en Gipuzkoa
                 (Donostia, Eibar, Irun y alrededores) y electricista en Álava (Vitoria-Gasteiz, Llodio, Amurrio),
                 coordinando contigo el horario de la visita cuando la distancia lo requiere.
