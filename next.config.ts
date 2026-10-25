@@ -46,6 +46,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Sin la optimización de Vercel: agotaba la cuota gratis de transformaciones
+  // (5.000/mes) y, al pasarla, las fotos salen rotas. Las de public/images ya
+  // están comprimidas (JPEG progresivo, máx. 1600 px).
+  images: { unoptimized: true },
   async headers() {
     return [
       {
