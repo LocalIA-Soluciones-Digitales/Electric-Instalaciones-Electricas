@@ -69,7 +69,7 @@ export default function Header() {
           }}
         >
           <Image
-            src="/images/logo-mark.png"
+            src="/images/logo-mark-120.png"
             alt={`${business.name} - logo`}
             width={40}
             height={40}

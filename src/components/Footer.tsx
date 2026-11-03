@@ -1,15 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { WHATSAPP_GREETING_GENERAL, business, telLink, waLink } from "@/lib/business";
+import { zonePages } from "@/lib/zonePages";
+
+// Enlazar cada municipio desde el pie de todas las páginas: es lo que hace que
+// Google descubra rápido una zona nueva (Basauri tardó semanas sin este enlace).
+const footerZones = [{ slug: "barakaldo", name: "Barakaldo" }, ...zonePages];
 
 export default function Footer() {
   return (
     <footer className="bg-carbon text-white/60">
-      <div className="mx-auto grid max-w-5xl gap-10 px-4 py-14 md:px-6 md:py-16 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-5xl gap-10 px-4 py-14 md:px-6 md:py-16 sm:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="sm:col-span-3 lg:col-span-1">
           <div className="flex items-center gap-2.5">
             <Image
-              src="/images/logo-mark.png"
+              src="/images/logo-mark-120.png"
               alt={`${business.name} - logo`}
               width={32}
               height={32}
@@ -83,14 +88,6 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link
-                href="/zonas-de-servicio/barakaldo"
-                className="hover:text-electric-400 transition-colors duration-200"
-              >
-                Electricista en Barakaldo
-              </Link>
-            </li>
-            <li>
               <Link href="/guias" className="hover:text-electric-400 transition-colors duration-200">
                 Guías
               </Link>
@@ -105,6 +102,22 @@ export default function Footer() {
                 {business.email}
               </a>
             </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/35">Zonas</h3>
+          <ul className="space-y-2.5 text-sm">
+            {footerZones.map((z) => (
+              <li key={z.slug}>
+                <Link
+                  href={`/zonas-de-servicio/${z.slug}`}
+                  className="hover:text-electric-400 transition-colors duration-200"
+                >
+                  Electricista en {z.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 

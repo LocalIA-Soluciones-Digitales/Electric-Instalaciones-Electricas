@@ -21,9 +21,11 @@ export const services: Service[] = [
     name: "Averías Eléctricas",
     shortName: "Averías",
     icon: "ri-alarm-warning-line",
-    metaTitle: "Avería Eléctrica Urgente en Barakaldo y Euskadi",
+    // "apagon barakaldo" llega a esta página (top 10 en móvil) sin ningún clic:
+    // el título no decía ni "apagón" ni "sin luz".
+    metaTitle: "Apagón o Avería Eléctrica en Casa: Urgente 24h en Barakaldo",
     metaDescription:
-      "Electricista especializado en averías eléctricas a domicilio. Diagnóstico rápido, servicio 24 horas en Barakaldo, Bilbao y toda Euskadi. Llama al 678 90 79 44.",
+      "¿Te has quedado sin luz o salta el diferencial? Electricista urgente 24 h en Barakaldo, Bilbao y toda Euskadi. Llegamos rápido y te damos el precio antes. Llama al 678 90 79 44.",
     h1: "Reparación de Averías Eléctricas 24 Horas",
     intro:
       "¿Se ha quedado sin luz por un apagón o nota olor a quemado en el cuadro eléctrico? Una avería eléctrica no espera y puede ser peligrosa. En Electric acudimos de urgencia a domicilios y locales de Barakaldo, Bilbao y toda Euskadi para localizar y reparar la avería con garantía de seguridad.",
