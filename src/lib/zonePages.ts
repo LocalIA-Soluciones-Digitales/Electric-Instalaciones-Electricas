@@ -24,7 +24,7 @@ export const zonePages: ZonePage[] = [
     name: "Bilbao",
     metaTitle: "Electricista en Bilbao 24 Horas | Urgencias y Averías",
     metaDescription:
-      "Electricista urgente en Bilbao 24 horas: cortes de luz, averías, cuadros eléctricos y boletines en Deusto, Indautxu, Abando, Rekalde, Basurto, Santutxu y Zorrotza. Llama al 678 90 79 44.",
+      "Electricista urgente en Bilbao 24 horas: cortes de luz, averías, cuadros eléctricos y boletines en Deusto, Indautxu, Abando, Rekalde, Basurto, Santutxu y Zorrotza. Llama al 624 64 51 09.",
     title: "Electricista en Bilbao 24 Horas",
     subtitle:
       "Salimos desde Barakaldo, a unos 10-15 minutos de Bilbao. Atendemos cortes de luz, averías y cuadros eléctricos en todos los distritos de la ciudad, también de noche y en festivos.",
@@ -62,7 +62,7 @@ export const zonePages: ZonePage[] = [
     name: "Getxo",
     metaTitle: "Electricista en Getxo y Algorta 24 Horas",
     metaDescription:
-      "Electricista en Getxo 24 horas: Algorta, Las Arenas (Areeta), Neguri, Romo y Andra Mari. Averías urgentes, chalets y locales. Llama al 678 90 79 44.",
+      "Electricista en Getxo 24 horas: Algorta, Las Arenas (Areeta), Neguri, Romo y Andra Mari. Averías urgentes, chalets y locales. Llama al 624 64 51 09.",
     title: "Electricista en Getxo y Algorta",
     subtitle:
       "Cruzamos desde Barakaldo por el puente de Rontegi y llegamos a Getxo en unos 20 minutos. Trabajamos en pisos, chalets y locales de todos sus barrios.",
@@ -100,7 +100,7 @@ export const zonePages: ZonePage[] = [
     name: "Portugalete",
     metaTitle: "Electricista en Portugalete 24 Horas | Urgencias",
     metaDescription:
-      "Electricista urgente en Portugalete 24 horas, a unos 8 minutos de Barakaldo. Averías, cortes de luz y boletín eléctrico en el Casco Histórico, Repélega, Buenavista y Abatxolo. Llama al 678 90 79 44.",
+      "Electricista urgente en Portugalete 24 horas, a unos 8 minutos de Barakaldo. Averías, cortes de luz y boletín eléctrico en el Casco Histórico, Repélega, Buenavista y Abatxolo. Llama al 624 64 51 09.",
     title: "Electricista en Portugalete 24 Horas",
     subtitle:
       "Portugalete está a unos 8 minutos de nuestra base en Barakaldo, así que es de los municipios donde antes llegamos ante una urgencia.",
@@ -138,7 +138,7 @@ export const zonePages: ZonePage[] = [
     name: "Santurtzi",
     metaTitle: "Electricista en Santurtzi 24 Horas | Urgencias",
     metaDescription:
-      "Electricista urgente en Santurtzi 24 horas, a unos 10 minutos de Barakaldo. Averías, cortes de luz y cuadros eléctricos en el centro, Mamariga, Kabiezes y la zona del puerto. Llama al 678 90 79 44.",
+      "Electricista urgente en Santurtzi 24 horas, a unos 10 minutos de Barakaldo. Averías, cortes de luz y cuadros eléctricos en el centro, Mamariga, Kabiezes y la zona del puerto. Llama al 624 64 51 09.",
     title: "Electricista en Santurtzi 24 Horas",
     subtitle:
       "Salimos desde Barakaldo y llegamos a Santurtzi en unos 10 minutos. Atendemos viviendas, comunidades y locales de todo el municipio.",
@@ -176,7 +176,7 @@ export const zonePages: ZonePage[] = [
     name: "Basauri",
     metaTitle: "Electricista en Basauri 24 Horas | Urgencias y Reparaciones",
     metaDescription:
-      "Electricista en Basauri 24 horas: averías, cortes de luz, cuadros eléctricos y pequeñas reparaciones en San Miguel, Ariz, Basozelai, Kalero y Pozokoetxe. Llama al 678 90 79 44.",
+      "Electricista en Basauri 24 horas: averías, cortes de luz, cuadros eléctricos y pequeñas reparaciones en San Miguel, Ariz, Basozelai, Kalero y Pozokoetxe. Llama al 624 64 51 09.",
     title: "Electricista en Basauri 24 Horas",
     subtitle:
       "Llegamos a Basauri en unos 20 minutos desde Barakaldo. Atendemos urgencias y trabajos planificados en pisos, comunidades, locales y talleres de todo el municipio.",

@@ -7,6 +7,7 @@ import FloatingButtons from "@/components/FloatingButtons";
 import CookieConsent from "@/components/CookieConsent";
 import Analytics from "@/components/Analytics";
 import ConsentGate from "@/components/ConsentGate";
+import ContactClickNotifier from "@/components/ContactClickNotifier";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import { business } from "@/lib/business";
 
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     template: `%s | ${business.name}`,
   },
   description:
-    "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Presupuesto sin compromiso. Llama al 678 90 79 44.",
+    "Electricista urgente 24 horas en Barakaldo, Bilbao y toda Euskadi. Averías, cuadros eléctricos, instalaciones y reparaciones. Presupuesto sin compromiso. Llama al 624 64 51 09.",
   keywords: [
     "electricista barakaldo",
     "electricista cruces",
@@ -85,6 +86,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <FloatingButtons />
         <CookieConsent />
+        <ContactClickNotifier />
       </body>
     </html>
   );

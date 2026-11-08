@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   // Lo importante va al principio: Google corta el <title> hacia los 60 caracteres.
   title: `Electricista Urgente 24h en Barakaldo | ${business.name}`,
   description:
-    "¿Sin luz o te salta el diferencial? Electricista urgente 24 h en Barakaldo, Bilbao y Bizkaia. Precio antes de ir. Llama al 678 90 79 44. English spoken.",
+    "¿Sin luz o te salta el diferencial? Electricista urgente 24 h en Barakaldo, Bilbao y Bizkaia. Precio antes de ir. Llama al 624 64 51 09. English spoken.",
   alternates: { canonical: "/" },
 };
 

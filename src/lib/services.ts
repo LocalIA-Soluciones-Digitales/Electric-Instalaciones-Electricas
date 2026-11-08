@@ -25,7 +25,7 @@ export const services: Service[] = [
     // el título no decía ni "apagón" ni "sin luz".
     metaTitle: "Apagón o Avería Eléctrica en Casa: Urgente 24h en Barakaldo",
     metaDescription:
-      "¿Te has quedado sin luz o salta el diferencial? Electricista urgente 24 h en Barakaldo, Bilbao y toda Euskadi. Llegamos rápido y te damos el precio antes. Llama al 678 90 79 44.",
+      "¿Te has quedado sin luz o salta el diferencial? Electricista urgente 24 h en Barakaldo, Bilbao y toda Euskadi. Llegamos rápido y te damos el precio antes. Llama al 624 64 51 09.",
     h1: "Reparación de Averías Eléctricas 24 Horas",
     intro:
       "¿Se ha quedado sin luz por un apagón o nota olor a quemado en el cuadro eléctrico? Una avería eléctrica no espera y puede ser peligrosa. En Electric acudimos de urgencia a domicilios y locales de Barakaldo, Bilbao y toda Euskadi para localizar y reparar la avería con garantía de seguridad.",
@@ -261,7 +261,7 @@ export const services: Service[] = [
     // (pos ~18) y esta página estaba en ~33 con muy poco contenido propio.
     metaTitle: "Electricista Urgente 24h en Bizkaia: Barakaldo, Bilbao y alrededores",
     metaDescription:
-      "¿Sin luz, olor a quemado o salta el diferencial? Electricista urgente 24 h, también de noche y en festivos. A Barakaldo llegamos en menos de 30 min. Precio antes de ir. Llama al 678 90 79 44.",
+      "¿Sin luz, olor a quemado o salta el diferencial? Electricista urgente 24 h, también de noche y en festivos. A Barakaldo llegamos en menos de 30 min. Precio antes de ir. Llama al 624 64 51 09.",
     h1: "Electricista Urgente 24 Horas en Bizkaia",
     intro:
       "Cortes de luz, cortocircuitos, olor a quemado o un diferencial que no deja de saltar. Salimos desde nuestro local de Cruces (Barakaldo) las 24 horas, también de noche, en fin de semana y en festivos. Por teléfono o WhatsApp te decimos qué hacer mientras llegamos, cuánto vamos a tardar y el precio antes de salir.",
