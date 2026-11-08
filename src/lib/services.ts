@@ -257,24 +257,43 @@ export const services: Service[] = [
     name: "Electricista Urgente 24 Horas",
     shortName: "Urgencias 24h",
     icon: "ri-24-hours-line",
-    metaTitle: "Electricista Urgente 24 Horas en Euskadi",
+    // "electricista urgente" es la consulta con más impresiones en móvil
+    // (pos ~18) y esta página estaba en ~33 con muy poco contenido propio.
+    metaTitle: "Electricista Urgente 24h en Bizkaia: Barakaldo, Bilbao y alrededores",
     metaDescription:
-      "Electricista urgente disponible 24 horas, los 365 días del año, en Barakaldo, Bilbao y toda Euskadi. Llama ahora al 678 90 79 44.",
-    h1: "Electricista Urgente 24 Horas en Euskadi",
+      "¿Sin luz, olor a quemado o salta el diferencial? Electricista urgente 24 h, también de noche y en festivos. A Barakaldo llegamos en menos de 30 min. Precio antes de ir. Llama al 678 90 79 44.",
+    h1: "Electricista Urgente 24 Horas en Bizkaia",
     intro:
-      "Cortes de luz, cortocircuitos, olor a quemado o un diferencial que no deja de saltar: en Electric ofrecemos servicio de electricista urgente 24 horas en Barakaldo y toda Euskadi, también noches, fines de semana y festivos.",
+      "Cortes de luz, cortocircuitos, olor a quemado o un diferencial que no deja de saltar. Salimos desde nuestro local de Cruces (Barakaldo) las 24 horas, también de noche, en fin de semana y en festivos. Por teléfono o WhatsApp te decimos qué hacer mientras llegamos, cuánto vamos a tardar y el precio antes de salir.",
     bullets: [
-      "Atención inmediata las 24 horas del día",
-      "Cobertura en Barakaldo, Bilbao y toda Euskadi",
-      "Desplazamiento rápido a domicilio",
-      "Presupuesto antes de intervenir, sin sorpresas",
-      "Contacto directo por WhatsApp o llamada",
+      "Barakaldo: menos de 30 minutos",
+      "Portugalete, Sestao y Santurtzi: unos 10 minutos",
+      "Bilbao: 15-30 minutos según el distrito",
+      "Getxo y Basauri: unos 20 minutos",
+      "Gipuzkoa y Álava: te confirmamos la hora de llegada al llamar",
+      "Precio antes de salir, también de noche y en festivos",
     ],
-    keywords: ["electricista urgente", "electricista 24 horas", "electricista cerca de mí"],
+    keywords: ["electricista urgente", "electricista 24 horas", "electricista de urgencia", "electricista cerca de mí", "electricista urgente barakaldo", "electricista urgente bilbao"],
     faqs: [
       {
+        q: "¿Cuánto tardáis en llegar en una urgencia?",
+        a: "Depende de la zona y la hora. A Barakaldo solemos llegar en menos de 30 minutos y a Portugalete, Sestao o Santurtzi en unos 10 minutos de trayecto. A Bilbao, Getxo o Basauri, entre 15 y 30. Al llamar te damos una hora aproximada.",
+      },
+      {
+        q: "¿Qué cuenta como una urgencia eléctrica?",
+        a: "Olor a quemado, chispas o humo en el cuadro o en un enchufe; un diferencial que salta nada más subirlo; quedarte sin luz en casa cuando los vecinos sí tienen, o agua cerca de la instalación eléctrica. En esos casos no conviene esperar al día siguiente.",
+      },
+      {
+        q: "¿Qué hago mientras llegáis?",
+        a: "Si hay olor a quemado, humo o agua, baja el interruptor general del cuadro y no toques los enchufes ni los aparatos afectados. Si solo ha saltado el diferencial, desenchufa lo que estaba funcionando y no lo subas una y otra vez. Y si falta la luz en toda la calle, es un corte de la distribuidora, no de tu instalación.",
+      },
+      {
         q: "¿El servicio urgente tiene recargo nocturno?",
-        a: "Te informamos siempre del precio antes de intervenir, sin sorpresas en la factura, también en horario nocturno o festivo.",
+        a: "Te decimos siempre el precio antes de salir, también de noche, en fin de semana o en festivo, para que no haya sorpresas en la factura.",
+      },
+      {
+        q: "¿Atendéis urgencias fuera de Bizkaia?",
+        a: "Sí, también en Gipuzkoa y Álava. Por la distancia, al llamar te confirmamos a qué hora podemos estar.",
       },
     ],
   },
